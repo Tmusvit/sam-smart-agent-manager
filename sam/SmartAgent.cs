@@ -1,4 +1,6 @@
-﻿using System.Data;
+﻿using NAudio.CoreAudioApi;
+using NAudio.Wave;
+using System.Data;
 using System.Diagnostics;
 using System.IO;
 using System.Speech.Recognition;
@@ -21,7 +23,10 @@ namespace sam
         public bool bAssistantSpeaking { get; private set; }
         public bool audioRecordingActive { get; private set; }
         internal MicOutput micOutput { get; private set; }
+        public int SelectedPlaybackDevice1 { get; private set; }
+        public string selectedAudioDeviceForRecognition { get; private set; }
 
+        private int SelectedPlaybackDevice2;
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
         public SmartAgent(AgentSettings? selectedAgentSettings = null, SAM sAM = null)
@@ -31,6 +36,57 @@ namespace sam
             LoadAgentSettings(selectedAgentSettings);
             LoadSlaveAgents();
             LoadTTSVoices();
+            LoadAudioSettings();
+        }
+
+        private void LoadAudioSettings()
+        {
+            var playbackSources = new List<WaveOutCapabilities>();
+            var loopbackSources = new List<WaveInCapabilities>();
+
+            for (int i = 0; i < WaveOut.DeviceCount; i++)
+            {
+                playbackSources.Add(WaveOut.GetCapabilities(i));
+            }
+
+            for (int i = 0; i < WaveIn.DeviceCount; i++)
+            {
+                loopbackSources.Add(WaveIn.GetCapabilities(i));
+            }
+
+            cmbSpeaker.Items.Clear();
+            cmbMicLoop.Items.Clear();
+            cmbPlayback.Items.Clear();
+
+            foreach (var source in playbackSources)
+            {
+                cmbSpeaker.Items.Add(source.ProductName);
+                cmbPlayback.Items.Add(source.ProductName);
+            }
+
+            cmbMicLoop.Items.Insert(0, "DO NOT USE");
+            cmbPlayback.Items.Insert(0, "DO NOT USE");
+
+            SelectedPlaybackDevice1 = -1;
+            SelectedPlaybackDevice2 = -1;
+
+            if (cmbSpeaker.Items.Count > 0)
+            {
+                SelectedPlaybackDevice1 = 0;
+            }
+
+            if (cmbPlayback.Items.Count > 0)
+            {
+                SelectedPlaybackDevice2 = -1;
+            }
+
+            foreach (var source in loopbackSources)
+            {
+                cmbMicLoop.Items.Add(source.ProductName);
+            }
+
+            cmbMicLoop.SelectedIndex = 0;
+
         }
 
         // Load the specified AgentSettings or generate a random one, populate the corresponding form fields,
@@ -405,11 +461,13 @@ namespace sam
                     foreach (string s in response)
                     {
                         Invoke((Action)(() => { AppendTextToChatAsync(s, Color.Blue); }));
+                        Invoke((Action)(() => { SpeakTheRecognizedTextAsync(s); }));
                     }
 
                     if (chkSmartAgentEnabled.Checked)
                     {
                         Invoke((Action)(() => { SendSmartAgentResponseToSlaves(response); }));
+                        
                     }
                 };
             }
@@ -495,6 +553,7 @@ namespace sam
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
+            selectedAudioDeviceForRecognition = cmbPlayback.Text;
             if (micActive)
             {
                 toolStripButton1.Image = sam.Properties.Resources._9035019_mic_off_icon;
@@ -513,7 +572,7 @@ namespace sam
             var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
             while (micActive)
             {
-                while (bAssistantSpeaking) { Thread.Sleep(1000); }
+                while (bAssistantSpeaking) { Thread.Sleep(100); }
                 if (micActive)
                 {
                     var result = await tts.FromMicAsync();
@@ -529,6 +588,15 @@ namespace sam
                     }
                 }
             }
+        }
+
+        private async Task SpeakTheRecognizedTextAsync(string text)
+        {
+            var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
+
+            var result = await tts.SynthesizeAsync(text);
+
+
         }
 
         private void SmartAgent_Shown(object sender, EventArgs e)
@@ -551,16 +619,83 @@ namespace sam
                 StartRecording();
             }
         }
+        WaveIn loopbackSourceStream = null;
+        BufferedWaveProvider loopbackWaveProvider = null;
+        WaveOut loopbackWaveOut = null;
 
         private void StartRecording()
         {
-            micOutput = new MicOutput();
-            micOutput.StartRecording();
+            //Subtract one from index to account for null entry.
+            int deviceNumber = cmbMicLoop.SelectedIndex - 1;
+
+            if (deviceNumber >= 0)
+            {
+                if (loopbackSourceStream == null)
+                    loopbackSourceStream = new WaveIn();
+                loopbackSourceStream.DeviceNumber = deviceNumber;
+                loopbackSourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(deviceNumber).Channels);
+                loopbackSourceStream.BufferMilliseconds = 25;
+                loopbackSourceStream.NumberOfBuffers = 5;
+                loopbackSourceStream.DataAvailable += loopbackSourceStream_DataAvailable;
+
+                loopbackWaveProvider = new BufferedWaveProvider(loopbackSourceStream.WaveFormat);
+                loopbackWaveProvider.DiscardOnBufferOverflow = true;
+
+                if (loopbackWaveOut == null)
+                    loopbackWaveOut = new WaveOut();
+                loopbackWaveOut.DeviceNumber = cmbPlayback.SelectedIndex;
+                loopbackWaveOut.DesiredLatency = 125;
+                loopbackWaveOut.Init(loopbackWaveProvider);
+
+                //set the selected mic device
+                loopbackSourceStream.StartRecording();
+
+                //play the recorded audio to the selected mic device
+                using (var devEnum = new MMDeviceEnumerator())
+                {
+                    var dev = devEnum.EnumerateAudioEndPoints(NAudio.CoreAudioApi.DataFlow.Render, NAudio.CoreAudioApi.DeviceState.Active).FirstOrDefault();
+                    if (dev != null)
+                    {
+                        var volumes = dev.AudioEndpointVolume;
+                        volumes.Mute = false;
+                        volumes.MasterVolumeLevelScalar = 1f;
+                    }
+                }
+
+                loopbackWaveOut.Play();
+            }
         }
 
+        private void loopbackSourceStream_DataAvailable(object sender, WaveInEventArgs e)
+        {
+            if (loopbackWaveProvider != null && loopbackWaveProvider.BufferedDuration.TotalMilliseconds <= 100)
+                loopbackWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
+        }
         private void StopRecording()
         {
-            micOutput.StopRecording();
+            try
+            {
+                if (loopbackWaveOut != null)
+                {
+                    loopbackWaveOut.Stop();
+                    loopbackWaveOut.Dispose();
+                    loopbackWaveOut = null;
+                }
+
+                if (loopbackWaveProvider != null)
+                {
+                    loopbackWaveProvider.ClearBuffer();
+                    loopbackWaveProvider = null;
+                }
+
+                if (loopbackSourceStream != null)
+                {
+                    loopbackSourceStream.StopRecording();
+                    loopbackSourceStream.Dispose();
+                    loopbackSourceStream = null;
+                }
+            }
+            catch (Exception) { }
         }
 
         private void btnPlayAudioToMic_Click(object sender, EventArgs e)
@@ -585,6 +720,16 @@ namespace sam
                     micOutput.PlayFromFile(selectedFilePath);
                 }
             }
+        }
+
+        private void cmbSpeaker_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void cmbPlayback_SelectionChangeCommitted(object sender, EventArgs e)
+        {
+            selectedAudioDeviceForRecognition = cmbPlayback.Text;
         }
     }
 }

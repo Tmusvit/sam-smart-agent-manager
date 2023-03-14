@@ -58,6 +58,26 @@ namespace sam
                 return null; // or throw a custom exception
             }
         }
+
+        public async Task<SpeechRecognitionResult> FromSpeakerAsync(string audiofile)
+        {
+            try
+            {
+                var speechConfig = SpeechConfig.FromSubscription(speechKey, speechRegion);
+                speechConfig.SpeechRecognitionLanguage = SamUserSettings.Default.AZURE_STT_LANG;
+                using var audioConfig = AudioConfig.FromWavFileInput(audiofile);
+                using var speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
+
+
+                return await speechRecognizer.RecognizeOnceAsync();
+            }
+            catch (Exception ex)
+            {
+                // handle the exception
+                Console.WriteLine($"Error in FromMicAsync: {ex.Message}");
+                return null; // or throw a custom exception
+            }
+        }
     }
 
 }

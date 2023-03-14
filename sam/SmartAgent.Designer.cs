@@ -31,6 +31,8 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SmartAgent));
             agentContainer = new SplitContainer();
+            tabAgent = new TabControl();
+            tabPage1 = new TabPage();
             agentSettingsGrp = new GroupBox();
             settingsPanel = new Panel();
             groupBox1 = new GroupBox();
@@ -49,6 +51,15 @@
             txtAgentID = new TextBox();
             grpName = new GroupBox();
             txtAgentName = new TextBox();
+            tabPage2 = new TabPage();
+            pnlAudio = new Panel();
+            grpAudioDevices = new GroupBox();
+            cmbPlayback = new ComboBox();
+            lblPlayback = new Label();
+            cmbMicLoop = new ComboBox();
+            lblMic = new Label();
+            cmbSpeaker = new ComboBox();
+            lblSpeakers = new Label();
             tabDialogs = new TabControl();
             tabPageText = new TabPage();
             agentConversation = new GroupBox();
@@ -72,21 +83,12 @@
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
-            tabAgent = new TabControl();
-            tabPage1 = new TabPage();
-            tabPage2 = new TabPage();
-            pnlAudio = new Panel();
-            grpAudioDevices = new GroupBox();
-            lblSpeakers = new Label();
-            cmbSpeaker = new ComboBox();
-            cmbMicLoop = new ComboBox();
-            lblMic = new Label();
-            cmbPlayback = new ComboBox();
-            lblPlayback = new Label();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
             agentContainer.SuspendLayout();
+            tabAgent.SuspendLayout();
+            tabPage1.SuspendLayout();
             agentSettingsGrp.SuspendLayout();
             settingsPanel.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -96,6 +98,9 @@
             grpPersonality.SuspendLayout();
             grpAgentID.SuspendLayout();
             grpName.SuspendLayout();
+            tabPage2.SuspendLayout();
+            pnlAudio.SuspendLayout();
+            grpAudioDevices.SuspendLayout();
             tabDialogs.SuspendLayout();
             tabPageText.SuspendLayout();
             agentConversation.SuspendLayout();
@@ -108,11 +113,6 @@
             pnlInput.SuspendLayout();
             agentStatus.SuspendLayout();
             agentTools.SuspendLayout();
-            tabAgent.SuspendLayout();
-            tabPage1.SuspendLayout();
-            tabPage2.SuspendLayout();
-            pnlAudio.SuspendLayout();
-            grpAudioDevices.SuspendLayout();
             SuspendLayout();
             // 
             // agentContainer
@@ -132,6 +132,28 @@
             agentContainer.Size = new Size(1185, 687);
             agentContainer.SplitterDistance = 412;
             agentContainer.TabIndex = 0;
+            // 
+            // tabAgent
+            // 
+            tabAgent.Controls.Add(tabPage1);
+            tabAgent.Controls.Add(tabPage2);
+            tabAgent.Dock = DockStyle.Fill;
+            tabAgent.Location = new Point(0, 0);
+            tabAgent.Name = "tabAgent";
+            tabAgent.SelectedIndex = 0;
+            tabAgent.Size = new Size(412, 687);
+            tabAgent.TabIndex = 1;
+            // 
+            // tabPage1
+            // 
+            tabPage1.Controls.Add(agentSettingsGrp);
+            tabPage1.Location = new Point(4, 24);
+            tabPage1.Name = "tabPage1";
+            tabPage1.Padding = new Padding(3);
+            tabPage1.Size = new Size(404, 659);
+            tabPage1.TabIndex = 0;
+            tabPage1.Text = "Agent";
+            tabPage1.UseVisualStyleBackColor = true;
             // 
             // agentSettingsGrp
             // 
@@ -325,6 +347,99 @@
             txtAgentName.Name = "txtAgentName";
             txtAgentName.Size = new Size(374, 23);
             txtAgentName.TabIndex = 1;
+            // 
+            // tabPage2
+            // 
+            tabPage2.Controls.Add(pnlAudio);
+            tabPage2.Location = new Point(4, 24);
+            tabPage2.Name = "tabPage2";
+            tabPage2.Padding = new Padding(3);
+            tabPage2.Size = new Size(404, 659);
+            tabPage2.TabIndex = 1;
+            tabPage2.Text = "Audio";
+            tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // pnlAudio
+            // 
+            pnlAudio.AutoScroll = true;
+            pnlAudio.Controls.Add(grpAudioDevices);
+            pnlAudio.Dock = DockStyle.Fill;
+            pnlAudio.Location = new Point(3, 3);
+            pnlAudio.Name = "pnlAudio";
+            pnlAudio.Size = new Size(398, 653);
+            pnlAudio.TabIndex = 0;
+            // 
+            // grpAudioDevices
+            // 
+            grpAudioDevices.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpAudioDevices.Controls.Add(cmbPlayback);
+            grpAudioDevices.Controls.Add(lblPlayback);
+            grpAudioDevices.Controls.Add(cmbMicLoop);
+            grpAudioDevices.Controls.Add(lblMic);
+            grpAudioDevices.Controls.Add(cmbSpeaker);
+            grpAudioDevices.Controls.Add(lblSpeakers);
+            grpAudioDevices.Location = new Point(5, 3);
+            grpAudioDevices.Name = "grpAudioDevices";
+            grpAudioDevices.Size = new Size(390, 165);
+            grpAudioDevices.TabIndex = 0;
+            grpAudioDevices.TabStop = false;
+            grpAudioDevices.Text = "Audio devices";
+            // 
+            // cmbPlayback
+            // 
+            cmbPlayback.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbPlayback.FormattingEnabled = true;
+            cmbPlayback.Location = new Point(6, 125);
+            cmbPlayback.Name = "cmbPlayback";
+            cmbPlayback.Size = new Size(378, 23);
+            cmbPlayback.TabIndex = 5;
+            cmbPlayback.SelectionChangeCommitted += cmbPlayback_SelectionChangeCommitted;
+            // 
+            // lblPlayback
+            // 
+            lblPlayback.AutoSize = true;
+            lblPlayback.Location = new Point(6, 107);
+            lblPlayback.Name = "lblPlayback";
+            lblPlayback.Size = new Size(411, 15);
+            lblPlayback.TabIndex = 4;
+            lblPlayback.Text = "Playback device (A second playback device through which to play the audio)";
+            // 
+            // cmbMicLoop
+            // 
+            cmbMicLoop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbMicLoop.FormattingEnabled = true;
+            cmbMicLoop.Location = new Point(6, 81);
+            cmbMicLoop.Name = "cmbMicLoop";
+            cmbMicLoop.Size = new Size(378, 23);
+            cmbMicLoop.TabIndex = 3;
+            // 
+            // lblMic
+            // 
+            lblMic.AutoSize = true;
+            lblMic.Location = new Point(6, 63);
+            lblMic.Name = "lblMic";
+            lblMic.Size = new Size(144, 15);
+            lblMic.TabIndex = 2;
+            lblMic.Text = "Mic loopback (not virtual)";
+            // 
+            // cmbSpeaker
+            // 
+            cmbSpeaker.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbSpeaker.FormattingEnabled = true;
+            cmbSpeaker.Location = new Point(6, 37);
+            cmbSpeaker.Name = "cmbSpeaker";
+            cmbSpeaker.Size = new Size(378, 23);
+            cmbSpeaker.TabIndex = 1;
+            cmbSpeaker.SelectedIndexChanged += cmbSpeaker_SelectedIndexChanged;
+            // 
+            // lblSpeakers
+            // 
+            lblSpeakers.AutoSize = true;
+            lblSpeakers.Location = new Point(6, 19);
+            lblSpeakers.Name = "lblSpeakers";
+            lblSpeakers.Size = new Size(233, 15);
+            lblSpeakers.TabIndex = 0;
+            lblSpeakers.Text = "Speakers (Generally the virtual audio cable)";
             // 
             // tabDialogs
             // 
@@ -575,118 +690,6 @@
             btnPlayAudioToMic.Text = "toolStripButton3";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
             // 
-            // tabAgent
-            // 
-            tabAgent.Controls.Add(tabPage1);
-            tabAgent.Controls.Add(tabPage2);
-            tabAgent.Dock = DockStyle.Fill;
-            tabAgent.Location = new Point(0, 0);
-            tabAgent.Name = "tabAgent";
-            tabAgent.SelectedIndex = 0;
-            tabAgent.Size = new Size(412, 687);
-            tabAgent.TabIndex = 1;
-            // 
-            // tabPage1
-            // 
-            tabPage1.Controls.Add(agentSettingsGrp);
-            tabPage1.Location = new Point(4, 24);
-            tabPage1.Name = "tabPage1";
-            tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(404, 659);
-            tabPage1.TabIndex = 0;
-            tabPage1.Text = "Agent";
-            tabPage1.UseVisualStyleBackColor = true;
-            // 
-            // tabPage2
-            // 
-            tabPage2.Controls.Add(pnlAudio);
-            tabPage2.Location = new Point(4, 24);
-            tabPage2.Name = "tabPage2";
-            tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(404, 659);
-            tabPage2.TabIndex = 1;
-            tabPage2.Text = "Audio";
-            tabPage2.UseVisualStyleBackColor = true;
-            // 
-            // pnlAudio
-            // 
-            pnlAudio.AutoScroll = true;
-            pnlAudio.Controls.Add(grpAudioDevices);
-            pnlAudio.Dock = DockStyle.Fill;
-            pnlAudio.Location = new Point(3, 3);
-            pnlAudio.Name = "pnlAudio";
-            pnlAudio.Size = new Size(398, 653);
-            pnlAudio.TabIndex = 0;
-            // 
-            // grpAudioDevices
-            // 
-            grpAudioDevices.Controls.Add(cmbPlayback);
-            grpAudioDevices.Controls.Add(lblPlayback);
-            grpAudioDevices.Controls.Add(cmbMicLoop);
-            grpAudioDevices.Controls.Add(lblMic);
-            grpAudioDevices.Controls.Add(cmbSpeaker);
-            grpAudioDevices.Controls.Add(lblSpeakers);
-            grpAudioDevices.Location = new Point(5, 3);
-            grpAudioDevices.Name = "grpAudioDevices";
-            grpAudioDevices.Size = new Size(390, 165);
-            grpAudioDevices.TabIndex = 0;
-            grpAudioDevices.TabStop = false;
-            grpAudioDevices.Text = "Audio devices";
-            // 
-            // lblSpeakers
-            // 
-            lblSpeakers.AutoSize = true;
-            lblSpeakers.Location = new Point(6, 19);
-            lblSpeakers.Name = "lblSpeakers";
-            lblSpeakers.Size = new Size(53, 15);
-            lblSpeakers.TabIndex = 0;
-            lblSpeakers.Text = "Speakers";
-            // 
-            // cmbSpeaker
-            // 
-            cmbSpeaker.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmbSpeaker.FormattingEnabled = true;
-            cmbSpeaker.Location = new Point(6, 37);
-            cmbSpeaker.Name = "cmbSpeaker";
-            cmbSpeaker.Size = new Size(378, 23);
-            cmbSpeaker.TabIndex = 1;
-            // 
-            // cmbMicLoop
-            // 
-            cmbMicLoop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmbMicLoop.FormattingEnabled = true;
-            cmbMicLoop.Location = new Point(6, 81);
-            cmbMicLoop.Name = "cmbMicLoop";
-            cmbMicLoop.Size = new Size(378, 23);
-            cmbMicLoop.TabIndex = 3;
-            // 
-            // lblMic
-            // 
-            lblMic.AutoSize = true;
-            lblMic.Location = new Point(6, 63);
-            lblMic.Name = "lblMic";
-            lblMic.Size = new Size(144, 15);
-            lblMic.TabIndex = 2;
-            lblMic.Text = "Mic loopback (not virtual)";
-            // 
-            // cmbPlayback
-            // 
-            cmbPlayback.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmbPlayback.FormattingEnabled = true;
-            cmbPlayback.Location = new Point(6, 125);
-            cmbPlayback.Name = "cmbPlayback";
-            cmbPlayback.Size = new Size(378, 23);
-            cmbPlayback.TabIndex = 5;
-            // 
-            // lblPlayback
-            // 
-            lblPlayback.AutoSize = true;
-            lblPlayback.Location = new Point(6, 107);
-            lblPlayback.Name = "lblPlayback";
-            lblPlayback.Size = new Size(91, 15);
-            lblPlayback.TabIndex = 4;
-            lblPlayback.Text = "Playback device";
-            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -706,6 +709,8 @@
             agentContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)agentContainer).EndInit();
             agentContainer.ResumeLayout(false);
+            tabAgent.ResumeLayout(false);
+            tabPage1.ResumeLayout(false);
             agentSettingsGrp.ResumeLayout(false);
             settingsPanel.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
@@ -720,6 +725,10 @@
             grpAgentID.PerformLayout();
             grpName.ResumeLayout(false);
             grpName.PerformLayout();
+            tabPage2.ResumeLayout(false);
+            pnlAudio.ResumeLayout(false);
+            grpAudioDevices.ResumeLayout(false);
+            grpAudioDevices.PerformLayout();
             tabDialogs.ResumeLayout(false);
             tabPageText.ResumeLayout(false);
             agentConversation.ResumeLayout(false);
@@ -735,12 +744,6 @@
             agentStatus.PerformLayout();
             agentTools.ResumeLayout(false);
             agentTools.PerformLayout();
-            tabAgent.ResumeLayout(false);
-            tabPage1.ResumeLayout(false);
-            tabPage2.ResumeLayout(false);
-            pnlAudio.ResumeLayout(false);
-            grpAudioDevices.ResumeLayout(false);
-            grpAudioDevices.PerformLayout();
             ResumeLayout(false);
             PerformLayout();
         }
