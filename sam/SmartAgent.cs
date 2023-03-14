@@ -19,6 +19,8 @@ namespace sam
         public string ttsSelectedVoice { get; private set; }
         public bool micActive { get; private set; }
         public bool bAssistantSpeaking { get; private set; }
+        public bool audioRecordingActive { get; private set; }
+        internal MicOutput micOutput { get; private set; }
 
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
@@ -511,7 +513,7 @@ namespace sam
             var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
             while (micActive)
             {
-                while (bAssistantSpeaking) { Thread.Sleep(1000);}
+                while (bAssistantSpeaking) { Thread.Sleep(1000); }
                 if (micActive)
                 {
                     var result = await tts.FromMicAsync();
@@ -532,6 +534,57 @@ namespace sam
         private void SmartAgent_Shown(object sender, EventArgs e)
         {
             txtUserInput.Focus();
+        }
+
+        private void btnRecordComputerAudio_Click(object sender, EventArgs e)
+        {
+            if (audioRecordingActive)
+            {
+                btnRecordComputerAudio.Image = sam.Properties.Resources.sharp_sensors_off_black_24dp;
+                audioRecordingActive = false;
+                StopRecording();
+            }
+            else
+            {
+                btnRecordComputerAudio.Image = sam.Properties.Resources.sharp_sensors_black_24dp;
+                audioRecordingActive = true;
+                StartRecording();
+            }
+        }
+
+        private void StartRecording()
+        {
+            micOutput = new MicOutput();
+            micOutput.StartRecording();
+        }
+
+        private void StopRecording()
+        {
+            micOutput.StopRecording();
+        }
+
+        private void btnPlayAudioToMic_Click(object sender, EventArgs e)
+        {
+            // Create a new instance of the OpenFileDialog class
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+
+            // Set the filter to only allow WAV files
+            openFileDialog.Filter = "WAV files (*.wav)|*.wav";
+
+            // Set the initial directory to the recordings directory
+            openFileDialog.InitialDirectory = Path.Combine(Environment.CurrentDirectory, "rec");
+
+            // Show the file dialog and wait for the user to select a file
+            if (openFileDialog.ShowDialog() == DialogResult.OK)
+            {
+                // Get the selected file path and do something with it
+                string selectedFilePath = openFileDialog.FileName;
+                if (micOutput != null)
+                {
+                    // Start the analysis task on a background thread
+                    micOutput.PlayFromFile(selectedFilePath);
+                }
+            }
         }
     }
 }
