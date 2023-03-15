@@ -64,8 +64,8 @@ namespace sam
                 cmbPlayback.Items.Add(source.ProductName);
             }
 
-            cmbMicLoop.Items.Insert(0, "DO NOT USE");
-            cmbPlayback.Items.Insert(0, "DO NOT USE");
+            //cmbMicLoop.Items.Insert(0, "DO NOT USE");
+            //cmbPlayback.Items.Insert(0, "DO NOT USE");
 
             SelectedPlaybackDevice1 = -1;
             SelectedPlaybackDevice2 = -1;
@@ -619,83 +619,21 @@ namespace sam
                 StartRecording();
             }
         }
-        WaveIn loopbackSourceStream = null;
-        BufferedWaveProvider loopbackWaveProvider = null;
-        WaveOut loopbackWaveOut = null;
-
+        AudioLoopback loopback = new AudioLoopback();
         private void StartRecording()
         {
             //Subtract one from index to account for null entry.
-            int deviceNumber = cmbMicLoop.SelectedIndex - 1;
+            int captureDeviceNumber = cmbSpeaker.SelectedIndex;
+            int playbackDeviceNumber = cmbMicLoop.SelectedIndex;
+            int headphonesDeviceNumber = cmbPlayback.SelectedIndex;
 
-            if (deviceNumber >= 0)
-            {
-                if (loopbackSourceStream == null)
-                    loopbackSourceStream = new WaveIn();
-                loopbackSourceStream.DeviceNumber = deviceNumber;
-                loopbackSourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(deviceNumber).Channels);
-                loopbackSourceStream.BufferMilliseconds = 25;
-                loopbackSourceStream.NumberOfBuffers = 5;
-                loopbackSourceStream.DataAvailable += loopbackSourceStream_DataAvailable;
-
-                loopbackWaveProvider = new BufferedWaveProvider(loopbackSourceStream.WaveFormat);
-                loopbackWaveProvider.DiscardOnBufferOverflow = true;
-
-                if (loopbackWaveOut == null)
-                    loopbackWaveOut = new WaveOut();
-                loopbackWaveOut.DeviceNumber = cmbPlayback.SelectedIndex;
-                loopbackWaveOut.DesiredLatency = 125;
-                loopbackWaveOut.Init(loopbackWaveProvider);
-
-                //set the selected mic device
-                loopbackSourceStream.StartRecording();
-
-                //play the recorded audio to the selected mic device
-                using (var devEnum = new MMDeviceEnumerator())
-                {
-                    var dev = devEnum.EnumerateAudioEndPoints(NAudio.CoreAudioApi.DataFlow.Render, NAudio.CoreAudioApi.DeviceState.Active).FirstOrDefault();
-                    if (dev != null)
-                    {
-                        var volumes = dev.AudioEndpointVolume;
-                        volumes.Mute = false;
-                        volumes.MasterVolumeLevelScalar = 1f;
-                    }
-                }
-
-                loopbackWaveOut.Play();
-            }
+            loopback.StartLoopback(captureDeviceNumber, playbackDeviceNumber, headphonesDeviceNumber);
+            
         }
 
-        private void loopbackSourceStream_DataAvailable(object sender, WaveInEventArgs e)
-        {
-            if (loopbackWaveProvider != null && loopbackWaveProvider.BufferedDuration.TotalMilliseconds <= 100)
-                loopbackWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
-        }
         private void StopRecording()
         {
-            try
-            {
-                if (loopbackWaveOut != null)
-                {
-                    loopbackWaveOut.Stop();
-                    loopbackWaveOut.Dispose();
-                    loopbackWaveOut = null;
-                }
-
-                if (loopbackWaveProvider != null)
-                {
-                    loopbackWaveProvider.ClearBuffer();
-                    loopbackWaveProvider = null;
-                }
-
-                if (loopbackSourceStream != null)
-                {
-                    loopbackSourceStream.StopRecording();
-                    loopbackSourceStream.Dispose();
-                    loopbackSourceStream = null;
-                }
-            }
-            catch (Exception) { }
+            loopback.StopLoopback();
         }
 
         private void btnPlayAudioToMic_Click(object sender, EventArgs e)
