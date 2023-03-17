@@ -121,11 +121,17 @@
   <data name="2205218_folder_document_file_organize_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\2205218_folder_document_file_organize_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="2205218_folder_document_file_organize_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2205218_folder_document_file_organize_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="9035019_mic_off_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\9035019_mic_off_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="9036017_mic_sharp_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\9036017_mic_sharp_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="9036017_mic_sharp_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\9036017_mic_sharp_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="baseline_computer_black_24dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\baseline_computer_black_24dp.ico;System.Drawing.Icon, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
@@ -154,8 +160,14 @@
   <data name="lound_sound_speaker_volume_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\lound_sound_speaker_volume_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="lound_sound_speaker_volume_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\lound_sound_speaker_volume_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="mute_sound_speaker_volume_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\mute_sound_speaker_volume_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="mute_sound_speaker_volume_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\mute_sound_speaker_volume_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="sharp_sensors_black_24dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sharp_sensors_black_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

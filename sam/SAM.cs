@@ -217,8 +217,8 @@ namespace sam
 
         private void btnOpenRecFolder_Click(object sender, EventArgs e)
         {
-            var folder= Path.GetDirectoryName(Application.ExecutablePath) + "\\rec";
-            Process.Start("explorer.exe",folder);
+            var folder = Path.GetDirectoryName(Application.ExecutablePath) + "\\rec";
+            Process.Start("explorer.exe", folder);
         }
     }
 }

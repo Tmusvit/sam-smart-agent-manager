@@ -73,6 +73,16 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _2205218_folder_document_file_organize_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("2205218_folder_document_file_organize_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _9035019_mic_off_icon {
             get {
                 object obj = ResourceManager.GetObject("9035019_mic_off_icon", resourceCulture);
@@ -86,6 +96,16 @@ namespace sam.Properties {
         internal static System.Drawing.Bitmap _9036017_mic_sharp_icon {
             get {
                 object obj = ResourceManager.GetObject("9036017_mic_sharp_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _9036017_mic_sharp_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("9036017_mic_sharp_icon_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
@@ -183,9 +203,29 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap lound_sound_speaker_volume_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("lound_sound_speaker_volume_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap mute_sound_speaker_volume_icon {
             get {
                 object obj = ResourceManager.GetObject("mute_sound_speaker_volume_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap mute_sound_speaker_volume_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("mute_sound_speaker_volume_icon_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

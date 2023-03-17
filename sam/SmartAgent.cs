@@ -467,7 +467,7 @@ namespace sam
                     if (chkSmartAgentEnabled.Checked)
                     {
                         Invoke((Action)(() => { SendSmartAgentResponseToSlaves(response); }));
-                        
+
                     }
                 };
             }
@@ -628,7 +628,7 @@ namespace sam
             int headphonesDeviceNumber = cmbPlayback.SelectedIndex;
 
             loopback.StartLoopback(captureDeviceNumber, playbackDeviceNumber, headphonesDeviceNumber);
-            
+
         }
 
         private void StopRecording()
@@ -642,7 +642,7 @@ namespace sam
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             // Set the filter to only allow WAV files
-            openFileDialog.Filter = "WAV files (*.wav)|*.wav";
+            openFileDialog.Filter = "MP3 files (*.mp3)|*.mp3";
 
             // Set the initial directory to the recordings directory
             openFileDialog.InitialDirectory = Path.Combine(Environment.CurrentDirectory, "rec");
@@ -652,11 +652,10 @@ namespace sam
             {
                 // Get the selected file path and do something with it
                 string selectedFilePath = openFileDialog.FileName;
-                if (micOutput != null)
-                {
-                    // Start the analysis task on a background thread
-                    micOutput.PlayFromFile(selectedFilePath);
-                }
+
+                // Start the analysis task on a background thread
+                Task.Run(() => AnalyzeAudioAsync(selectedFilePath));
+
             }
         }
 

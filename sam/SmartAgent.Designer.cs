@@ -41,7 +41,6 @@
             groupBox2 = new GroupBox();
             txtSlaveMessage = new TextBox();
             grpAgentControl = new GroupBox();
-            button1 = new Button();
             chkSmartAgentEnabled = new CheckBox();
             btnSaveAgent = new Button();
             btnReset = new Button();
@@ -235,7 +234,6 @@
             // grpAgentControl
             // 
             grpAgentControl.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            grpAgentControl.Controls.Add(button1);
             grpAgentControl.Controls.Add(chkSmartAgentEnabled);
             grpAgentControl.Controls.Add(btnSaveAgent);
             grpAgentControl.Controls.Add(btnReset);
@@ -245,17 +243,6 @@
             grpAgentControl.TabIndex = 5;
             grpAgentControl.TabStop = false;
             grpAgentControl.Text = "Agent control";
-            // 
-            // button1
-            // 
-            button1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            button1.Location = new Point(172, 55);
-            button1.Name = "button1";
-            button1.Size = new Size(78, 47);
-            button1.TabIndex = 8;
-            button1.Text = "Analyze recording";
-            button1.UseVisualStyleBackColor = true;
-            button1.Click += button1_Click;
             // 
             // chkSmartAgentEnabled
             // 
@@ -542,7 +529,6 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
-            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -687,7 +673,7 @@
             btnPlayAudioToMic.ImageTransparentColor = Color.Magenta;
             btnPlayAudioToMic.Name = "btnPlayAudioToMic";
             btnPlayAudioToMic.Size = new Size(23, 22);
-            btnPlayAudioToMic.Text = "toolStripButton3";
+            btnPlayAudioToMic.Text = "Analyze audio";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
             // 
             // SmartAgent
@@ -781,7 +767,6 @@
         private GroupBox groupBox4;
         private Panel panel1;
         private FastColoredTextBoxNS.FastColoredTextBox txtCode;
-        private Button button1;
         private StatusStrip agentStatus;
         private ToolStripStatusLabel agentStatusLabel;
         private ToolStripStatusLabel toolStripStatusLabel1;
