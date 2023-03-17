@@ -8,49 +8,45 @@ using System.Threading.Tasks;
 
 namespace sam
 {
+    using NAudio.CoreAudioApi;
+    using NAudio.Wave;
+    using System;
+    using System.Linq;
+
     internal class AudioLoopback
     {
-        WaveIn loopbackSourceStream;
-        BufferedWaveProvider loopbackWaveProvider;
-        WaveOut[] loopbackWaveOut;
+        private WaveIn _loopbackSourceStream;
+        private BufferedWaveProvider _loopbackWaveProvider;
+        private WaveOut _playbackWaveOut;
+        private WaveOut _headphonesWaveOut;
 
         public void StartLoopback(int captureDeviceNumber, int playbackDeviceNumber, int headphonesDeviceNumber)
         {
             if (captureDeviceNumber < 0 || playbackDeviceNumber < 0 || headphonesDeviceNumber < 0)
                 throw new ArgumentException("Device number cannot be negative.");
 
-            if (loopbackSourceStream == null)
-                loopbackSourceStream = new WaveIn();
+            _loopbackSourceStream = new WaveIn();
+            _loopbackSourceStream.DeviceNumber = captureDeviceNumber;
+            _loopbackSourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(captureDeviceNumber).Channels);
+            _loopbackSourceStream.BufferMilliseconds = 25;
+            _loopbackSourceStream.NumberOfBuffers = 5;
+            _loopbackSourceStream.DataAvailable += LoopbackSourceStream_DataAvailable;
 
-            loopbackSourceStream.DeviceNumber = captureDeviceNumber;
-            loopbackSourceStream.WaveFormat = new WaveFormat(44100, WaveIn.GetCapabilities(captureDeviceNumber).Channels);
-            loopbackSourceStream.BufferMilliseconds = 25;
-            loopbackSourceStream.NumberOfBuffers = 5;
-            loopbackSourceStream.DataAvailable += loopbackSourceStream_DataAvailable;
+            _loopbackWaveProvider = new BufferedWaveProvider(_loopbackSourceStream.WaveFormat);
+            _loopbackWaveProvider.DiscardOnBufferOverflow = true;
 
-            loopbackWaveProvider = new BufferedWaveProvider(loopbackSourceStream.WaveFormat);
-            loopbackWaveProvider.DiscardOnBufferOverflow = true;
+            _playbackWaveOut = new WaveOut();
+            _playbackWaveOut.DeviceNumber = playbackDeviceNumber;
+            _playbackWaveOut.DesiredLatency = 125;
+            _playbackWaveOut.Init(_loopbackWaveProvider);
 
-            loopbackWaveOut = new WaveOut[2];
+            _headphonesWaveOut = new WaveOut();
+            _headphonesWaveOut.DeviceNumber = headphonesDeviceNumber;
+            _headphonesWaveOut.DesiredLatency = 125;
+            _headphonesWaveOut.Init(_loopbackWaveProvider);
 
-            if (loopbackWaveOut[0] == null)
-                loopbackWaveOut[0] = new WaveOut();
+            _loopbackSourceStream.StartRecording();
 
-            loopbackWaveOut[0].DeviceNumber = playbackDeviceNumber;
-            loopbackWaveOut[0].DesiredLatency = 125;
-            loopbackWaveOut[0].Init(loopbackWaveProvider);
-
-            if (loopbackWaveOut[1] == null)
-                loopbackWaveOut[1] = new WaveOut();
-
-            loopbackWaveOut[1].DeviceNumber = headphonesDeviceNumber;
-            loopbackWaveOut[1].DesiredLatency = 125;
-            loopbackWaveOut[1].Init(loopbackWaveProvider);
-
-            //set the selected capture device
-            loopbackSourceStream.StartRecording();
-
-            //play the recorded audio to the selected playback devices
             using (var devEnum = new MMDeviceEnumerator())
             {
                 var dev1 = devEnum.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active).ElementAtOrDefault(playbackDeviceNumber);
@@ -70,43 +66,48 @@ namespace sam
                 }
             }
 
-            loopbackWaveOut[0].Play();
-            loopbackWaveOut[1].Play();
+            _playbackWaveOut.Play();
+            _headphonesWaveOut.Play();
         }
 
         public void StopLoopback()
         {
-            if (loopbackSourceStream != null)
+            if (_loopbackSourceStream != null)
             {
-                loopbackSourceStream.StopRecording();
-                loopbackSourceStream.Dispose();
-                loopbackSourceStream = null;
+                _loopbackSourceStream.StopRecording();
+                _loopbackSourceStream.Dispose();
+                _loopbackSourceStream = null;
             }
 
-            if (loopbackWaveOut != null)
+            if (_playbackWaveOut != null)
             {
-                for (int i = 0; i < loopbackWaveOut.Length; i++)
-                {
-                    if (loopbackWaveOut[i] != null)
-                    {
-                        loopbackWaveOut[i].Stop();
-                        loopbackWaveOut[i].Dispose();
-                        loopbackWaveOut[i] = null;
-                    }
-                }
+                _playbackWaveOut.Stop();
+                _playbackWaveOut.Dispose();
+                _playbackWaveOut = null;
             }
 
-            if (loopbackWaveProvider != null)
+            if (_headphonesWaveOut != null)
             {
-                loopbackWaveProvider.ClearBuffer();
-                loopbackWaveProvider = null;
+                _headphonesWaveOut.Stop();
+                _headphonesWaveOut.Dispose();
+                _headphonesWaveOut = null;
+            }
+
+            if (_loopbackWaveProvider != null)
+            {
+                _loopbackWaveProvider.ClearBuffer();
+                _loopbackWaveProvider = null;
             }
         }
 
-        private void loopbackSourceStream_DataAvailable(object sender, WaveInEventArgs e)
+        private void LoopbackSourceStream_DataAvailable(object sender, WaveInEventArgs e)
         {
-            if (loopbackWaveProvider != null && loopbackWaveProvider.BufferedDuration.TotalMilliseconds <= 100)
-                loopbackWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
+            if (_loopbackWaveProvider != null &&
+                _loopbackWaveProvider.BufferedDuration.TotalMilliseconds <= _loopbackSourceStream.BufferMilliseconds * _loopbackSourceStream.NumberOfBuffers)
+            {
+                _loopbackWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
+            }
         }
     }
+
 }

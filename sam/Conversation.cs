@@ -164,7 +164,7 @@ namespace sam
             var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
             {
                 Messages = convMessages,
-                Model = Models.ChatGpt3_5Turbo
+                Model = Models.ChatGpt3_5Turbo0301
             });
 
             // If successful, return the response and add it to the chat history

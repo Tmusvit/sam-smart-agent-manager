@@ -3,6 +3,7 @@ using System.IO;
 using System.Threading.Tasks;
 using Microsoft.CognitiveServices.Speech;
 using Microsoft.CognitiveServices.Speech.Audio;
+using NAudio.Wave;
 
 namespace sam
 {
@@ -58,6 +59,9 @@ namespace sam
                 return null; // or throw a custom exception
             }
         }
+
+
+
 
         public async Task<SpeechRecognitionResult> FromSpeakerAsync(string audiofile)
         {

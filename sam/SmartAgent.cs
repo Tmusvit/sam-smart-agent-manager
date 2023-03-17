@@ -72,7 +72,7 @@ namespace sam
 
             if (cmbSpeaker.Items.Count > 0)
             {
-                SelectedPlaybackDevice1 = 0;
+                SelectedPlaybackDevice1 = -1;
             }
 
             if (cmbPlayback.Items.Count > 0)
@@ -85,7 +85,7 @@ namespace sam
                 cmbMicLoop.Items.Add(source.ProductName);
             }
 
-            cmbMicLoop.SelectedIndex = 0;
+            cmbMicLoop.SelectedIndex = -1;
 
         }
 
