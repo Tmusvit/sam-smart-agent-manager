@@ -53,8 +53,6 @@
             tabPage2 = new TabPage();
             pnlAudio = new Panel();
             grpAudioDevices = new GroupBox();
-            cmbPlayback = new ComboBox();
-            lblPlayback = new Label();
             cmbMicLoop = new ComboBox();
             lblMic = new Label();
             cmbSpeaker = new ComboBox();
@@ -359,37 +357,16 @@
             // grpAudioDevices
             // 
             grpAudioDevices.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpAudioDevices.Controls.Add(cmbPlayback);
-            grpAudioDevices.Controls.Add(lblPlayback);
             grpAudioDevices.Controls.Add(cmbMicLoop);
             grpAudioDevices.Controls.Add(lblMic);
             grpAudioDevices.Controls.Add(cmbSpeaker);
             grpAudioDevices.Controls.Add(lblSpeakers);
             grpAudioDevices.Location = new Point(5, 3);
             grpAudioDevices.Name = "grpAudioDevices";
-            grpAudioDevices.Size = new Size(390, 165);
+            grpAudioDevices.Size = new Size(390, 120);
             grpAudioDevices.TabIndex = 0;
             grpAudioDevices.TabStop = false;
             grpAudioDevices.Text = "Audio devices";
-            // 
-            // cmbPlayback
-            // 
-            cmbPlayback.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmbPlayback.FormattingEnabled = true;
-            cmbPlayback.Location = new Point(6, 125);
-            cmbPlayback.Name = "cmbPlayback";
-            cmbPlayback.Size = new Size(378, 23);
-            cmbPlayback.TabIndex = 5;
-            cmbPlayback.SelectionChangeCommitted += cmbPlayback_SelectionChangeCommitted;
-            // 
-            // lblPlayback
-            // 
-            lblPlayback.AutoSize = true;
-            lblPlayback.Location = new Point(6, 107);
-            lblPlayback.Name = "lblPlayback";
-            lblPlayback.Size = new Size(411, 15);
-            lblPlayback.TabIndex = 4;
-            lblPlayback.Text = "Playback device (A second playback device through which to play the audio)";
             // 
             // cmbMicLoop
             // 
@@ -424,9 +401,9 @@
             lblSpeakers.AutoSize = true;
             lblSpeakers.Location = new Point(6, 19);
             lblSpeakers.Name = "lblSpeakers";
-            lblSpeakers.Size = new Size(233, 15);
+            lblSpeakers.Size = new Size(260, 15);
             lblSpeakers.TabIndex = 0;
-            lblSpeakers.Text = "Speakers (Generally the virtual audio cable)";
+            lblSpeakers.Text = "Speakers or vr (Generally the virtual audio cable)";
             // 
             // tabDialogs
             // 
@@ -782,8 +759,6 @@
         private TabPage tabPage2;
         private Panel pnlAudio;
         private GroupBox grpAudioDevices;
-        private ComboBox cmbPlayback;
-        private Label lblPlayback;
         private ComboBox cmbMicLoop;
         private Label lblMic;
         private ComboBox cmbSpeaker;

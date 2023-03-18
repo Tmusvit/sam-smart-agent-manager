@@ -26,7 +26,7 @@ namespace sam
         public int SelectedPlaybackDevice1 { get; private set; }
         public string selectedAudioDeviceForRecognition { get; private set; }
 
-        private int SelectedPlaybackDevice2;
+        
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
         public SmartAgent(AgentSettings? selectedAgentSettings = null, SAM sAM = null)
@@ -56,28 +56,21 @@ namespace sam
 
             cmbSpeaker.Items.Clear();
             cmbMicLoop.Items.Clear();
-            cmbPlayback.Items.Clear();
+            
 
             foreach (var source in playbackSources)
             {
                 cmbSpeaker.Items.Add(source.ProductName);
-                cmbPlayback.Items.Add(source.ProductName);
+           
             }
 
-            //cmbMicLoop.Items.Insert(0, "DO NOT USE");
-            //cmbPlayback.Items.Insert(0, "DO NOT USE");
 
             SelectedPlaybackDevice1 = -1;
-            SelectedPlaybackDevice2 = -1;
+            
 
             if (cmbSpeaker.Items.Count > 0)
             {
                 SelectedPlaybackDevice1 = -1;
-            }
-
-            if (cmbPlayback.Items.Count > 0)
-            {
-                SelectedPlaybackDevice2 = -1;
             }
 
             foreach (var source in loopbackSources)
@@ -553,7 +546,7 @@ namespace sam
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            selectedAudioDeviceForRecognition = cmbPlayback.Text;
+            
             if (micActive)
             {
                 toolStripButton1.Image = sam.Properties.Resources._9035019_mic_off_icon;
@@ -625,9 +618,8 @@ namespace sam
             //Subtract one from index to account for null entry.
             int captureDeviceNumber = cmbSpeaker.SelectedIndex;
             int playbackDeviceNumber = cmbMicLoop.SelectedIndex;
-            int headphonesDeviceNumber = cmbPlayback.SelectedIndex;
 
-            loopback.StartLoopback(captureDeviceNumber, playbackDeviceNumber, headphonesDeviceNumber);
+            loopback.StartLoopback(captureDeviceNumber, playbackDeviceNumber);
 
         }
 
@@ -664,9 +656,6 @@ namespace sam
 
         }
 
-        private void cmbPlayback_SelectionChangeCommitted(object sender, EventArgs e)
-        {
-            selectedAudioDeviceForRecognition = cmbPlayback.Text;
-        }
+       
     }
 }
