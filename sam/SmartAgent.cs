@@ -25,8 +25,8 @@ namespace sam
         internal MicOutput micOutput { get; private set; }
         public int SelectedPlaybackDevice1 { get; private set; }
         public string selectedAudioDeviceForRecognition { get; private set; }
+        public bool compActive { get; private set; }
 
-        
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
         public SmartAgent(AgentSettings? selectedAgentSettings = null, SAM sAM = null)
@@ -56,17 +56,17 @@ namespace sam
 
             cmbSpeaker.Items.Clear();
             cmbMicLoop.Items.Clear();
-            
+
 
             foreach (var source in playbackSources)
             {
                 cmbSpeaker.Items.Add(source.ProductName);
-           
+
             }
 
 
             SelectedPlaybackDevice1 = -1;
-            
+
 
             if (cmbSpeaker.Items.Count > 0)
             {
@@ -546,7 +546,7 @@ namespace sam
 
         private void toolStripButton1_Click(object sender, EventArgs e)
         {
-            
+
             if (micActive)
             {
                 toolStripButton1.Image = sam.Properties.Resources._9035019_mic_off_icon;
@@ -565,7 +565,7 @@ namespace sam
             var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
             while (micActive)
             {
-                while (bAssistantSpeaking) { Thread.Sleep(100); }
+                while (bAssistantSpeaking) { Thread.Sleep(500); }
                 if (micActive)
                 {
                     var result = await tts.FromMicAsync();
@@ -656,6 +656,42 @@ namespace sam
 
         }
 
-       
+        private void btnComputerAudioSTT_Click(object sender, EventArgs e)
+        {
+
+            if (compActive)
+            {
+                btnComputerAudioSTT.Image = sam.Properties.Resources._9055836_bxl_microsoft_teams_icon_off_24;
+                compActive = false;
+            }
+            else
+            {
+                btnComputerAudioSTT.Image = sam.Properties.Resources._9055836_bxl_microsoft_teams_icon_24;
+                compActive = true;
+                Task.Run(() => ActivateComputerSTTAsync());
+            }
+        }
+        private async Task ActivateComputerSTTAsync()
+        {
+            var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
+            while (compActive)
+            {
+                while (bAssistantSpeaking) { Thread.Sleep(100); }
+                if (compActive)
+                {
+                    var result = await tts.FromCompAsync();
+                    Console.WriteLine($"RECOGNIZED: Text={result.Text}");
+                    if (result.Text != "")
+                    {
+                        // Clear the user input field
+                        Invoke((Action)(() =>
+                        {
+                            txtUserInput.Text = result.Text;
+                        }));
+                        await SendUserConversationMessageAsync();
+                    }
+                }
+            }
+        }
     }
 }

@@ -76,6 +76,7 @@
             agentProgress = new ToolStripProgressBar();
             agentTools = new ToolStrip();
             btnTTS = new ToolStripButton();
+            btnComputerAudioSTT = new ToolStripButton();
             toolStripButton1 = new ToolStripButton();
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
@@ -597,7 +598,7 @@
             // 
             // agentTools
             // 
-            agentTools.Items.AddRange(new ToolStripItem[] { btnTTS, toolStripButton1, ttsVoice, btnRecordComputerAudio, btnPlayAudioToMic });
+            agentTools.Items.AddRange(new ToolStripItem[] { btnTTS, btnComputerAudioSTT, toolStripButton1, ttsVoice, btnRecordComputerAudio, btnPlayAudioToMic });
             agentTools.Location = new Point(0, 0);
             agentTools.Name = "agentTools";
             agentTools.RenderMode = ToolStripRenderMode.Professional;
@@ -615,6 +616,16 @@
             btnTTS.Size = new Size(23, 22);
             btnTTS.Text = "Text to speech";
             btnTTS.Click += btnTTS_Click;
+            // 
+            // btnComputerAudioSTT
+            // 
+            btnComputerAudioSTT.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnComputerAudioSTT.Image = Properties.Resources._9055836_bxl_microsoft_teams_icon_off_24;
+            btnComputerAudioSTT.ImageTransparentColor = Color.Magenta;
+            btnComputerAudioSTT.Name = "btnComputerAudioSTT";
+            btnComputerAudioSTT.Size = new Size(23, 22);
+            btnComputerAudioSTT.Text = "Transcript computer audio";
+            btnComputerAudioSTT.Click += btnComputerAudioSTT_Click;
             // 
             // toolStripButton1
             // 
@@ -763,5 +774,6 @@
         private Label lblMic;
         private ComboBox cmbSpeaker;
         private Label lblSpeakers;
+        private ToolStripButton btnComputerAudioSTT;
     }
 }
