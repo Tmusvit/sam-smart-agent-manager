@@ -349,7 +349,10 @@ namespace sam
                 };
             }
             // Raise the AnalysisComplete event
-            Invoke((Action)(() => { OnAnalysisComplete(); }));
+            Invoke((Action)(() => { 
+                OnAnalysisComplete();
+                txtUserInput.Focus();
+            }));
         }
 
         private void SendSmartAgentResponseToSlaves(List<string> response)
