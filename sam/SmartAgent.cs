@@ -27,8 +27,10 @@ namespace sam
         public int SelectedPlaybackDevice1 { get; private set; }
         public string selectedAudioDeviceForRecognition { get; private set; }
         public bool compActive { get; private set; }
+        public string computerAudioFilename { get; private set; }
         public WasapiLoopbackCapture computerAudioCapture { get; private set; }
         public WaveFileWriter computerAudioWriter { get; private set; }
+        public string computerAudioFilenameToBeAnalyzed { get; private set; }
         public bool isRecording { get; private set; }
         public bool isTimerRunning { get; private set; }
 
@@ -677,27 +679,27 @@ namespace sam
                 StartCompRecording();
             }
         }
-        private async Task ActivateComputerSTTAsync()
+        private async Task ActivateComputerSTTAsync(string audioFile)
         {
             var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
-            while (compActive)
+
+            while (bAssistantSpeaking) { Thread.Sleep(100); }
+            if (compActive)
             {
-                while (bAssistantSpeaking) { Thread.Sleep(100); }
-                if (compActive)
+                var result = await tts.FromCompAsync(audioFile);
+                Console.WriteLine($"RECOGNIZED: Text={result.Text}");
+                File.Delete(audioFile);
+                if (result.Text != "")
                 {
-                    var result = await tts.FromCompAsync("test.wav");
-                    Console.WriteLine($"RECOGNIZED: Text={result.Text}");
-                    if (result.Text != "")
+                    // Clear the user input field
+                    Invoke((Action)(() =>
                     {
-                        // Clear the user input field
-                        Invoke((Action)(() =>
-                        {
-                            txtUserInput.Text = result.Text;
-                        }));
-                        await SendUserConversationMessageAsync();
-                    }
+                        txtUserInput.Text = result.Text;
+                    }));
+                    await SendUserConversationMessageAsync();
                 }
             }
+
         }
         public event EventHandler<string> RecordingEnded;
         public void OnRecordingEnded(object sender, string path)
@@ -714,7 +716,7 @@ namespace sam
             Directory.CreateDirectory(@"rec");
 
             // Set up recording device for computer audio
-            string computerAudioFilename = string.Format(@"rec\recording-{0:yyyy-MM-dd-HH-mm-ss}-computerSTTAudio.wav", DateTime.Now);
+            computerAudioFilename = string.Format(@"rec\recording-{0:yyyy-MM-dd-HH-mm-ss}-computerSTTAudio.wav", DateTime.Now);
             computerAudioCapture = new WasapiLoopbackCapture();
             computerAudioCapture.DataAvailable += (sender, e) =>
             {
@@ -760,20 +762,21 @@ namespace sam
 
         public void StopCompRecording()
         {
+            computerAudioFilenameToBeAnalyzed = computerAudioFilename;
             isRecording = false;
             computerAudioCapture.StopRecording();
             computerAudioWriter.Dispose();
             computerAudioCapture.Dispose();
+            Task.Run(() => ActivateComputerSTTAsync(Environment.CurrentDirectory + "\\" + computerAudioFilenameToBeAnalyzed));
         }
+
 
         private void noDataTimer_Tick(object sender, EventArgs e)
         {
-            if(isRecording)
+            if (isRecording)
             {
-                StopCompRecording();
-                StartCompRecording();
-                Invoke((Action)(() => { noDataTimer.Stop(); }));
-            }            
+                Invoke((Action)(() => { noDataTimer.Stop(); StopCompRecording(); StartCompRecording(); }));
+            }
         }
     }
 }
