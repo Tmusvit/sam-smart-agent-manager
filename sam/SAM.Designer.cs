@@ -51,7 +51,7 @@
             // samTools.ContentPanel
             // 
             samTools.ContentPanel.Controls.Add(dockPanelSAM);
-            samTools.ContentPanel.Size = new Size(1150, 642);
+            samTools.ContentPanel.Size = new Size(1147, 642);
             samTools.Dock = DockStyle.Fill;
             // 
             // samTools.LeftToolStripPanel
@@ -68,7 +68,7 @@
             dockPanelSAM.Dock = DockStyle.Fill;
             dockPanelSAM.Location = new Point(0, 0);
             dockPanelSAM.Name = "dockPanelSAM";
-            dockPanelSAM.Size = new Size(1150, 642);
+            dockPanelSAM.Size = new Size(1147, 642);
             dockPanelSAM.TabIndex = 0;
             // 
             // toolSAM
@@ -78,7 +78,7 @@
             toolSAM.Location = new Point(0, 0);
             toolSAM.Name = "toolSAM";
             toolSAM.RenderMode = ToolStripRenderMode.Professional;
-            toolSAM.Size = new Size(29, 642);
+            toolSAM.Size = new Size(32, 642);
             toolSAM.Stretch = true;
             toolSAM.TabIndex = 0;
             // 
@@ -91,34 +91,34 @@
             samMenu.ImageTransparentColor = Color.Magenta;
             samMenu.Name = "samMenu";
             samMenu.ShowDropDownArrow = false;
-            samMenu.Size = new Size(27, 28);
+            samMenu.Size = new Size(30, 28);
             samMenu.Text = "Menu";
             // 
             // newSmartAgentToolStripMenuItem
             // 
             newSmartAgentToolStripMenuItem.Name = "newSmartAgentToolStripMenuItem";
-            newSmartAgentToolStripMenuItem.Size = new Size(180, 22);
+            newSmartAgentToolStripMenuItem.Size = new Size(169, 22);
             newSmartAgentToolStripMenuItem.Text = "New Smart Agent";
             newSmartAgentToolStripMenuItem.Click += newSmartAgentToolStripMenuItem_Click;
             // 
             // loadSmartAgentToolStripMenuItem
             // 
             loadSmartAgentToolStripMenuItem.Name = "loadSmartAgentToolStripMenuItem";
-            loadSmartAgentToolStripMenuItem.Size = new Size(180, 22);
+            loadSmartAgentToolStripMenuItem.Size = new Size(169, 22);
             loadSmartAgentToolStripMenuItem.Text = "Load Smart Agent";
             loadSmartAgentToolStripMenuItem.Click += loadSmartAgentToolStripMenuItem_Click;
             // 
             // settingsToolStripMenuItem
             // 
             settingsToolStripMenuItem.Name = "settingsToolStripMenuItem";
-            settingsToolStripMenuItem.Size = new Size(180, 22);
+            settingsToolStripMenuItem.Size = new Size(169, 22);
             settingsToolStripMenuItem.Text = "Settings";
             settingsToolStripMenuItem.Click += settingsToolStripMenuItem_Click;
             // 
             // exitToolStripMenuItem
             // 
             exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            exitToolStripMenuItem.Size = new Size(180, 22);
+            exitToolStripMenuItem.Size = new Size(169, 22);
             exitToolStripMenuItem.Text = "Exit";
             exitToolStripMenuItem.Click += exitToolStripMenuItem_Click;
             // 
@@ -129,7 +129,7 @@
             btnRecAudio.ImageScaling = ToolStripItemImageScaling.None;
             btnRecAudio.ImageTransparentColor = Color.Magenta;
             btnRecAudio.Name = "btnRecAudio";
-            btnRecAudio.Size = new Size(27, 28);
+            btnRecAudio.Size = new Size(30, 28);
             btnRecAudio.Text = "Record audio";
             btnRecAudio.Click += btnRecAudio_Click;
             // 
@@ -140,7 +140,7 @@
             btnOpenRecFolder.ImageScaling = ToolStripItemImageScaling.None;
             btnOpenRecFolder.ImageTransparentColor = Color.Magenta;
             btnOpenRecFolder.Name = "btnOpenRecFolder";
-            btnOpenRecFolder.Size = new Size(27, 28);
+            btnOpenRecFolder.Size = new Size(30, 28);
             btnOpenRecFolder.Text = "Open rec folder";
             btnOpenRecFolder.Click += btnOpenRecFolder_Click;
             // 

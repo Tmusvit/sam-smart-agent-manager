@@ -81,6 +81,7 @@
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
+            noDataTimer = new System.Windows.Forms.Timer(components);
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -664,6 +665,12 @@
             btnPlayAudioToMic.Text = "Analyze audio";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
             // 
+            // noDataTimer
+            // 
+            noDataTimer.Enabled = true;
+            noDataTimer.Interval = 3000;
+            noDataTimer.Tick += noDataTimer_Tick;
+            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -775,5 +782,6 @@
         private ComboBox cmbSpeaker;
         private Label lblSpeakers;
         private ToolStripButton btnComputerAudioSTT;
+        private System.Windows.Forms.Timer noDataTimer;
     }
 }

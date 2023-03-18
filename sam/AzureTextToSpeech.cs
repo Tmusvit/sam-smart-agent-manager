@@ -61,20 +61,15 @@ namespace sam
             }
         }
 
-        public async Task<SpeechRecognitionResult> FromCompAsync()
+        public async Task<SpeechRecognitionResult> FromCompAsync(string wavfile)
         {
             try
             {
                 var speechConfig = SpeechConfig.FromSubscription(speechKey, speechRegion);
                 speechConfig.SpeechRecognitionLanguage = SamUserSettings.Default.AZURE_STT_LANG;
                 var enumerator = new MMDeviceEnumerator();
-                var deviceName = "";
-                foreach (var endpoint in
-                         enumerator.EnumerateAudioEndPoints(DataFlow.Render, DeviceState.Active))
-                {
-                    Console.WriteLine("{0} ({1})", endpoint.FriendlyName, endpoint.ID);
-                }
-                using var audioConfig = AudioConfig.FromSpeakerOutput(deviceName);
+                
+                using var audioConfig = AudioConfig.FromWavFileOutput(wavfile);
                 using var speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
 
 

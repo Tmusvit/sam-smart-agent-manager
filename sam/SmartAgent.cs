@@ -5,6 +5,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
+using System.Timers;
 using System.Xml;
 using WeifenLuo.WinFormsUI.Docking;
 using static System.Net.Mime.MediaTypeNames;
@@ -26,6 +27,10 @@ namespace sam
         public int SelectedPlaybackDevice1 { get; private set; }
         public string selectedAudioDeviceForRecognition { get; private set; }
         public bool compActive { get; private set; }
+        public WasapiLoopbackCapture computerAudioCapture { get; private set; }
+        public WaveFileWriter computerAudioWriter { get; private set; }
+        public bool isRecording { get; private set; }
+        public bool isTimerRunning { get; private set; }
 
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
@@ -663,12 +668,13 @@ namespace sam
             {
                 btnComputerAudioSTT.Image = sam.Properties.Resources._9055836_bxl_microsoft_teams_icon_off_24;
                 compActive = false;
+                StopCompRecording();
             }
             else
             {
                 btnComputerAudioSTT.Image = sam.Properties.Resources._9055836_bxl_microsoft_teams_icon_24;
                 compActive = true;
-                Task.Run(() => ActivateComputerSTTAsync());
+                StartCompRecording();
             }
         }
         private async Task ActivateComputerSTTAsync()
@@ -679,7 +685,7 @@ namespace sam
                 while (bAssistantSpeaking) { Thread.Sleep(100); }
                 if (compActive)
                 {
-                    var result = await tts.FromCompAsync();
+                    var result = await tts.FromCompAsync("test.wav");
                     Console.WriteLine($"RECOGNIZED: Text={result.Text}");
                     if (result.Text != "")
                     {
@@ -692,6 +698,82 @@ namespace sam
                     }
                 }
             }
+        }
+        public event EventHandler<string> RecordingEnded;
+        public void OnRecordingEnded(object sender, string path)
+        {
+            Console.WriteLine("Recording ended: " + path);
+            // Use the path to perform some action, such as sending the recorded file to a server or processing it locally.
+        }
+
+        int noDataTimeout = 3000; // 3 seconds timeout
+
+        public void StartCompRecording()
+        {
+            // Create the directory for recordings if it does not exist
+            Directory.CreateDirectory(@"rec");
+
+            // Set up recording device for computer audio
+            string computerAudioFilename = string.Format(@"rec\recording-{0:yyyy-MM-dd-HH-mm-ss}-computerSTTAudio.wav", DateTime.Now);
+            computerAudioCapture = new WasapiLoopbackCapture();
+            computerAudioCapture.DataAvailable += (sender, e) =>
+            {
+                // Write data to computer audio WAV file
+                computerAudioWriter.Write(e.Buffer, 0, e.BytesRecorded);
+
+
+                if (e.BytesRecorded > 0)
+                {
+
+                    if (!isRecording)
+                    {
+                        isRecording = true;
+                        isTimerRunning = false;
+                        Invoke((Action)(() =>
+                        {
+                            noDataTimer.Stop(); // reset timer if stopped
+                        }));
+                    }
+                }
+                else if (isRecording)
+                {
+                    if (!isTimerRunning)
+                    {
+                        isTimerRunning = true;
+                        Invoke((Action)(() =>
+                        {
+                            noDataTimer.Start(); // data stopped, start 3 sec timer
+                        }));
+                    }
+                }
+
+            };
+            noDataTimer.Interval = noDataTimeout;
+
+
+
+            computerAudioWriter = new WaveFileWriter(computerAudioFilename, computerAudioCapture.WaveFormat);
+
+            // Start recording
+            computerAudioCapture.StartRecording();
+        }
+
+        public void StopCompRecording()
+        {
+            isRecording = false;
+            computerAudioCapture.StopRecording();
+            computerAudioWriter.Dispose();
+            computerAudioCapture.Dispose();
+        }
+
+        private void noDataTimer_Tick(object sender, EventArgs e)
+        {
+            if(isRecording)
+            {
+                StopCompRecording();
+                StartCompRecording();
+                Invoke((Action)(() => { noDataTimer.Stop(); }));
+            }            
         }
     }
 }
