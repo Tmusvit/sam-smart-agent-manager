@@ -18,7 +18,7 @@ namespace sam
         private WaveIn _loopbackSourceStream;
         private BufferedWaveProvider _loopbackWaveProvider;
         private WaveOut _playbackWaveOut;
-        
+        public bool micMute { get; set; } = true;
 
         public void StartLoopback(int playbackDeviceNumber, int captureDeviceNumber)
         {
@@ -30,6 +30,7 @@ namespace sam
             _loopbackSourceStream.WaveFormat = new WaveFormat(41000, WaveIn.GetCapabilities(captureDeviceNumber).Channels);
             _loopbackSourceStream.BufferMilliseconds = 125;
             _loopbackSourceStream.NumberOfBuffers = 5;
+            
             _loopbackSourceStream.DataAvailable += LoopbackSourceStream_DataAvailable;
 
             _loopbackWaveProvider = new BufferedWaveProvider(_loopbackSourceStream.WaveFormat);
@@ -39,7 +40,7 @@ namespace sam
             _playbackWaveOut.DeviceNumber = playbackDeviceNumber;
             _playbackWaveOut.DesiredLatency = 125;
             _playbackWaveOut.Init(_loopbackWaveProvider);
-
+            
 
             _loopbackSourceStream.StartRecording();
 
@@ -49,11 +50,14 @@ namespace sam
         }
         private void LoopbackSourceStream_DataAvailable(object sender, WaveInEventArgs e)
         {
-            if (_loopbackWaveProvider != null &&
-                _loopbackWaveProvider.BufferedDuration.TotalMilliseconds <= _loopbackSourceStream.BufferMilliseconds * _loopbackSourceStream.NumberOfBuffers)
+            if (micMute == false)
             {
-                _loopbackWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
-            }
+                if (_loopbackWaveProvider != null &&
+                _loopbackWaveProvider.BufferedDuration.TotalMilliseconds <= _loopbackSourceStream.BufferMilliseconds * _loopbackSourceStream.NumberOfBuffers)
+                {
+                    _loopbackWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
+                }
+            }            
         }
         public void StopLoopback()
         {

@@ -1,8 +1,12 @@
-﻿using NAudio.CoreAudioApi;
+﻿using Microsoft.CognitiveServices.Speech.Diagnostics.Logging;
+using Microsoft.VisualBasic.Devices;
+using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using System;
 using System.Data;
 using System.Diagnostics;
 using System.IO;
+using System.Security.Policy;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
 using System.Timers;
@@ -10,6 +14,7 @@ using System.Xml;
 using WeifenLuo.WinFormsUI.Docking;
 using static System.Net.Mime.MediaTypeNames;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.ToolTip;
 
 namespace sam
 {
@@ -86,6 +91,17 @@ namespace sam
             }
 
             cmbMicLoop.SelectedIndex = -1;
+
+
+            // Get all the audio devices
+            var devices = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
+            foreach (var device in devices)
+            {
+                cmbAudioSource.Items.Add(device.FriendlyName);
+            }
+
+            cmbAudioSource.SelectedIndex = -1;
+
 
         }
 
@@ -349,7 +365,8 @@ namespace sam
                 };
             }
             // Raise the AnalysisComplete event
-            Invoke((Action)(() => { 
+            Invoke((Action)(() =>
+            {
                 OnAnalysisComplete();
                 txtUserInput.Focus();
             }));
@@ -561,11 +578,13 @@ namespace sam
             {
                 toolStripButton1.Image = sam.Properties.Resources._9035019_mic_off_icon;
                 micActive = false;
+                loopback.micMute = true;
             }
             else
             {
                 toolStripButton1.Image = sam.Properties.Resources._9036017_mic_sharp_icon;
                 micActive = true;
+                loopback.micMute = false;
                 Task.Run(() => ActivateMicAsync());
             }
         }
@@ -711,56 +730,97 @@ namespace sam
             // Use the path to perform some action, such as sending the recorded file to a server or processing it locally.
         }
 
-        int noDataTimeout = 3000; // 3 seconds timeout
+        int noDataTimeout = 30000; // 3 seconds timeout
 
+
+        /// <summary>
+        /// Starts recording computer audio using the WasapiLoopbackCapture class and saves the audio data to a WAV file.
+        /// Audio levels are monitored and if the RMS level of the audio signal is above a specified threshold, recording is started.
+        /// If the audio signal level remains below the threshold for a specified duration, recording is stopped.
+        /// </summary>
         public void StartCompRecording()
         {
             // Create the directory for recordings if it does not exist
             Directory.CreateDirectory(@"rec");
+            // Set initial values for recording and timer flags
+            isRecording = false;
+            isTimerRunning = false;
+            // Get all the audio devices
+            var devices = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
+            MMDevice sourceDevice = null;
 
-            // Set up recording device for computer audio
-            computerAudioFilename = string.Format(@"rec\recording-{0:yyyy-MM-dd-HH-mm-ss}-computerSTTAudio.wav", DateTime.Now);
-            computerAudioCapture = new WasapiLoopbackCapture();
-            computerAudioCapture.DataAvailable += (sender, e) =>
+            foreach (var device in devices)
             {
-                // Write data to computer audio WAV file
-                computerAudioWriter.Write(e.Buffer, 0, e.BytesRecorded);
-
-
-                if (e.BytesRecorded > 0)
+                if (device.FriendlyName == cmbAudioSource.Text)
                 {
-
-                    if (!isRecording)
-                    {
-                        isRecording = true;
-                        isTimerRunning = false;
-                        Invoke((Action)(() =>
-                        {
-                            noDataTimer.Stop(); // reset timer if stopped
-                        }));
-                    }
+                    sourceDevice = device;
                 }
-                else if (isRecording)
+            }
+            if (sourceDevice != null)
+            {
+                computerAudioFilename = string.Format(@"rec\recording-{0:yyyy-MM-dd-HH-mm-ss}-computerSTTAudio.wav", DateTime.Now);
+                computerAudioCapture = new WasapiLoopbackCapture(sourceDevice);
+                computerAudioCapture.DataAvailable += (sender, e) =>
                 {
-                    if (!isTimerRunning)
+                    // Write data to computer audio WAV file
+                    computerAudioWriter.Write(e.Buffer, 0, e.BytesRecorded);
+
+                    // Speech detected, start recording
+                    isRecording = true;
+                    
+                    if (isRecording)
                     {
-                        isTimerRunning = true;
-                        Invoke((Action)(() =>
+                        // Speech stopped, start timer
+                        if (!isTimerRunning)
                         {
-                            noDataTimer.Start(); // data stopped, start 3 sec timer
-                        }));
+                            isTimerRunning = true;
+                            Invoke((Action)(() =>
+                            {
+                                noDataTimer.Start(); // data stopped, start 30 sec timer
+                            }));
+                        }
                     }
-                }
+                };
 
-            };
-            noDataTimer.Interval = noDataTimeout;
+                noDataTimer.Interval = noDataTimeout;
+
+                computerAudioWriter = new WaveFileWriter(computerAudioFilename, computerAudioCapture.WaveFormat);
+
+                // Start recording
+                computerAudioCapture.StartRecording();
 
 
+            }
+        }
 
-            computerAudioWriter = new WaveFileWriter(computerAudioFilename, computerAudioCapture.WaveFormat);
+        /// <summary>
+        /// Calculates the root-mean-square (RMS) level of an audio signal.
+        /// The concept of RMS is a fundamental mathematical concept that has been used in many fields, including physics, engineering, and statistics. It was originally developed to describe the average value of fluctuating quantities, such as voltages or currents in electrical systems.
+        /// In the context of audio, the use of RMS as a measure of loudness dates back to the early days of audio recording and engineering.In the early 20th century, engineers used various methods to measure the loudness of audio signals, including simple peak level meters and more complex VU(Volume Unit) meters.
+        //// However, these methods did not provide a complete picture of the loudness of an audio signal, as they only measured the peak level or average level of the signal, respectively. RMS provides a more accurate representation of the loudness of an audio signal over a period of time, and has since become the standard method for measuring the loudness of audio signals in the industry.
+        /// Today, RMS is a widely used metric in the audio industry, and is used for a variety of purposes, including monitoring and mixing audio, measuring the loudness of broadcast content, and setting standards for audio quality.
+        /// </summary>
+        /// <param name="buffer">The audio buffer containing the signal.</param>
+        /// <param name="bytesRecorded">The number of bytes recorded in the buffer.</param>
+        /// <returns>The RMS level of the audio signal.</returns>
+        private float CalculateRmsLevel(byte[] buffer, int bytesRecorded)
+        {
+            const int BYTES_PER_SAMPLE = 2; // Assumes 16-bit audio
+            int sampleCount = bytesRecorded / BYTES_PER_SAMPLE;
+            long sumSquares = 0;
 
-            // Start recording
-            computerAudioCapture.StartRecording();
+            for (int i = 0; i < sampleCount; i++)
+            {
+                // Convert two bytes to a signed 16-bit sample
+                short sample = BitConverter.ToInt16(buffer, i * BYTES_PER_SAMPLE);
+
+                // Compute square of sample and add to sum of squares
+                sumSquares += sample * sample;
+            }
+
+            // Compute RMS level as square root of sum of squares divided by number of samples
+            float rms = (float)Math.Sqrt(sumSquares / (float)sampleCount);
+            return rms;
         }
 
         public void StopCompRecording()

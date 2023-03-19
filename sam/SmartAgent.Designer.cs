@@ -82,6 +82,8 @@
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
             noDataTimer = new System.Windows.Forms.Timer(components);
+            cmbAudioSource = new ComboBox();
+            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -343,7 +345,7 @@
             tabPage2.Padding = new Padding(3);
             tabPage2.Size = new Size(404, 659);
             tabPage2.TabIndex = 1;
-            tabPage2.Text = "Audio";
+            tabPage2.Text = "Settings";
             tabPage2.UseVisualStyleBackColor = true;
             // 
             // pnlAudio
@@ -359,16 +361,18 @@
             // grpAudioDevices
             // 
             grpAudioDevices.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpAudioDevices.Controls.Add(cmbAudioSource);
+            grpAudioDevices.Controls.Add(label1);
             grpAudioDevices.Controls.Add(cmbMicLoop);
             grpAudioDevices.Controls.Add(lblMic);
             grpAudioDevices.Controls.Add(cmbSpeaker);
             grpAudioDevices.Controls.Add(lblSpeakers);
             grpAudioDevices.Location = new Point(5, 3);
             grpAudioDevices.Name = "grpAudioDevices";
-            grpAudioDevices.Size = new Size(390, 120);
+            grpAudioDevices.Size = new Size(390, 163);
             grpAudioDevices.TabIndex = 0;
             grpAudioDevices.TabStop = false;
-            grpAudioDevices.Text = "Audio devices";
+            grpAudioDevices.Text = "Audio devices for mic loopback";
             // 
             // cmbMicLoop
             // 
@@ -671,6 +675,24 @@
             noDataTimer.Interval = 3000;
             noDataTimer.Tick += noDataTimer_Tick;
             // 
+            // cmbAudioSource
+            // 
+            cmbAudioSource.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbAudioSource.FormattingEnabled = true;
+            cmbAudioSource.Location = new Point(6, 125);
+            cmbAudioSource.Name = "cmbAudioSource";
+            cmbAudioSource.Size = new Size(378, 23);
+            cmbAudioSource.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 107);
+            label1.Name = "label1";
+            label1.Size = new Size(122, 15);
+            label1.TabIndex = 4;
+            label1.Text = "Audio source to listen";
+            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -783,5 +805,7 @@
         private Label lblSpeakers;
         private ToolStripButton btnComputerAudioSTT;
         private System.Windows.Forms.Timer noDataTimer;
+        private ComboBox cmbAudioSource;
+        private Label label1;
     }
 }
