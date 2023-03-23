@@ -136,7 +136,7 @@ namespace sam
             return chatHistory;
         }
         // Method to start a conversation by taking a user's input and returning a response.
-        public async Task<List<string>> StartConversation(string userInput)
+        public async Task<List<string>> StartConversation(string userInput, bool requiresResponse)
         {
             List<string> convResponse = new List<string> { };
             convResponse.Add("Sorry, I don't understand.");
@@ -160,29 +160,36 @@ namespace sam
             convMessages.Add(cmessage);
             chatHistory.Add(cmessage);
 
-            // Create a completion result using the SDK and the conversation messages
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            if (requiresResponse)
             {
-                Messages = convMessages,
-                Model = Models.ChatGpt3_5Turbo0301
-            });
-
-            // If successful, return the response and add it to the chat history
-            if (completionResult.Successful)
-            {
-                convResponse.Clear();
-                foreach (var choises in completionResult.Choices)
+                // Create a completion result using the SDK and the conversation messages
+                var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
                 {
-                    convResponse.Add(choises.Message.Content);
-                    ChatMessage npcmessage = new ChatMessage("assistant", choises.Message.Content);
-                    chatHistory.Add(npcmessage);
-                    SaveChatMessage(npcmessage);
+                    Messages = convMessages,
+                    Model = Models.ChatGpt3_5Turbo0301
+                });
+
+                // If successful, return the response and add it to the chat history
+                if (completionResult.Successful)
+                {
+                    convResponse.Clear();
+                    foreach (var choises in completionResult.Choices)
+                    {
+                        convResponse.Add(choises.Message.Content);
+                        ChatMessage npcmessage = new ChatMessage("assistant", choises.Message.Content);
+                        chatHistory.Add(npcmessage);
+                        SaveChatMessage(npcmessage);
+                    }
+
+                    return convResponse;
                 }
 
                 return convResponse;
             }
-
-            return convResponse;
+            else
+            {
+                return new List<string> { };
+            }
         }
 
         // Method to start a conversation by taking a user's input and returning a response.
@@ -190,13 +197,13 @@ namespace sam
         {
             List<string> convResponse = new List<string> { };
             convResponse.Add("Sorry, failed to analyze audio");
-            string fileName = Path.GetFileName(audioFile);
+
             var sampleFile = await File.ReadAllBytesAsync(audioFile);
 
 
             var audioResult = await sdk.Audio.CreateTranscription(new AudioCreateTranscriptionRequest
             {
-                FileName = fileName,
+                FileName = audioFile,
                 File = sampleFile,
                 Model = Models.WhisperV1,
                 ResponseFormat = StaticValues.AudioStatics.ResponseFormat.VerboseJson

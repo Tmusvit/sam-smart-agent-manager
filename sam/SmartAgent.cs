@@ -2,6 +2,7 @@
 using Microsoft.VisualBasic.Devices;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
+using OpenAI.GPT3.ObjectModels.ResponseModels;
 using System;
 using System.Data;
 using System.Diagnostics;
@@ -38,6 +39,8 @@ namespace sam
         public string computerAudioFilenameToBeAnalyzed { get; private set; }
         public bool isRecording { get; private set; }
         public bool isTimerRunning { get; private set; }
+        public bool speakerActive { get; private set; }
+        public bool bNewBytesRecoded { get; private set; }
 
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
@@ -289,7 +292,7 @@ namespace sam
             await azureTTS.SynthesizeAsync(text);
         }
 
-        private async Task SendUserConversationMessageAsync()
+        private async Task SendUserConversationMessageAsync(bool requiresResponse = true)
         {
             Invoke((Action)(() => { StartAnalysis(); }));
             if (conversation == null || this.currentAgentSettings.AgentPersonality != txtAgentPersonality.Text)
@@ -316,7 +319,7 @@ namespace sam
                     }));
 
                     // Start the conversation and append the system's response with blue text
-                    List<string> response = await conversation.StartConversation(userInput);
+                    List<string> response = await conversation.StartConversation(userInput, requiresResponse);
                     foreach (string s in response)
                     {
                         Invoke((Action)(() => { AppendTextToChatAsync(s, Color.Blue); }));
@@ -348,7 +351,7 @@ namespace sam
                         txtUserInput.Text = "";
                     }));
                     // Start the conversation and append the system's response with blue text
-                    List<string> response = await conversation.StartConversation(userInput);
+                    List<string> response = await conversation.StartConversation(userInput, requiresResponse);
                     foreach (string s in response)
                     {
                         Invoke((Action)(() =>
@@ -480,8 +483,12 @@ namespace sam
                     List<string> response = await conversation.AnalyzeAudio(selectedFilePath);
                     foreach (string s in response)
                     {
-                        Invoke((Action)(() => { AppendTextToChatAsync(s, Color.Blue); }));
-                        Invoke((Action)(() => { SpeakTheRecognizedTextAsync(s); }));
+                        // Clear the user input field
+                        Invoke((Action)(() =>
+                        {
+                            txtUserInput.Text = s;
+                        }));
+                        await SendUserConversationMessageAsync(false);
                     }
 
                     if (chkSmartAgentEnabled.Checked)
@@ -612,6 +619,42 @@ namespace sam
             }
         }
 
+        private async Task ActivateSpeakerAsync()
+        {
+            var devices = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
+            MMDevice sourceDevice = null;
+
+            foreach (var device in devices)
+            {
+                if (device.FriendlyName == selectedAudioDeviceForRecognition)
+                {
+                    sourceDevice = device;
+                }
+            }
+            if (sourceDevice != null)
+            {
+                var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
+                while (speakerActive)
+                {
+                    while (bAssistantSpeaking) { Thread.Sleep(500); }
+                    if (speakerActive)
+                    {
+                        var result = await tts.FromDefaultSpeaker(sourceDevice);
+                        Console.WriteLine($"RECOGNIZED: Text={result.Text}");
+                        if (result.Text != "")
+                        {
+                            // Clear the user input field
+                            Invoke((Action)(() =>
+                            {
+                                txtUserInput.Text = result.Text;
+                            }));
+                            await SendUserConversationMessageAsync(false);
+                        }
+                    }
+                }
+            }
+        }
+
         private async Task SpeakTheRecognizedTextAsync(string text)
         {
             var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
@@ -692,13 +735,17 @@ namespace sam
             {
                 btnComputerAudioSTT.Image = sam.Properties.Resources._9055836_bxl_microsoft_teams_icon_off_24;
                 compActive = false;
+                speakerActive = false;
                 StopCompRecording();
             }
             else
             {
                 btnComputerAudioSTT.Image = sam.Properties.Resources._9055836_bxl_microsoft_teams_icon_24;
                 compActive = true;
+                speakerActive = true;
                 StartCompRecording();
+                //selectedAudioDeviceForRecognition = cmbAudioSource.Text;
+                //Task.Run(() => ActivateSpeakerAsync());
             }
         }
         private async Task ActivateComputerSTTAsync(string audioFile)
@@ -709,16 +756,17 @@ namespace sam
             if (compActive)
             {
                 var result = await tts.FromCompAsync(audioFile);
-                Console.WriteLine($"RECOGNIZED: Text={result.Text}");
-                File.Delete(audioFile);
-                if (result.Text != "")
+                Console.WriteLine($"RECOGNIZED: Text={result}");
+
+                if (result != "")
                 {
+                    //File.Delete(audioFile);
                     // Clear the user input field
                     Invoke((Action)(() =>
                     {
-                        txtUserInput.Text = result.Text;
+                        txtUserInput.Text = result;
                     }));
-                    await SendUserConversationMessageAsync();
+                    await SendUserConversationMessageAsync(false);
                 }
             }
 
@@ -743,8 +791,8 @@ namespace sam
             // Create the directory for recordings if it does not exist
             Directory.CreateDirectory(@"rec");
             // Set initial values for recording and timer flags
-            isRecording = false;
-            isTimerRunning = false;
+            isRecording = true;
+
             // Get all the audio devices
             var devices = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
             MMDevice sourceDevice = null;
@@ -759,27 +807,28 @@ namespace sam
             if (sourceDevice != null)
             {
                 computerAudioFilename = string.Format(@"rec\recording-{0:yyyy-MM-dd-HH-mm-ss}-computerSTTAudio.wav", DateTime.Now);
-                computerAudioCapture = new WasapiLoopbackCapture(sourceDevice);
-                computerAudioCapture.DataAvailable += (sender, e) =>
-                {
-                    // Write data to computer audio WAV file
-                    computerAudioWriter.Write(e.Buffer, 0, e.BytesRecorded);
 
-                    // Speech detected, start recording
-                    isRecording = true;
-                    
-                    if (isRecording)
+                computerAudioCapture = new WasapiLoopbackCapture(sourceDevice);
+                computerAudioCapture.DataAvailable += async (sender, e) =>
+                {
+                   
+                    if (e.BytesRecorded == 0)
                     {
-                        // Speech stopped, start timer
-                        if (!isTimerRunning)
+                        if (bNewBytesRecoded)
                         {
-                            isTimerRunning = true;
-                            Invoke((Action)(() =>
-                            {
-                                noDataTimer.Start(); // data stopped, start 30 sec timer
-                            }));
+                            bNewBytesRecoded = false;
+                            
+                            await ActivateComputerSTTAsync(Environment.CurrentDirectory + "\\" + computerAudioFilename);
+                            byte[] emptyBuffer = new byte[0];
+                            
                         }
                     }
+                    else
+                    { 
+                        // Write data to computer audio WAV file
+                        computerAudioWriter.Write(e.Buffer, 0, e.BytesRecorded);
+                        bNewBytesRecoded = true;
+                    }                    
                 };
 
                 noDataTimer.Interval = noDataTimeout;
@@ -789,48 +838,22 @@ namespace sam
                 // Start recording
                 computerAudioCapture.StartRecording();
 
-
             }
         }
 
-        /// <summary>
-        /// Calculates the root-mean-square (RMS) level of an audio signal.
-        /// The concept of RMS is a fundamental mathematical concept that has been used in many fields, including physics, engineering, and statistics. It was originally developed to describe the average value of fluctuating quantities, such as voltages or currents in electrical systems.
-        /// In the context of audio, the use of RMS as a measure of loudness dates back to the early days of audio recording and engineering.In the early 20th century, engineers used various methods to measure the loudness of audio signals, including simple peak level meters and more complex VU(Volume Unit) meters.
-        //// However, these methods did not provide a complete picture of the loudness of an audio signal, as they only measured the peak level or average level of the signal, respectively. RMS provides a more accurate representation of the loudness of an audio signal over a period of time, and has since become the standard method for measuring the loudness of audio signals in the industry.
-        /// Today, RMS is a widely used metric in the audio industry, and is used for a variety of purposes, including monitoring and mixing audio, measuring the loudness of broadcast content, and setting standards for audio quality.
-        /// </summary>
-        /// <param name="buffer">The audio buffer containing the signal.</param>
-        /// <param name="bytesRecorded">The number of bytes recorded in the buffer.</param>
-        /// <returns>The RMS level of the audio signal.</returns>
-        private float CalculateRmsLevel(byte[] buffer, int bytesRecorded)
-        {
-            const int BYTES_PER_SAMPLE = 2; // Assumes 16-bit audio
-            int sampleCount = bytesRecorded / BYTES_PER_SAMPLE;
-            long sumSquares = 0;
 
-            for (int i = 0; i < sampleCount; i++)
-            {
-                // Convert two bytes to a signed 16-bit sample
-                short sample = BitConverter.ToInt16(buffer, i * BYTES_PER_SAMPLE);
-
-                // Compute square of sample and add to sum of squares
-                sumSquares += sample * sample;
-            }
-
-            // Compute RMS level as square root of sum of squares divided by number of samples
-            float rms = (float)Math.Sqrt(sumSquares / (float)sampleCount);
-            return rms;
-        }
 
         public void StopCompRecording()
         {
             computerAudioFilenameToBeAnalyzed = computerAudioFilename;
             isRecording = false;
-            computerAudioCapture.StopRecording();
-            computerAudioWriter.Dispose();
-            computerAudioCapture.Dispose();
-            Task.Run(() => ActivateComputerSTTAsync(Environment.CurrentDirectory + "\\" + computerAudioFilenameToBeAnalyzed));
+            if (computerAudioCapture != null)
+            {
+                computerAudioCapture.StopRecording();
+                computerAudioWriter.Dispose();
+                computerAudioCapture.Dispose();
+            }
+            //Task.Run(() => ActivateComputerSTTAsync(Environment.CurrentDirectory + "\\" + computerAudioFilenameToBeAnalyzed));
         }
 
 
