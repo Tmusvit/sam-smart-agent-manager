@@ -7,7 +7,7 @@ using Microsoft.CognitiveServices.Speech.Audio;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 
-namespace sam
+namespace sam.audio
 {
     internal class AzureTextToSpeech
     {
@@ -27,7 +27,7 @@ namespace sam
             try
             {
                 var speechConfig = SpeechConfig.FromSubscription(speechKey, speechRegion);
-                
+
                 speechConfig.SpeechSynthesisVoiceName = voiceName;
 
                 using (var synthesizer = new SpeechSynthesizer(speechConfig))
@@ -113,7 +113,7 @@ namespace sam
                 {
                     using (var recognizer = new SpeechRecognizer(config, audioInput))
                     {
-                        
+
                         recognizer.Recognized += (s, e) =>
                         {
                             if (e.Result.Reason == ResultReason.RecognizedSpeech)
@@ -122,7 +122,7 @@ namespace sam
                                 if (e.Result.Text != "")
                                 {
                                     recognizedText = e.Result.Text;
-                                }                                
+                                }
                             }
                             else if (e.Result.Reason == ResultReason.NoMatch)
                             {

@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sam
+namespace sam.helper
 {
     public class AgentSettingsManager
     {
@@ -26,10 +26,10 @@ namespace sam
         {
             var agents = LoadAgentSettings();
             // Find the agent settings object with the selected name
-            AgentSettings selectedAgentSettings=null;
+            AgentSettings selectedAgentSettings = null;
             if (agents != null) { selectedAgentSettings = agents.Find(x => x.AgentName == agentSetting.AgentName); }
-             
-            if (selectedAgentSettings==null)
+
+            if (selectedAgentSettings == null)
             {
                 agents.Add(agentSetting);
                 // Serialize the agent settings list to JSON
@@ -41,7 +41,7 @@ namespace sam
             }
             else
             {
-                agents.Find(x => x.AgentName == agentSetting.AgentName).AgentID= agentSetting.AgentID;
+                agents.Find(x => x.AgentName == agentSetting.AgentName).AgentID = agentSetting.AgentID;
                 agents.Find(x => x.AgentName == agentSetting.AgentName).AgentName = agentSetting.AgentName;
                 agents.Find(x => x.AgentName == agentSetting.AgentName).AgentPersonality = agentSetting.AgentPersonality;
                 agents.Find(x => x.AgentName == agentSetting.AgentName).SlaveAgents = agentSetting.SlaveAgents;

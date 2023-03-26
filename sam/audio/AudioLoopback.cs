@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sam
+namespace sam.audio
 {
     using NAudio.CoreAudioApi;
     using NAudio.Wave;
@@ -30,7 +30,7 @@ namespace sam
             _loopbackSourceStream.WaveFormat = new WaveFormat(41000, WaveIn.GetCapabilities(captureDeviceNumber).Channels);
             _loopbackSourceStream.BufferMilliseconds = 125;
             _loopbackSourceStream.NumberOfBuffers = 5;
-            
+
             _loopbackSourceStream.DataAvailable += LoopbackSourceStream_DataAvailable;
 
             _loopbackWaveProvider = new BufferedWaveProvider(_loopbackSourceStream.WaveFormat);
@@ -40,13 +40,13 @@ namespace sam
             _playbackWaveOut.DeviceNumber = playbackDeviceNumber;
             _playbackWaveOut.DesiredLatency = 125;
             _playbackWaveOut.Init(_loopbackWaveProvider);
-            
+
 
             _loopbackSourceStream.StartRecording();
 
 
             _playbackWaveOut.Play();
-            
+
         }
         private void LoopbackSourceStream_DataAvailable(object sender, WaveInEventArgs e)
         {
@@ -57,7 +57,7 @@ namespace sam
                 {
                     _loopbackWaveProvider.AddSamples(e.Buffer, 0, e.BytesRecorded);
                 }
-            }            
+            }
         }
         public void StopLoopback()
         {
@@ -85,7 +85,7 @@ namespace sam
             }
         }
 
-        
+
     }
 
 }

@@ -7,7 +7,7 @@ using System.Speech.Synthesis;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sam
+namespace sam.audio
 {
     public static class SpeechApiReflectionHelper
     {

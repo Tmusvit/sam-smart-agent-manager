@@ -6,6 +6,7 @@ using System.IO;
 using NAudio.Wave;
 using NAudio.Lame;
 using System.Diagnostics;
+using sam.helper;
 
 namespace sam
 {

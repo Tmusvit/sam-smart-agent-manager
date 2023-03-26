@@ -10,7 +10,8 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using FastColoredTextBoxNS;
 using SQLitePCL;
-namespace sam
+
+namespace sam.gpt
 {
     // This is a class for a conversation, which holds the SDK instance and a list of system personalities.
 
@@ -30,7 +31,7 @@ namespace sam
             // Initialize the SQLitePCLRaw library
             Batteries.Init();
 
-            this.sdk = new OpenAIService(new OpenAiOptions()
+            sdk = new OpenAIService(new OpenAiOptions()
             {
                 ApiKey = apiKey
             });

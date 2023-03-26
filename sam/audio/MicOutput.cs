@@ -5,21 +5,21 @@ using System.Text;
 using System.Threading.Tasks;
 using NAudio.Wave;
 
-namespace sam
+namespace sam.audio
 {
     internal class MicOutput
     {
-       
+
         private List<WaveInEvent> micCaptures = new List<WaveInEvent>();
         private List<WaveFileWriter> micWriters = new List<WaveFileWriter>();
         public WaveFileWriter computerAudioWriter { get; private set; }
         public WasapiLoopbackCapture computerAudioCapture { get; private set; }
 
-      
+
 
         public void PlayFromFile(string filePath)
         {
-            
+
         }
 
         public void StartRecording()

@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace sam
+namespace sam.audio
 {
     using Microsoft.CognitiveServices.Speech.Audio;
     using NAudio.CoreAudioApi;
@@ -40,7 +40,7 @@ namespace sam
                 if (e.BytesRecorded > 0)
                 {
                     audioStream.Write(e.Buffer, 0, e.BytesRecorded);
-                }                
+                }
             }
         }
 
@@ -53,12 +53,12 @@ namespace sam
             }
 
             // Only return data if there is data available to read
-            var bytesRead = 0; 
+            var bytesRead = 0;
             while (bytesRead == 0)
             {
-                bytesRead=audioStream.Read(dataBuffer, 0, (int)size);
+                bytesRead = audioStream.Read(dataBuffer, 0, (int)size);
                 // Wait for more data to become available
-                
+
             }
             return bytesRead;
 
@@ -66,7 +66,7 @@ namespace sam
 
         public override void Close()
         {
-           // audioStream.Dispose();
+            // audioStream.Dispose();
         }
     }
 

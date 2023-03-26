@@ -1,6 +1,6 @@
-﻿namespace sam
+﻿namespace sam.helper
 {
-    
+
     public class AgentSettings
     {
         public string AgentName { get; set; }

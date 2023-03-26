@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 using NAudio.Wave;
 using System.Threading.Channels;
 
-namespace sam
+namespace sam.audio
 {
     public class SpeechRecognitionService
     {
@@ -81,11 +81,11 @@ namespace sam
             {
                 var config = SpeechConfig.FromSubscription(speechKey, speechRegion);
                 config.SpeechRecognitionLanguage = SamUserSettings.Default.AZURE_STT_LANG;
-                
+
                 var audioFormat = AudioStreamFormat.GetWaveFormatPCM((uint)waveFormat.SampleRate, (byte)waveFormat.BitsPerSample, (byte)waveFormat.Channels);
 
                 audioInput = AudioConfig.FromStreamInput(wavFile, audioFormat);
-                
+
                 recognizer = new SpeechRecognizer(config, audioInput);
 
                 recognizer.Recognized += Recognizer_Recognized;
@@ -95,7 +95,7 @@ namespace sam
                 recognizer.Recognizing += Recognizer_Recognizing;
 
                 recognizer.StartContinuousRecognitionAsync();
-                
+
 
             }
             catch (Exception ex)
