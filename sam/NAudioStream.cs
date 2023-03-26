@@ -9,7 +9,7 @@ public class NAudioStream : PullAudioInputStreamCallback
     private MemoryStream memoryStream;
     private ManualResetEvent newData;
 
-    public NAudioStream(WaveFileWriter waveFileWriter)
+    public NAudioStream()
     {
         
         this.memoryStream = new MemoryStream();
@@ -60,6 +60,7 @@ public class NAudioStream : PullAudioInputStreamCallback
                 bytesCounter += bytesToRead;
             }
             newData.Reset();
+            return (int)bytesRead;
         }
 
         return (int)bytesRead;

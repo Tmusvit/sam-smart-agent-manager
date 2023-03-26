@@ -767,7 +767,7 @@ namespace sam
                 computerAudioCapture = new WasapiLoopbackCapture(sourceDevice);
 
                 computerAudioWriter = new WaveFileWriter(new MemoryStream(), computerAudioCapture.WaveFormat);
-                computerAudioStream = new NAudioStream(computerAudioWriter);
+                computerAudioStream = new NAudioStream();
 
                 speechRecognitionService = new SpeechRecognitionService(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, computerAudioStream, computerAudioCapture.WaveFormat);
                 
