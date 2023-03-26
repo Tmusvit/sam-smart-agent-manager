@@ -63,37 +63,6 @@ namespace sam.audio
             }
         }
 
-
-
-        public async Task<SpeechRecognitionResult> FromDefaultSpeaker(MMDevice sourceDevice)
-        {
-            try
-            {
-                var speechConfig = SpeechConfig.FromSubscription(speechKey, speechRegion);
-                speechConfig.SpeechRecognitionLanguage = SamUserSettings.Default.AZURE_STT_LANG;
-
-                // Create an AudioInputStream that reads audio from the default speaker output
-                var oStream = new AudioOutputPullStream(sourceDevice);
-
-
-                using var audioInputStream = AudioInputStream.CreatePullStream(oStream);
-                using var audioConfig = AudioConfig.FromStreamInput(audioInputStream);
-                using var speechRecognizer = new SpeechRecognizer(speechConfig, audioConfig);
-
-                // Wait for the recognizer to finish recognizing speech
-                var result = await speechRecognizer.RecognizeOnceAsync();
-                oStream.Close();
-                return result;
-            }
-            catch (Exception ex)
-            {
-                // handle the exception
-                Console.WriteLine($"Error in FromSpeakerAsync: {ex.Message}");
-                return null; // or throw a custom exception
-            }
-
-        }
-
         public async Task<string> FromCompAsync(string wavfile)
         {
             try
