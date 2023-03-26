@@ -6,6 +6,7 @@ using OpenAI.GPT3.ObjectModels.ResponseModels;
 using System;
 using System.Data;
 using System.Diagnostics;
+using System.Formats.Tar;
 using System.IO;
 using System.Security.Policy;
 using System.Speech.Recognition;
@@ -35,7 +36,9 @@ namespace sam
         public bool compActive { get; private set; }
         public string computerAudioFilename { get; private set; }
         public WasapiLoopbackCapture computerAudioCapture { get; private set; }
+        public SpeechRecognitionService speechRecognitionService { get; private set; }
         public WaveFileWriter computerAudioWriter { get; private set; }
+        public NAudioStream computerAudioStream { get; private set; }
         public string computerAudioFilenameToBeAnalyzed { get; private set; }
         public bool isRecording { get; private set; }
         public bool isTimerRunning { get; private set; }
@@ -619,51 +622,6 @@ namespace sam
             }
         }
 
-        private async Task ActivateSpeakerAsync()
-        {
-            var devices = new MMDeviceEnumerator().EnumerateAudioEndPoints(DataFlow.All, DeviceState.Active);
-            MMDevice sourceDevice = null;
-
-            foreach (var device in devices)
-            {
-                if (device.FriendlyName == selectedAudioDeviceForRecognition)
-                {
-                    sourceDevice = device;
-                }
-            }
-            if (sourceDevice != null)
-            {
-                var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
-                while (speakerActive)
-                {
-                    while (bAssistantSpeaking) { Thread.Sleep(500); }
-                    if (speakerActive)
-                    {
-                        var result = await tts.FromDefaultSpeaker(sourceDevice);
-                        Console.WriteLine($"RECOGNIZED: Text={result.Text}");
-                        if (result.Text != "")
-                        {
-                            // Clear the user input field
-                            Invoke((Action)(() =>
-                            {
-                                txtUserInput.Text = result.Text;
-                            }));
-                            await SendUserConversationMessageAsync(false);
-                        }
-                    }
-                }
-            }
-        }
-
-        private async Task SpeakTheRecognizedTextAsync(string text)
-        {
-            var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
-
-            var result = await tts.SynthesizeAsync(text);
-
-
-        }
-
         private void SmartAgent_Shown(object sender, EventArgs e)
         {
             txtUserInput.Focus();
@@ -744,8 +702,6 @@ namespace sam
                 compActive = true;
                 speakerActive = true;
                 StartCompRecording();
-                //selectedAudioDeviceForRecognition = cmbAudioSource.Text;
-                //Task.Run(() => ActivateSpeakerAsync());
             }
         }
         private async Task ActivateComputerSTTAsync(string audioFile)
@@ -809,38 +765,40 @@ namespace sam
                 computerAudioFilename = string.Format(@"rec\recording-{0:yyyy-MM-dd-HH-mm-ss}-computerSTTAudio.wav", DateTime.Now);
 
                 computerAudioCapture = new WasapiLoopbackCapture(sourceDevice);
-                computerAudioCapture.DataAvailable += async (sender, e) =>
-                {
-                   
-                    if (e.BytesRecorded == 0)
-                    {
-                        if (bNewBytesRecoded)
-                        {
-                            bNewBytesRecoded = false;
-                            
-                            await ActivateComputerSTTAsync(Environment.CurrentDirectory + "\\" + computerAudioFilename);
-                            byte[] emptyBuffer = new byte[0];
-                            
-                        }
-                    }
-                    else
-                    { 
-                        // Write data to computer audio WAV file
-                        computerAudioWriter.Write(e.Buffer, 0, e.BytesRecorded);
-                        bNewBytesRecoded = true;
-                    }                    
-                };
 
-                noDataTimer.Interval = noDataTimeout;
+                computerAudioWriter = new WaveFileWriter(new MemoryStream(), computerAudioCapture.WaveFormat);
+                computerAudioStream = new NAudioStream(computerAudioWriter);
 
-                computerAudioWriter = new WaveFileWriter(computerAudioFilename, computerAudioCapture.WaveFormat);
-
+                speechRecognitionService = new SpeechRecognitionService(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, computerAudioStream, computerAudioCapture.WaveFormat);
+                
                 // Start recording
                 computerAudioCapture.StartRecording();
+                computerAudioCapture.DataAvailable += async (sender, e) =>
+                {
+                    if (e.BytesRecorded > 0)
+                    {
+                        // Write data to computer audio
+                        computerAudioStream.Write(e.Buffer, 0, e.BytesRecorded);
+                    }
+                };
+                speechRecognitionService.TextRecognized += RecognizerService_TextRecognized;
 
+                speechRecognitionService.RecognizeAsync();
             }
         }
 
+        private void RecognizerService_TextRecognized(string text)
+        {
+            if (text != "")
+            {
+                // Clear the user input field
+                Invoke((Action)(() =>
+                {
+                    txtUserInput.Text = text;
+                }));
+                SendUserConversationMessageAsync(false);
+            }
+        }
 
 
         public void StopCompRecording()
@@ -849,6 +807,7 @@ namespace sam
             isRecording = false;
             if (computerAudioCapture != null)
             {
+                speechRecognitionService.StopRecognizeAsync();
                 computerAudioCapture.StopRecording();
                 computerAudioWriter.Dispose();
                 computerAudioCapture.Dispose();
@@ -856,13 +815,5 @@ namespace sam
             //Task.Run(() => ActivateComputerSTTAsync(Environment.CurrentDirectory + "\\" + computerAudioFilenameToBeAnalyzed));
         }
 
-
-        private void noDataTimer_Tick(object sender, EventArgs e)
-        {
-            if (isRecording)
-            {
-                Invoke((Action)(() => { noDataTimer.Stop(); StopCompRecording(); StartCompRecording(); }));
-            }
-        }
     }
 }

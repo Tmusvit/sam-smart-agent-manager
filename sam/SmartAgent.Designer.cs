@@ -53,6 +53,8 @@
             tabPage2 = new TabPage();
             pnlAudio = new Panel();
             grpAudioDevices = new GroupBox();
+            cmbAudioSource = new ComboBox();
+            label1 = new Label();
             cmbMicLoop = new ComboBox();
             lblMic = new Label();
             cmbSpeaker = new ComboBox();
@@ -81,9 +83,6 @@
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
-            noDataTimer = new System.Windows.Forms.Timer(components);
-            cmbAudioSource = new ComboBox();
-            label1 = new Label();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -374,6 +373,24 @@
             grpAudioDevices.TabStop = false;
             grpAudioDevices.Text = "Audio devices for mic loopback";
             // 
+            // cmbAudioSource
+            // 
+            cmbAudioSource.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            cmbAudioSource.FormattingEnabled = true;
+            cmbAudioSource.Location = new Point(6, 125);
+            cmbAudioSource.Name = "cmbAudioSource";
+            cmbAudioSource.Size = new Size(378, 23);
+            cmbAudioSource.TabIndex = 5;
+            // 
+            // label1
+            // 
+            label1.AutoSize = true;
+            label1.Location = new Point(6, 107);
+            label1.Name = "label1";
+            label1.Size = new Size(122, 15);
+            label1.TabIndex = 4;
+            label1.Text = "Audio source to listen";
+            // 
             // cmbMicLoop
             // 
             cmbMicLoop.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
@@ -512,6 +529,7 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
+            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -669,30 +687,6 @@
             btnPlayAudioToMic.Text = "Analyze audio";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
             // 
-            // noDataTimer
-            // 
-            noDataTimer.Enabled = true;
-            noDataTimer.Interval = 3000;
-            noDataTimer.Tick += noDataTimer_Tick;
-            // 
-            // cmbAudioSource
-            // 
-            cmbAudioSource.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            cmbAudioSource.FormattingEnabled = true;
-            cmbAudioSource.Location = new Point(6, 125);
-            cmbAudioSource.Name = "cmbAudioSource";
-            cmbAudioSource.Size = new Size(378, 23);
-            cmbAudioSource.TabIndex = 5;
-            // 
-            // label1
-            // 
-            label1.AutoSize = true;
-            label1.Location = new Point(6, 107);
-            label1.Name = "label1";
-            label1.Size = new Size(122, 15);
-            label1.TabIndex = 4;
-            label1.Text = "Audio source to listen";
-            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -804,7 +798,6 @@
         private ComboBox cmbSpeaker;
         private Label lblSpeakers;
         private ToolStripButton btnComputerAudioSTT;
-        private System.Windows.Forms.Timer noDataTimer;
         private ComboBox cmbAudioSource;
         private Label label1;
     }
