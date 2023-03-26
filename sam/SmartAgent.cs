@@ -297,79 +297,38 @@ namespace sam
 
         private async Task SendUserConversationMessageAsync(bool requiresResponse = true)
         {
-            Invoke((Action)(() => { StartAnalysis(); }));
+            Invoke((Action)(() => StartAnalysis()));
+
             if (conversation == null || this.currentAgentSettings.AgentPersonality != txtAgentPersonality.Text)
             {
-                List<string> systemPersonality = new List<string> { };
-
-                systemPersonality.Add(txtAgentPersonality.Text);
-
+                List<string> systemPersonality = new List<string> { txtAgentPersonality.Text };
                 conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemPersonality, txtAgentID.Text);
-
-                if (txtUserInput.Text != "")
-                {
-                    string userInput = txtUserInput.Text;
-
-                    // Append the user's input to the chat with green text
-                    Invoke((Action)(() =>
-                    {
-                        AppendTextToChatAsync(userInput, Color.Green);
-                    }));
-                    // Clear the user input field
-                    Invoke((Action)(() =>
-                    {
-                        txtUserInput.Text = "";
-                    }));
-
-                    // Start the conversation and append the system's response with blue text
-                    List<string> response = await conversation.StartConversation(userInput, requiresResponse);
-                    foreach (string s in response)
-                    {
-                        Invoke((Action)(() => { AppendTextToChatAsync(s, Color.Blue); }));
-                    }
-
-                    if (chkSmartAgentEnabled.Checked)
-                    {
-                        Invoke((Action)(() => { SendSmartAgentResponseToSlaves(response); }));
-                    }
-
-
-                };
-
             }
-            else
+
+            if (txtUserInput.Text != "")
             {
-                if (txtUserInput.Text != "")
+                string userInput = txtUserInput.Text;
+
+                // Append the user's input to the chat with green text
+                Invoke((Action)(() => AppendTextToChatAsync(userInput, Color.Green)));
+
+                // Clear the user input field
+                Invoke((Action)(() => txtUserInput.Text = ""));
+
+                // Start the conversation and append the system's response with blue text
+                List<string> response = await conversation.StartConversation(userInput, requiresResponse);
+
+                foreach (string s in response)
                 {
-                    string userInput = txtUserInput.Text;
+                    Invoke((Action)(() => AppendTextToChatAsync(s, Color.Blue)));
+                }
 
-                    // Append the user's input to the chat with green text
-                    Invoke((Action)(() =>
-                    {
-                        AppendTextToChatAsync(userInput, Color.Green);
-                    }));
-                    // Clear the user input field
-                    Invoke((Action)(() =>
-                    {
-                        txtUserInput.Text = "";
-                    }));
-                    // Start the conversation and append the system's response with blue text
-                    List<string> response = await conversation.StartConversation(userInput, requiresResponse);
-                    foreach (string s in response)
-                    {
-                        Invoke((Action)(() =>
-                        {
-                            AppendTextToChatAsync(s, Color.Blue);
-                        }));
-                    }
+                if (chkSmartAgentEnabled.Checked)
+                {
+                    Invoke((Action)(() => SendSmartAgentResponseToSlaves(response)));
+                }
+            };
 
-                    if (chkSmartAgentEnabled.Checked)
-                    {
-                        Invoke((Action)(() => { SendSmartAgentResponseToSlaves(response); }));
-                    }
-
-                };
-            }
             // Raise the AnalysisComplete event
             Invoke((Action)(() =>
             {
@@ -704,29 +663,7 @@ namespace sam
                 StartCompRecording();
             }
         }
-        private async Task ActivateComputerSTTAsync(string audioFile)
-        {
-            var tts = new AzureTextToSpeech(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, SamUserSettings.Default.AZURE_TTS_VOICE);
-
-            while (bAssistantSpeaking) { Thread.Sleep(100); }
-            if (compActive)
-            {
-                var result = await tts.FromCompAsync(audioFile);
-                Console.WriteLine($"RECOGNIZED: Text={result}");
-
-                if (result != "")
-                {
-                    //File.Delete(audioFile);
-                    // Clear the user input field
-                    Invoke((Action)(() =>
-                    {
-                        txtUserInput.Text = result;
-                    }));
-                    await SendUserConversationMessageAsync(false);
-                }
-            }
-
-        }
+       
         public event EventHandler<string> RecordingEnded;
         public void OnRecordingEnded(object sender, string path)
         {
@@ -812,7 +749,6 @@ namespace sam
                 computerAudioWriter.Dispose();
                 computerAudioCapture.Dispose();
             }
-            //Task.Run(() => ActivateComputerSTTAsync(Environment.CurrentDirectory + "\\" + computerAudioFilenameToBeAnalyzed));
         }
 
     }
