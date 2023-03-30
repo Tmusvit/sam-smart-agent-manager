@@ -82,8 +82,8 @@ namespace sam.audio
                 var config = SpeechConfig.FromSubscription(speechKey, speechRegion);
                 config.SpeechRecognitionLanguage = SamUserSettings.Default.AZURE_STT_LANG;
 
-                var audioFormat = AudioStreamFormat.GetWaveFormatPCM((uint)waveFormat.SampleRate, (byte)waveFormat.BitsPerSample, (byte)waveFormat.Channels);
-
+                //var audioFormat = AudioStreamFormat.GetWaveFormatPCM((uint)waveFormat.SampleRate, (byte)waveFormat.BitsPerSample, (byte)waveFormat.Channels);
+                var audioFormat = AudioStreamFormat.GetWaveFormat((uint)waveFormat.SampleRate, (byte)waveFormat.BitsPerSample, (byte)waveFormat.Channels, AudioStreamWaveFormat.PCM);
                 audioInput = AudioConfig.FromStreamInput(wavFile, audioFormat);
 
                 recognizer = new SpeechRecognizer(config, audioInput);

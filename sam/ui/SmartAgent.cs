@@ -1,5 +1,6 @@
 ﻿using Microsoft.CognitiveServices.Speech.Diagnostics.Logging;
 using Microsoft.VisualBasic.Devices;
+using Microsoft.Web.WebView2.Core;
 using NAudio.CoreAudioApi;
 using NAudio.Wave;
 using OpenAI.GPT3.ObjectModels.ResponseModels;
@@ -58,7 +59,19 @@ namespace sam
             LoadSlaveAgents();
             LoadTTSVoices();
             LoadAudioSettings();
+            InitializeAsync();
         }
+        async void InitializeAsync()
+        {
+            await webView21.EnsureCoreWebView2Async(null);
+            //webView21.CoreWebView2.WebMessageReceived += UpdateAddressBar;
+        }
+        //void UpdateAddressBar(object sender, CoreWebView2WebMessageReceivedEventArgs args)
+        //{
+        //    String uri = args.TryGetWebMessageAsString();
+        //    txtAddress.Text = uri;
+        //    webView21.CoreWebView2.PostWebMessageAsString(uri);
+        //}
 
         private void LoadAudioSettings()
         {
@@ -666,7 +679,7 @@ namespace sam
                 StartCompRecording();
             }
         }
-       
+
         public event EventHandler<string> RecordingEnded;
         public void OnRecordingEnded(object sender, string path)
         {
@@ -710,7 +723,7 @@ namespace sam
                 computerAudioStream = new NAudioStream();
 
                 speechRecognitionService = new SpeechRecognitionService(SamUserSettings.Default.AZURE_API_KEY, SamUserSettings.Default.AZURE_TTS_REGION, computerAudioStream, computerAudioCapture.WaveFormat);
-                
+
                 // Start recording
                 computerAudioCapture.StartRecording();
                 computerAudioCapture.DataAvailable += async (sender, e) =>
@@ -754,5 +767,50 @@ namespace sam
             }
         }
 
+        private void btnGo_Click(object sender, EventArgs e)
+        {
+            NavigateToAsync(txtAddress.Text);
+        }
+
+        private async Task NavigateToAsync(string url)
+        {
+            
+            var targetUrl = url.StartsWith("https://") ? url : "https://" + url;
+
+            webView21.CoreWebView2.Navigate(targetUrl);
+
+            
+        }
+
+        private void webView21_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
+        {
+
+
+
+
+        }
+
+        private void webView21_SourceChanged(object sender, CoreWebView2SourceChangedEventArgs e)
+        {
+            this.txtAddress.Text = this.webView21.Source.AbsoluteUri;
+            GetTextFromUrlAsync(this.txtAddress.Text);
+        }
+
+        private async Task GetTextFromUrlAsync(string targetUrl)
+        {
+            var webPageTextReader = new WebPageTextReader(targetUrl);
+            var textList = await webPageTextReader.GetWebPageTextAsync(targetUrl);
+            txtWebText.Clear();
+            foreach (var txt in textList)
+            {
+                txtWebText.AppendText(txt);
+                txtWebText.AppendText(Environment.NewLine);
+            }
+        }
+
+        private void webView21_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
+        {
+
+        }
     }
 }

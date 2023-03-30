@@ -35,11 +35,6 @@
             tabPage1 = new TabPage();
             agentSettingsGrp = new GroupBox();
             settingsPanel = new Panel();
-            groupBox1 = new GroupBox();
-            groupBox3 = new GroupBox();
-            checkedListSelectedSlaves = new CheckedListBox();
-            groupBox2 = new GroupBox();
-            txtSlaveMessage = new TextBox();
             grpAgentControl = new GroupBox();
             chkSmartAgentEnabled = new CheckBox();
             btnSaveAgent = new Button();
@@ -52,6 +47,11 @@
             txtAgentName = new TextBox();
             tabPage2 = new TabPage();
             pnlAudio = new Panel();
+            groupBox1 = new GroupBox();
+            groupBox3 = new GroupBox();
+            checkedListSelectedSlaves = new CheckedListBox();
+            groupBox2 = new GroupBox();
+            txtSlaveMessage = new TextBox();
             grpAudioDevices = new GroupBox();
             cmbAudioSource = new ComboBox();
             label1 = new Label();
@@ -68,6 +68,15 @@
             groupBox4 = new GroupBox();
             panel1 = new Panel();
             txtCode = new FastColoredTextBoxNS.FastColoredTextBox();
+            tabWeb = new TabPage();
+            webView21 = new Microsoft.Web.WebView2.WinForms.WebView2();
+            toolWeb = new ToolStrip();
+            btnBack = new ToolStripButton();
+            btnForward = new ToolStripButton();
+            btnRefresh = new ToolStripButton();
+            txtAddress = new ToolStripTextBox();
+            btnGo = new ToolStripButton();
+            tabWebText = new TabPage();
             grpUserInput = new GroupBox();
             pnlInput = new Panel();
             btnSend = new Button();
@@ -83,6 +92,7 @@
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
+            txtWebText = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -91,15 +101,15 @@
             tabPage1.SuspendLayout();
             agentSettingsGrp.SuspendLayout();
             settingsPanel.SuspendLayout();
-            groupBox1.SuspendLayout();
-            groupBox3.SuspendLayout();
-            groupBox2.SuspendLayout();
             grpAgentControl.SuspendLayout();
             grpPersonality.SuspendLayout();
             grpAgentID.SuspendLayout();
             grpName.SuspendLayout();
             tabPage2.SuspendLayout();
             pnlAudio.SuspendLayout();
+            groupBox1.SuspendLayout();
+            groupBox3.SuspendLayout();
+            groupBox2.SuspendLayout();
             grpAudioDevices.SuspendLayout();
             tabDialogs.SuspendLayout();
             tabPageText.SuspendLayout();
@@ -109,6 +119,10 @@
             groupBox4.SuspendLayout();
             panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)txtCode).BeginInit();
+            tabWeb.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
+            toolWeb.SuspendLayout();
+            tabWebText.SuspendLayout();
             grpUserInput.SuspendLayout();
             pnlInput.SuspendLayout();
             agentStatus.SuspendLayout();
@@ -169,7 +183,6 @@
             // settingsPanel
             // 
             settingsPanel.AutoScroll = true;
-            settingsPanel.Controls.Add(groupBox1);
             settingsPanel.Controls.Add(grpAgentControl);
             settingsPanel.Controls.Add(grpPersonality);
             settingsPanel.Controls.Add(grpAgentID);
@@ -179,58 +192,6 @@
             settingsPanel.Name = "settingsPanel";
             settingsPanel.Size = new Size(392, 631);
             settingsPanel.TabIndex = 1;
-            // 
-            // groupBox1
-            // 
-            groupBox1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox1.Controls.Add(groupBox3);
-            groupBox1.Controls.Add(groupBox2);
-            groupBox1.Location = new Point(6, 293);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(380, 221);
-            groupBox1.TabIndex = 6;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Slave agent settings";
-            // 
-            // groupBox3
-            // 
-            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox3.Controls.Add(checkedListSelectedSlaves);
-            groupBox3.Location = new Point(9, 22);
-            groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(362, 101);
-            groupBox3.TabIndex = 4;
-            groupBox3.TabStop = false;
-            groupBox3.Text = "Slave agent names";
-            // 
-            // checkedListSelectedSlaves
-            // 
-            checkedListSelectedSlaves.Dock = DockStyle.Fill;
-            checkedListSelectedSlaves.FormattingEnabled = true;
-            checkedListSelectedSlaves.Location = new Point(3, 19);
-            checkedListSelectedSlaves.Name = "checkedListSelectedSlaves";
-            checkedListSelectedSlaves.Size = new Size(356, 79);
-            checkedListSelectedSlaves.TabIndex = 0;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            groupBox2.Controls.Add(txtSlaveMessage);
-            groupBox2.Location = new Point(6, 126);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(368, 85);
-            groupBox2.TabIndex = 3;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Message to slave agent";
-            // 
-            // txtSlaveMessage
-            // 
-            txtSlaveMessage.Dock = DockStyle.Fill;
-            txtSlaveMessage.Location = new Point(3, 19);
-            txtSlaveMessage.Multiline = true;
-            txtSlaveMessage.Name = "txtSlaveMessage";
-            txtSlaveMessage.Size = new Size(362, 63);
-            txtSlaveMessage.TabIndex = 1;
             // 
             // grpAgentControl
             // 
@@ -283,7 +244,7 @@
             grpPersonality.Controls.Add(txtAgentPersonality);
             grpPersonality.Location = new Point(6, 117);
             grpPersonality.Name = "grpPersonality";
-            grpPersonality.Size = new Size(380, 170);
+            grpPersonality.Size = new Size(380, 404);
             grpPersonality.TabIndex = 2;
             grpPersonality.TabStop = false;
             grpPersonality.Text = "Agent personality";
@@ -295,7 +256,7 @@
             txtAgentPersonality.Multiline = true;
             txtAgentPersonality.Name = "txtAgentPersonality";
             txtAgentPersonality.ScrollBars = ScrollBars.Vertical;
-            txtAgentPersonality.Size = new Size(374, 148);
+            txtAgentPersonality.Size = new Size(374, 382);
             txtAgentPersonality.TabIndex = 1;
             // 
             // grpAgentID
@@ -350,12 +311,65 @@
             // pnlAudio
             // 
             pnlAudio.AutoScroll = true;
+            pnlAudio.Controls.Add(groupBox1);
             pnlAudio.Controls.Add(grpAudioDevices);
             pnlAudio.Dock = DockStyle.Fill;
             pnlAudio.Location = new Point(3, 3);
             pnlAudio.Name = "pnlAudio";
             pnlAudio.Size = new Size(398, 653);
             pnlAudio.TabIndex = 0;
+            // 
+            // groupBox1
+            // 
+            groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox1.Controls.Add(groupBox3);
+            groupBox1.Controls.Add(groupBox2);
+            groupBox1.Location = new Point(5, 172);
+            groupBox1.Name = "groupBox1";
+            groupBox1.Size = new Size(390, 249);
+            groupBox1.TabIndex = 7;
+            groupBox1.TabStop = false;
+            groupBox1.Text = "Slave agent settings";
+            // 
+            // groupBox3
+            // 
+            groupBox3.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox3.Controls.Add(checkedListSelectedSlaves);
+            groupBox3.Location = new Point(6, 22);
+            groupBox3.Name = "groupBox3";
+            groupBox3.Size = new Size(378, 101);
+            groupBox3.TabIndex = 4;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Slave agent names";
+            // 
+            // checkedListSelectedSlaves
+            // 
+            checkedListSelectedSlaves.Dock = DockStyle.Fill;
+            checkedListSelectedSlaves.FormattingEnabled = true;
+            checkedListSelectedSlaves.Location = new Point(3, 19);
+            checkedListSelectedSlaves.Name = "checkedListSelectedSlaves";
+            checkedListSelectedSlaves.Size = new Size(372, 79);
+            checkedListSelectedSlaves.TabIndex = 0;
+            // 
+            // groupBox2
+            // 
+            groupBox2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox2.Controls.Add(txtSlaveMessage);
+            groupBox2.Location = new Point(9, 129);
+            groupBox2.Name = "groupBox2";
+            groupBox2.Size = new Size(375, 114);
+            groupBox2.TabIndex = 3;
+            groupBox2.TabStop = false;
+            groupBox2.Text = "Message to slave agent";
+            // 
+            // txtSlaveMessage
+            // 
+            txtSlaveMessage.Dock = DockStyle.Fill;
+            txtSlaveMessage.Location = new Point(3, 19);
+            txtSlaveMessage.Multiline = true;
+            txtSlaveMessage.Name = "txtSlaveMessage";
+            txtSlaveMessage.Size = new Size(369, 92);
+            txtSlaveMessage.TabIndex = 1;
             // 
             // grpAudioDevices
             // 
@@ -433,6 +447,8 @@
             tabDialogs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabDialogs.Controls.Add(tabPageText);
             tabDialogs.Controls.Add(tabPageCode);
+            tabDialogs.Controls.Add(tabWeb);
+            tabDialogs.Controls.Add(tabWebText);
             tabDialogs.Location = new Point(6, 3);
             tabDialogs.Name = "tabDialogs";
             tabDialogs.SelectedIndex = 0;
@@ -544,6 +560,97 @@
             txtCode.Size = new Size(737, 508);
             txtCode.TabIndex = 0;
             txtCode.Zoom = 100;
+            // 
+            // tabWeb
+            // 
+            tabWeb.Controls.Add(webView21);
+            tabWeb.Controls.Add(toolWeb);
+            tabWeb.Location = new Point(4, 24);
+            tabWeb.Name = "tabWeb";
+            tabWeb.Size = new Size(749, 536);
+            tabWeb.TabIndex = 2;
+            tabWeb.Text = "Web";
+            tabWeb.UseVisualStyleBackColor = true;
+            // 
+            // webView21
+            // 
+            webView21.AllowExternalDrop = true;
+            webView21.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            webView21.CreationProperties = null;
+            webView21.DefaultBackgroundColor = Color.White;
+            webView21.Location = new Point(3, 28);
+            webView21.Name = "webView21";
+            webView21.Size = new Size(743, 505);
+            webView21.Source = new Uri("https://bing.com/", UriKind.Absolute);
+            webView21.TabIndex = 1;
+            webView21.ZoomFactor = 1D;
+            webView21.NavigationCompleted += webView21_NavigationCompleted;
+            webView21.WebMessageReceived += webView21_WebMessageReceived;
+            webView21.SourceChanged += webView21_SourceChanged;
+            // 
+            // toolWeb
+            // 
+            toolWeb.Items.AddRange(new ToolStripItem[] { btnBack, btnForward, btnRefresh, txtAddress, btnGo });
+            toolWeb.Location = new Point(0, 0);
+            toolWeb.Name = "toolWeb";
+            toolWeb.Size = new Size(749, 25);
+            toolWeb.TabIndex = 0;
+            toolWeb.Text = "toolStrip1";
+            // 
+            // btnBack
+            // 
+            btnBack.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnBack.Image = (Image)resources.GetObject("btnBack.Image");
+            btnBack.ImageTransparentColor = Color.Magenta;
+            btnBack.Name = "btnBack";
+            btnBack.Size = new Size(23, 22);
+            btnBack.Text = "Back";
+            // 
+            // btnForward
+            // 
+            btnForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnForward.Image = (Image)resources.GetObject("btnForward.Image");
+            btnForward.ImageTransparentColor = Color.Magenta;
+            btnForward.Name = "btnForward";
+            btnForward.Size = new Size(23, 22);
+            btnForward.Text = "Forward";
+            // 
+            // btnRefresh
+            // 
+            btnRefresh.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnRefresh.Image = (Image)resources.GetObject("btnRefresh.Image");
+            btnRefresh.ImageTransparentColor = Color.Magenta;
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.Size = new Size(23, 22);
+            btnRefresh.Text = "Refresh";
+            // 
+            // txtAddress
+            // 
+            txtAddress.AutoCompleteMode = AutoCompleteMode.Suggest;
+            txtAddress.AutoCompleteSource = AutoCompleteSource.AllUrl;
+            txtAddress.Name = "txtAddress";
+            txtAddress.Size = new Size(600, 25);
+            // 
+            // btnGo
+            // 
+            btnGo.Alignment = ToolStripItemAlignment.Right;
+            btnGo.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnGo.Image = (Image)resources.GetObject("btnGo.Image");
+            btnGo.ImageTransparentColor = Color.Magenta;
+            btnGo.Name = "btnGo";
+            btnGo.Size = new Size(23, 22);
+            btnGo.Text = "Go";
+            btnGo.Click += btnGo_Click;
+            // 
+            // tabWebText
+            // 
+            tabWebText.Controls.Add(txtWebText);
+            tabWebText.Location = new Point(4, 24);
+            tabWebText.Name = "tabWebText";
+            tabWebText.Size = new Size(749, 536);
+            tabWebText.TabIndex = 3;
+            tabWebText.Text = "Web Text";
+            tabWebText.UseVisualStyleBackColor = true;
             // 
             // grpUserInput
             // 
@@ -687,6 +794,19 @@
             btnPlayAudioToMic.Text = "Analyze audio";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
             // 
+            // txtWebText
+            // 
+            txtWebText.BackColor = Color.White;
+            txtWebText.BorderStyle = BorderStyle.None;
+            txtWebText.Dock = DockStyle.Fill;
+            txtWebText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtWebText.Location = new Point(0, 0);
+            txtWebText.Name = "txtWebText";
+            txtWebText.ReadOnly = true;
+            txtWebText.Size = new Size(749, 536);
+            txtWebText.TabIndex = 1;
+            txtWebText.Text = "";
+            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -710,10 +830,6 @@
             tabPage1.ResumeLayout(false);
             agentSettingsGrp.ResumeLayout(false);
             settingsPanel.ResumeLayout(false);
-            groupBox1.ResumeLayout(false);
-            groupBox3.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
-            groupBox2.PerformLayout();
             grpAgentControl.ResumeLayout(false);
             grpAgentControl.PerformLayout();
             grpPersonality.ResumeLayout(false);
@@ -724,6 +840,10 @@
             grpName.PerformLayout();
             tabPage2.ResumeLayout(false);
             pnlAudio.ResumeLayout(false);
+            groupBox1.ResumeLayout(false);
+            groupBox3.ResumeLayout(false);
+            groupBox2.ResumeLayout(false);
+            groupBox2.PerformLayout();
             grpAudioDevices.ResumeLayout(false);
             grpAudioDevices.PerformLayout();
             tabDialogs.ResumeLayout(false);
@@ -734,6 +854,12 @@
             groupBox4.ResumeLayout(false);
             panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)txtCode).EndInit();
+            tabWeb.ResumeLayout(false);
+            tabWeb.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)webView21).EndInit();
+            toolWeb.ResumeLayout(false);
+            toolWeb.PerformLayout();
+            tabWebText.ResumeLayout(false);
             grpUserInput.ResumeLayout(false);
             pnlInput.ResumeLayout(false);
             pnlInput.PerformLayout();
@@ -766,11 +892,6 @@
         private Button btnReset;
         private Button btnSaveAgent;
         private GroupBox grpAgentControl;
-        private GroupBox groupBox1;
-        private GroupBox groupBox2;
-        private TextBox txtSlaveMessage;
-        private GroupBox groupBox3;
-        private CheckedListBox checkedListSelectedSlaves;
         private CheckBox chkSmartAgentEnabled;
         private TabControl tabDialogs;
         private TabPage tabPageText;
@@ -800,5 +921,20 @@
         private ToolStripButton btnComputerAudioSTT;
         private ComboBox cmbAudioSource;
         private Label label1;
+        private GroupBox groupBox1;
+        private GroupBox groupBox3;
+        private CheckedListBox checkedListSelectedSlaves;
+        private GroupBox groupBox2;
+        private TextBox txtSlaveMessage;
+        private TabPage tabWeb;
+        private ToolStrip toolWeb;
+        private ToolStripButton btnBack;
+        private ToolStripButton btnForward;
+        private ToolStripButton btnRefresh;
+        private ToolStripTextBox txtAddress;
+        private ToolStripButton btnGo;
+        private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
+        private TabPage tabWebText;
+        private RichTextBox txtWebText;
     }
 }
