@@ -139,7 +139,11 @@ namespace sam
                     AgentID = Guid.NewGuid().ToString(),
                     AgentPersonality = SamUserSettings.Default.DefaultAgentPersonality,
                     SlaveAgents = new List<AgentSettings>(),
-                    SlaveAgentMessage = txtSlaveMessage.Text
+                    SlaveAgentMessage = txtSlaveMessage.Text,
+                    AgentEnforcer=txtAgentRoleEnforcer.Text,
+                    AgentFocus=trackTemp.Value,
+                    AgentSystem=txtSystem.Text,
+                    
                 };
             }
 
@@ -147,6 +151,9 @@ namespace sam
             txtAgentName.Text = selectedAgentSettings.AgentName;
             txtAgentID.Text = selectedAgentSettings.AgentID;
             txtSlaveMessage.Text = selectedAgentSettings.SlaveAgentMessage;
+            txtSystem.Text = selectedAgentSettings.AgentSystem;
+            txtAgentRoleEnforcer.Text = selectedAgentSettings.AgentEnforcer;
+            trackTemp.Value = selectedAgentSettings.AgentFocus;
 
             // Create a new Conversation object with the specified API key, system personality, and agent ID
             conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, new List<string> { txtAgentPersonality.Text }, txtAgentID.Text);
@@ -248,6 +255,9 @@ namespace sam
                 AgentName = txtAgentName.Text,
                 AgentID = txtAgentID.Text,
                 AgentPersonality = txtAgentPersonality.Text,
+                AgentSystem=txtSystem.Text,
+                AgentEnforcer=txtAgentRoleEnforcer.Text,
+                AgentFocus=trackTemp.Value,
                 SlaveAgentMessage = txtSlaveMessage.Text
             };
 
@@ -774,12 +784,12 @@ namespace sam
 
         private async Task NavigateToAsync(string url)
         {
-            
+
             var targetUrl = url.StartsWith("https://") ? url : "https://" + url;
 
             webView21.CoreWebView2.Navigate(targetUrl);
 
-            
+
         }
 
         private void webView21_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
@@ -804,6 +814,8 @@ namespace sam
             foreach (var txt in textList)
             {
                 txtWebText.AppendText(txt);
+                txtWebText.AppendText(Environment.NewLine);
+                txtWebText.AppendText("================================");
                 txtWebText.AppendText(Environment.NewLine);
             }
         }

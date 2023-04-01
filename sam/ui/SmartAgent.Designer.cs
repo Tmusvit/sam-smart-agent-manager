@@ -35,18 +35,24 @@
             tabPage1 = new TabPage();
             agentSettingsGrp = new GroupBox();
             settingsPanel = new Panel();
+            groupBox7 = new GroupBox();
+            trackTemp = new TrackBar();
+            groupBox6 = new GroupBox();
+            txtAgentRoleEnforcer = new TextBox();
+            groupBox5 = new GroupBox();
+            txtSystem = new TextBox();
             grpAgentControl = new GroupBox();
             chkSmartAgentEnabled = new CheckBox();
             btnSaveAgent = new Button();
             btnReset = new Button();
             grpPersonality = new GroupBox();
             txtAgentPersonality = new TextBox();
-            grpAgentID = new GroupBox();
-            txtAgentID = new TextBox();
             grpName = new GroupBox();
             txtAgentName = new TextBox();
             tabPage2 = new TabPage();
             pnlAudio = new Panel();
+            grpAgentID = new GroupBox();
+            txtAgentID = new TextBox();
             groupBox1 = new GroupBox();
             groupBox3 = new GroupBox();
             checkedListSelectedSlaves = new CheckedListBox();
@@ -77,6 +83,7 @@
             txtAddress = new ToolStripTextBox();
             btnGo = new ToolStripButton();
             tabWebText = new TabPage();
+            txtWebText = new RichTextBox();
             grpUserInput = new GroupBox();
             pnlInput = new Panel();
             btnSend = new Button();
@@ -92,7 +99,6 @@
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
-            txtWebText = new RichTextBox();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -101,12 +107,16 @@
             tabPage1.SuspendLayout();
             agentSettingsGrp.SuspendLayout();
             settingsPanel.SuspendLayout();
+            groupBox7.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)trackTemp).BeginInit();
+            groupBox6.SuspendLayout();
+            groupBox5.SuspendLayout();
             grpAgentControl.SuspendLayout();
             grpPersonality.SuspendLayout();
-            grpAgentID.SuspendLayout();
             grpName.SuspendLayout();
             tabPage2.SuspendLayout();
             pnlAudio.SuspendLayout();
+            grpAgentID.SuspendLayout();
             groupBox1.SuspendLayout();
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
@@ -183,15 +193,81 @@
             // settingsPanel
             // 
             settingsPanel.AutoScroll = true;
+            settingsPanel.Controls.Add(groupBox7);
+            settingsPanel.Controls.Add(groupBox6);
+            settingsPanel.Controls.Add(groupBox5);
             settingsPanel.Controls.Add(grpAgentControl);
             settingsPanel.Controls.Add(grpPersonality);
-            settingsPanel.Controls.Add(grpAgentID);
             settingsPanel.Controls.Add(grpName);
             settingsPanel.Dock = DockStyle.Fill;
             settingsPanel.Location = new Point(3, 19);
             settingsPanel.Name = "settingsPanel";
             settingsPanel.Size = new Size(392, 631);
             settingsPanel.TabIndex = 1;
+            // 
+            // groupBox7
+            // 
+            groupBox7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox7.Controls.Add(trackTemp);
+            groupBox7.Location = new Point(6, 445);
+            groupBox7.Name = "groupBox7";
+            groupBox7.Size = new Size(380, 72);
+            groupBox7.TabIndex = 8;
+            groupBox7.TabStop = false;
+            groupBox7.Text = "Agent focus";
+            // 
+            // trackTemp
+            // 
+            trackTemp.Dock = DockStyle.Fill;
+            trackTemp.LargeChange = 1;
+            trackTemp.Location = new Point(3, 19);
+            trackTemp.Minimum = -10;
+            trackTemp.Name = "trackTemp";
+            trackTemp.Size = new Size(374, 50);
+            trackTemp.TabIndex = 0;
+            trackTemp.TickStyle = TickStyle.Both;
+            // 
+            // groupBox6
+            // 
+            groupBox6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox6.Controls.Add(txtAgentRoleEnforcer);
+            groupBox6.Location = new Point(6, 317);
+            groupBox6.Name = "groupBox6";
+            groupBox6.Size = new Size(380, 122);
+            groupBox6.TabIndex = 7;
+            groupBox6.TabStop = false;
+            groupBox6.Text = "Agent role enforcer";
+            // 
+            // txtAgentRoleEnforcer
+            // 
+            txtAgentRoleEnforcer.Dock = DockStyle.Fill;
+            txtAgentRoleEnforcer.Location = new Point(3, 19);
+            txtAgentRoleEnforcer.Multiline = true;
+            txtAgentRoleEnforcer.Name = "txtAgentRoleEnforcer";
+            txtAgentRoleEnforcer.ScrollBars = ScrollBars.Vertical;
+            txtAgentRoleEnforcer.Size = new Size(374, 100);
+            txtAgentRoleEnforcer.TabIndex = 1;
+            // 
+            // groupBox5
+            // 
+            groupBox5.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox5.Controls.Add(txtSystem);
+            groupBox5.Location = new Point(9, 60);
+            groupBox5.Name = "groupBox5";
+            groupBox5.Size = new Size(380, 87);
+            groupBox5.TabIndex = 6;
+            groupBox5.TabStop = false;
+            groupBox5.Text = "Agent system";
+            // 
+            // txtSystem
+            // 
+            txtSystem.Dock = DockStyle.Fill;
+            txtSystem.Location = new Point(3, 19);
+            txtSystem.Multiline = true;
+            txtSystem.Name = "txtSystem";
+            txtSystem.ScrollBars = ScrollBars.Vertical;
+            txtSystem.Size = new Size(374, 65);
+            txtSystem.TabIndex = 1;
             // 
             // grpAgentControl
             // 
@@ -242,12 +318,12 @@
             // 
             grpPersonality.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grpPersonality.Controls.Add(txtAgentPersonality);
-            grpPersonality.Location = new Point(6, 117);
+            grpPersonality.Location = new Point(6, 153);
             grpPersonality.Name = "grpPersonality";
-            grpPersonality.Size = new Size(380, 404);
+            grpPersonality.Size = new Size(380, 158);
             grpPersonality.TabIndex = 2;
             grpPersonality.TabStop = false;
-            grpPersonality.Text = "Agent personality";
+            grpPersonality.Text = "Agent role";
             // 
             // txtAgentPersonality
             // 
@@ -256,27 +332,8 @@
             txtAgentPersonality.Multiline = true;
             txtAgentPersonality.Name = "txtAgentPersonality";
             txtAgentPersonality.ScrollBars = ScrollBars.Vertical;
-            txtAgentPersonality.Size = new Size(374, 382);
+            txtAgentPersonality.Size = new Size(374, 136);
             txtAgentPersonality.TabIndex = 1;
-            // 
-            // grpAgentID
-            // 
-            grpAgentID.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            grpAgentID.Controls.Add(txtAgentID);
-            grpAgentID.Location = new Point(6, 60);
-            grpAgentID.Name = "grpAgentID";
-            grpAgentID.Size = new Size(380, 51);
-            grpAgentID.TabIndex = 1;
-            grpAgentID.TabStop = false;
-            grpAgentID.Text = "Agent id";
-            // 
-            // txtAgentID
-            // 
-            txtAgentID.Dock = DockStyle.Fill;
-            txtAgentID.Location = new Point(3, 19);
-            txtAgentID.Name = "txtAgentID";
-            txtAgentID.Size = new Size(374, 23);
-            txtAgentID.TabIndex = 1;
             // 
             // grpName
             // 
@@ -311,6 +368,7 @@
             // pnlAudio
             // 
             pnlAudio.AutoScroll = true;
+            pnlAudio.Controls.Add(grpAgentID);
             pnlAudio.Controls.Add(groupBox1);
             pnlAudio.Controls.Add(grpAudioDevices);
             pnlAudio.Dock = DockStyle.Fill;
@@ -319,12 +377,31 @@
             pnlAudio.Size = new Size(398, 653);
             pnlAudio.TabIndex = 0;
             // 
+            // grpAgentID
+            // 
+            grpAgentID.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            grpAgentID.Controls.Add(txtAgentID);
+            grpAgentID.Location = new Point(11, 3);
+            grpAgentID.Name = "grpAgentID";
+            grpAgentID.Size = new Size(380, 51);
+            grpAgentID.TabIndex = 8;
+            grpAgentID.TabStop = false;
+            grpAgentID.Text = "Agent id";
+            // 
+            // txtAgentID
+            // 
+            txtAgentID.Dock = DockStyle.Fill;
+            txtAgentID.Location = new Point(3, 19);
+            txtAgentID.Name = "txtAgentID";
+            txtAgentID.Size = new Size(374, 23);
+            txtAgentID.TabIndex = 1;
+            // 
             // groupBox1
             // 
             groupBox1.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             groupBox1.Controls.Add(groupBox3);
             groupBox1.Controls.Add(groupBox2);
-            groupBox1.Location = new Point(5, 172);
+            groupBox1.Location = new Point(5, 229);
             groupBox1.Name = "groupBox1";
             groupBox1.Size = new Size(390, 249);
             groupBox1.TabIndex = 7;
@@ -380,7 +457,7 @@
             grpAudioDevices.Controls.Add(lblMic);
             grpAudioDevices.Controls.Add(cmbSpeaker);
             grpAudioDevices.Controls.Add(lblSpeakers);
-            grpAudioDevices.Location = new Point(5, 3);
+            grpAudioDevices.Location = new Point(5, 60);
             grpAudioDevices.Name = "grpAudioDevices";
             grpAudioDevices.Size = new Size(390, 163);
             grpAudioDevices.TabIndex = 0;
@@ -652,6 +729,19 @@
             tabWebText.Text = "Web Text";
             tabWebText.UseVisualStyleBackColor = true;
             // 
+            // txtWebText
+            // 
+            txtWebText.BackColor = Color.White;
+            txtWebText.BorderStyle = BorderStyle.None;
+            txtWebText.Dock = DockStyle.Fill;
+            txtWebText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
+            txtWebText.Location = new Point(0, 0);
+            txtWebText.Name = "txtWebText";
+            txtWebText.ReadOnly = true;
+            txtWebText.Size = new Size(749, 536);
+            txtWebText.TabIndex = 1;
+            txtWebText.Text = "";
+            // 
             // grpUserInput
             // 
             grpUserInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
@@ -794,19 +884,6 @@
             btnPlayAudioToMic.Text = "Analyze audio";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
             // 
-            // txtWebText
-            // 
-            txtWebText.BackColor = Color.White;
-            txtWebText.BorderStyle = BorderStyle.None;
-            txtWebText.Dock = DockStyle.Fill;
-            txtWebText.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtWebText.Location = new Point(0, 0);
-            txtWebText.Name = "txtWebText";
-            txtWebText.ReadOnly = true;
-            txtWebText.Size = new Size(749, 536);
-            txtWebText.TabIndex = 1;
-            txtWebText.Text = "";
-            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -830,16 +907,23 @@
             tabPage1.ResumeLayout(false);
             agentSettingsGrp.ResumeLayout(false);
             settingsPanel.ResumeLayout(false);
+            groupBox7.ResumeLayout(false);
+            groupBox7.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)trackTemp).EndInit();
+            groupBox6.ResumeLayout(false);
+            groupBox6.PerformLayout();
+            groupBox5.ResumeLayout(false);
+            groupBox5.PerformLayout();
             grpAgentControl.ResumeLayout(false);
             grpAgentControl.PerformLayout();
             grpPersonality.ResumeLayout(false);
             grpPersonality.PerformLayout();
-            grpAgentID.ResumeLayout(false);
-            grpAgentID.PerformLayout();
             grpName.ResumeLayout(false);
             grpName.PerformLayout();
             tabPage2.ResumeLayout(false);
             pnlAudio.ResumeLayout(false);
+            grpAgentID.ResumeLayout(false);
+            grpAgentID.PerformLayout();
             groupBox1.ResumeLayout(false);
             groupBox3.ResumeLayout(false);
             groupBox2.ResumeLayout(false);
@@ -885,8 +969,6 @@
         private RichTextBox txtChat;
         private GroupBox grpName;
         private TextBox txtAgentName;
-        private GroupBox grpAgentID;
-        private TextBox txtAgentID;
         private GroupBox grpPersonality;
         private TextBox txtAgentPersonality;
         private Button btnReset;
@@ -936,5 +1018,13 @@
         private Microsoft.Web.WebView2.WinForms.WebView2 webView21;
         private TabPage tabWebText;
         private RichTextBox txtWebText;
+        private GroupBox groupBox7;
+        private TrackBar trackTemp;
+        private GroupBox groupBox6;
+        private TextBox txtAgentRoleEnforcer;
+        private GroupBox groupBox5;
+        private TextBox txtSystem;
+        private GroupBox grpAgentID;
+        private TextBox txtAgentID;
     }
 }
