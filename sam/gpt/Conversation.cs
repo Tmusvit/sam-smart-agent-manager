@@ -21,12 +21,13 @@ namespace sam.gpt
         private readonly List<string> systemPersonality;
 
         public string agentId { get; private set; }
+        public float temperature { get; private set; }
 
         // Create a list to hold chat messages
         public List<ChatMessage> chatHistory = new List<ChatMessage>();
 
         // Constructor for Conversation class that takes an API key and a list of system personalities as input.
-        public Conversation(string apiKey, List<string> systemPersonality, string agentId)
+        public Conversation(string apiKey, List<string> systemPersonality, string agentId, float focus)
         {
             // Initialize the SQLitePCLRaw library
             Batteries.Init();
@@ -37,6 +38,7 @@ namespace sam.gpt
             });
             this.systemPersonality = systemPersonality;
             this.agentId = agentId;
+            this.temperature = focus;
             CreateTable();
             LoadChatHistory();
         }
@@ -137,7 +139,7 @@ namespace sam.gpt
             return chatHistory;
         }
         // Method to start a conversation by taking a user's input and returning a response.
-        public async Task<List<string>> StartConversation(string userInput, bool requiresResponse)
+        public async Task<List<string>> StartConversation(string userInput, bool requiresResponse, float focus)
         {
             List<string> convResponse = new List<string> { };
             convResponse.Add("Sorry, I don't understand.");
@@ -167,7 +169,8 @@ namespace sam.gpt
                 var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
                 {
                     Messages = convMessages,
-                    Model = Models.ChatGpt3_5Turbo0301
+                    Model = Models.ChatGpt3_5Turbo0301,
+                    Temperature = focus,
                 });
 
                 // If successful, return the response and add it to the chat history

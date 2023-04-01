@@ -99,6 +99,7 @@
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
+            toolTipFocus = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -218,6 +219,7 @@
             // 
             // trackTemp
             // 
+            trackTemp.BackColor = Color.White;
             trackTemp.Dock = DockStyle.Fill;
             trackTemp.LargeChange = 1;
             trackTemp.Location = new Point(3, 19);
@@ -226,6 +228,9 @@
             trackTemp.Size = new Size(374, 50);
             trackTemp.TabIndex = 0;
             trackTemp.TickStyle = TickStyle.Both;
+            toolTipFocus.SetToolTip(trackTemp, resources.GetString("trackTemp.ToolTip"));
+            trackTemp.Scroll += trackTemp_Scroll;
+            trackTemp.ValueChanged += trackTemp_ValueChanged;
             // 
             // groupBox6
             // 
@@ -622,7 +627,6 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
-            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -884,6 +888,10 @@
             btnPlayAudioToMic.Text = "Analyze audio";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
             // 
+            // toolTipFocus
+            // 
+            toolTipFocus.ToolTipTitle = "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.";
+            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1026,5 +1034,6 @@
         private TextBox txtSystem;
         private GroupBox grpAgentID;
         private TextBox txtAgentID;
+        private ToolTip toolTipFocus;
     }
 }

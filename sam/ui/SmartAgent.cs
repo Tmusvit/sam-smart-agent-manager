@@ -15,6 +15,7 @@ using System.IO;
 using System.Security.Policy;
 using System.Speech.Recognition;
 using System.Speech.Synthesis;
+using System.Text.RegularExpressions;
 using System.Timers;
 using System.Xml;
 using WeifenLuo.WinFormsUI.Docking;
@@ -48,6 +49,7 @@ namespace sam
         public bool isTimerRunning { get; private set; }
         public bool speakerActive { get; private set; }
         public bool bNewBytesRecoded { get; private set; }
+        public float focustemperature { get; private set; } = 1;
 
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
@@ -140,10 +142,10 @@ namespace sam
                     AgentPersonality = SamUserSettings.Default.DefaultAgentPersonality,
                     SlaveAgents = new List<AgentSettings>(),
                     SlaveAgentMessage = txtSlaveMessage.Text,
-                    AgentEnforcer=txtAgentRoleEnforcer.Text,
-                    AgentFocus=trackTemp.Value,
-                    AgentSystem=txtSystem.Text,
-                    
+                    AgentEnforcer = txtAgentRoleEnforcer.Text,
+                    AgentFocus = trackTemp.Value,
+                    AgentSystem = txtSystem.Text,
+
                 };
             }
 
@@ -156,7 +158,7 @@ namespace sam
             trackTemp.Value = selectedAgentSettings.AgentFocus;
 
             // Create a new Conversation object with the specified API key, system personality, and agent ID
-            conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, new List<string> { txtAgentPersonality.Text }, txtAgentID.Text);
+            conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, new List<string> { txtAgentPersonality.Text }, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
 
             // Display the chat history in the chat window, with user input in green and GPT input in blue
             foreach (var chat in conversation.chatHistory)
@@ -167,6 +169,23 @@ namespace sam
             this.currentAgentSettings = selectedAgentSettings;
 
         }
+
+        public float ConvertToFloat(int x)
+        {
+            float result = 0.0f;
+
+            if (x < 0)
+            {
+                result = 0.1f * Math.Abs(x);
+            }
+            else
+            {
+                result = 0.1f * x + 1.0f;
+            }
+
+            return result;
+        }
+
 
         // Load the available text-to-speech voices and populate the corresponding form fields
         private void LoadTTSVoices()
@@ -255,9 +274,9 @@ namespace sam
                 AgentName = txtAgentName.Text,
                 AgentID = txtAgentID.Text,
                 AgentPersonality = txtAgentPersonality.Text,
-                AgentSystem=txtSystem.Text,
-                AgentEnforcer=txtAgentRoleEnforcer.Text,
-                AgentFocus=trackTemp.Value,
+                AgentSystem = txtSystem.Text,
+                AgentEnforcer = txtAgentRoleEnforcer.Text,
+                AgentFocus = trackTemp.Value,
                 SlaveAgentMessage = txtSlaveMessage.Text
             };
 
@@ -328,7 +347,7 @@ namespace sam
             if (conversation == null || this.currentAgentSettings.AgentPersonality != txtAgentPersonality.Text)
             {
                 List<string> systemPersonality = new List<string> { txtAgentPersonality.Text };
-                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemPersonality, txtAgentID.Text);
+                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemPersonality, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
             }
 
             if (txtUserInput.Text != "")
@@ -342,7 +361,7 @@ namespace sam
                 Invoke((Action)(() => txtUserInput.Text = ""));
 
                 // Start the conversation and append the system's response with blue text
-                List<string> response = await conversation.StartConversation(userInput, requiresResponse);
+                List<string> response = await conversation.StartConversation(userInput, requiresResponse, focustemperature);
 
                 foreach (string s in response)
                 {
@@ -462,7 +481,7 @@ namespace sam
 
                 systemPersonality.Add(txtAgentPersonality.Text);
 
-                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemPersonality, txtAgentID.Text);
+                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemPersonality, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
 
                 if (selectedFilePath != "")
                 {
@@ -823,6 +842,16 @@ namespace sam
         private void webView21_WebMessageReceived(object sender, CoreWebView2WebMessageReceivedEventArgs e)
         {
 
+        }
+
+        private void trackTemp_Scroll(object sender, EventArgs e)
+        {
+
+        }
+
+        private void trackTemp_ValueChanged(object sender, EventArgs e)
+        {
+            this.focustemperature = ConvertToFloat(trackTemp.Value);
         }
     }
 }
