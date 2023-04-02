@@ -158,7 +158,19 @@ namespace sam
             trackTemp.Value = selectedAgentSettings.AgentFocus;
 
             // Create a new Conversation object with the specified API key, system personality, and agent ID
-            conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, new List<string> { txtAgentPersonality.Text }, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
+            List<string> userPersonality = new List<string> { };
+
+            userPersonality.Add(txtAgentPersonality.Text);
+
+            List<string> systemUserPersonality = new List<string> { };
+
+            systemUserPersonality.Add(txtSystem.Text);
+
+            List<string> roleEnforcer = new List<string> { };
+
+            roleEnforcer.Add(txtAgentRoleEnforcer.Text);
+
+            conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemUserPersonality, userPersonality, roleEnforcer, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
 
             // Display the chat history in the chat window, with user input in green and GPT input in blue
             foreach (var chat in conversation.chatHistory)
@@ -346,8 +358,20 @@ namespace sam
 
             if (conversation == null || this.currentAgentSettings.AgentPersonality != txtAgentPersonality.Text)
             {
-                List<string> systemPersonality = new List<string> { txtAgentPersonality.Text };
-                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemPersonality, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
+                List<string> userPersonality = new List<string> { };
+
+                userPersonality.Add(txtAgentPersonality.Text);
+
+                List<string> systemUserPersonality = new List<string> { };
+
+                systemUserPersonality.Add(txtSystem.Text);
+
+                List<string> roleEnforcer = new List<string> { };
+
+                roleEnforcer.Add(txtAgentRoleEnforcer.Text);
+
+                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemUserPersonality, userPersonality, roleEnforcer, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
+
             }
 
             if (txtUserInput.Text != "")
@@ -477,11 +501,19 @@ namespace sam
             }));
             if (conversation == null)
             {
-                List<string> systemPersonality = new List<string> { };
+                List<string> userPersonality = new List<string> { };
 
-                systemPersonality.Add(txtAgentPersonality.Text);
+                userPersonality.Add(txtAgentPersonality.Text);
 
-                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemPersonality, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
+                List<string> systemUserPersonality = new List<string> { };
+
+                systemUserPersonality.Add(txtSystem.Text);
+
+                List<string> roleEnforcer = new List<string> { };
+
+                roleEnforcer.Add(txtAgentRoleEnforcer.Text);
+
+                conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, systemUserPersonality, userPersonality, roleEnforcer, txtAgentID.Text, ConvertToFloat(trackTemp.Value));
 
                 if (selectedFilePath != "")
                 {

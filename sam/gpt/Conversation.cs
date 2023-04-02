@@ -20,6 +20,8 @@ namespace sam.gpt
         private readonly OpenAIService sdk;
         private readonly List<string> systemPersonality;
 
+        public List<string> userPersonality { get; private set; }
+        public List<string> roleEnforcer { get; private set; }
         public string agentId { get; private set; }
         public float temperature { get; private set; }
 
@@ -27,7 +29,7 @@ namespace sam.gpt
         public List<ChatMessage> chatHistory = new List<ChatMessage>();
 
         // Constructor for Conversation class that takes an API key and a list of system personalities as input.
-        public Conversation(string apiKey, List<string> systemPersonality, string agentId, float focus)
+        public Conversation(string apiKey, List<string> systemPersonality, List<string> userPersonality, List<string> roleEnforcer, string agentId, float focus)
         {
             // Initialize the SQLitePCLRaw library
             Batteries.Init();
@@ -37,6 +39,8 @@ namespace sam.gpt
                 ApiKey = apiKey
             });
             this.systemPersonality = systemPersonality;
+            this.userPersonality= userPersonality;
+            this.roleEnforcer= roleEnforcer;
             this.agentId = agentId;
             this.temperature = focus;
             CreateTable();
@@ -148,6 +152,13 @@ namespace sam.gpt
             // Add system personality to conversation
             foreach (var per in systemPersonality)
             {
+                ChatMessage chatMessage = new ChatMessage("system", per);
+                convMessages.Add(chatMessage);
+            }
+
+            // Add user personality to conversation
+            foreach (var per in userPersonality)
+            {
                 ChatMessage chatMessage = new ChatMessage("user", per);
                 convMessages.Add(chatMessage);
             }
@@ -162,6 +173,13 @@ namespace sam.gpt
             SaveChatMessage(cmessage);
             convMessages.Add(cmessage);
             chatHistory.Add(cmessage);
+
+            // Add role enforcer to conversation
+            foreach (var per in roleEnforcer)
+            {
+                ChatMessage chatMessage = new ChatMessage("user", per);
+                convMessages.Add(chatMessage);
+            }
 
             if (requiresResponse)
             {

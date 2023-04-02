@@ -48,7 +48,10 @@ namespace sam
                             AgentName = agent.AgentName,
                             AgentID = agent.AgentID,
                             AgentPersonality = agent.AgentPersonality,
-                            SlaveAgentMessage=agent.SlaveAgentMessage
+                            SlaveAgentMessage=agent.SlaveAgentMessage,
+                            AgentSystem=agent.AgentSystem,
+                            AgentEnforcer=agent.AgentEnforcer,
+                            AgentFocus=agent.AgentFocus
                             
                         };
                         loadedAgentSettings.Add(agens);

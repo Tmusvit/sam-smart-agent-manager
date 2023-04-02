@@ -107,7 +107,10 @@ namespace sam
                             AgentName = act,
                             AgentID = Guid.NewGuid().ToString(),
                             AgentPersonality = prompt,
-                            SlaveAgentMessage = ""
+                            SlaveAgentMessage = "",
+                            AgentSystem = "",
+                            AgentEnforcer = "",
+                            AgentFocus = 1,
                         };
                         List<AgentSettings> slaveAgents = new List<AgentSettings>();
                         agentSettings.SlaveAgents = slaveAgents;
