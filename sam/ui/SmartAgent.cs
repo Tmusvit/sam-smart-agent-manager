@@ -156,7 +156,7 @@ namespace sam
             txtSystem.Text = selectedAgentSettings.AgentSystem;
             txtAgentRoleEnforcer.Text = selectedAgentSettings.AgentEnforcer;
             trackTemp.Value = selectedAgentSettings.AgentFocus;
-
+            txtTemp.Text = selectedAgentSettings.AgentFocus.ToString();
             // Create a new Conversation object with the specified API key, system personality, and agent ID
             List<string> userPersonality = new List<string> { };
 
@@ -195,7 +195,7 @@ namespace sam
                 result = 0.1f * x + 1.0f;
             }
 
-            return result;
+            return (float)Math.Round(result, 1);
         }
 
 
@@ -884,6 +884,7 @@ namespace sam
         private void trackTemp_ValueChanged(object sender, EventArgs e)
         {
             this.focustemperature = ConvertToFloat(trackTemp.Value);
+            txtTemp.Text = this.focustemperature.ToString();
         }
     }
 }

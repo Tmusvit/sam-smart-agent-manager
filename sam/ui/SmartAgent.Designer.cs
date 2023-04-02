@@ -100,6 +100,7 @@
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
             toolTipFocus = new ToolTip(components);
+            txtTemp = new TextBox();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -209,6 +210,7 @@
             // groupBox7
             // 
             groupBox7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            groupBox7.Controls.Add(txtTemp);
             groupBox7.Controls.Add(trackTemp);
             groupBox7.Location = new Point(6, 445);
             groupBox7.Name = "groupBox7";
@@ -219,13 +221,13 @@
             // 
             // trackTemp
             // 
+            trackTemp.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             trackTemp.BackColor = Color.White;
-            trackTemp.Dock = DockStyle.Fill;
             trackTemp.LargeChange = 1;
             trackTemp.Location = new Point(3, 19);
             trackTemp.Minimum = -10;
             trackTemp.Name = "trackTemp";
-            trackTemp.Size = new Size(374, 50);
+            trackTemp.Size = new Size(324, 45);
             trackTemp.TabIndex = 0;
             trackTemp.TickStyle = TickStyle.Both;
             toolTipFocus.SetToolTip(trackTemp, resources.GetString("trackTemp.ToolTip"));
@@ -627,6 +629,7 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
+            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -892,6 +895,14 @@
             // 
             toolTipFocus.ToolTipTitle = "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.";
             // 
+            // txtTemp
+            // 
+            txtTemp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtTemp.Location = new Point(333, 31);
+            txtTemp.Name = "txtTemp";
+            txtTemp.Size = new Size(41, 23);
+            txtTemp.TabIndex = 1;
+            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1035,5 +1046,6 @@
         private GroupBox grpAgentID;
         private TextBox txtAgentID;
         private ToolTip toolTipFocus;
+        private TextBox txtTemp;
     }
 }

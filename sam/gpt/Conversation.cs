@@ -148,7 +148,7 @@ namespace sam.gpt
             List<string> convResponse = new List<string> { };
             convResponse.Add("Sorry, I don't understand.");
             List<ChatMessage> convMessages = new List<ChatMessage> { };
-
+           
             // Add system personality to conversation
             foreach (var per in systemPersonality)
             {
