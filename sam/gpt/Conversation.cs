@@ -176,12 +176,12 @@ namespace sam.gpt
             return chatHistory;
         }
 
-        public List<ChatMessage> LoadTopThreeMessages(string searchParameter)
+        public List<ChatMessage> LoadTopMessages(string searchParameter)
         {
-            var topThreeMessages = new List<ChatMessage>();
+            var topMessages = new List<ChatMessage>();
             var connectionString = "Data Source=chat.db";
             var agentIdParam = "@AgentId";
-            var limit = 3;
+            var limit = 5;
 
             // Build the SQL command with LIKE or LIKE %query%
             var searchWords = searchParameter.Split(' ');
@@ -196,7 +196,7 @@ namespace sam.gpt
                 sqlBuilder.Append("Content LIKE '%' || @SearchParam" + i + " || '%'");
             }
 
-            sqlBuilder.Append(") ORDER BY id LIMIT " + limit);
+            sqlBuilder.Append(") ORDER BY id desc LIMIT " + limit);
 
             using (var connection = new SqliteConnection(connectionString))
             using (var command = new SqliteCommand(sqlBuilder.ToString(), connection))
@@ -215,13 +215,13 @@ namespace sam.gpt
                 {
                     while (reader.Read())
                     {
-                        var chatMessage = new ChatMessage(reader.GetString(0), reader.GetString(1));
-                        topThreeMessages.Add(chatMessage);
+                        var chatMessage = new ChatMessage("user", "{tiedät nämä tiedot: " + reader.GetString(1) + "}");
+                        topMessages.Add(chatMessage);
                     }
                 }
             }
 
-            return topThreeMessages;
+            return topMessages;
         }
 
 
@@ -237,12 +237,12 @@ namespace sam.gpt
             {
                 if(usr.Role=="user") 
                 {
-                   systemMemory.AddRange(LoadTopThreeMessages(userInput));
+                   systemMemory.AddRange(LoadTopMessages(userInput));
                 }
             }
             
 
-            systemMemory = LoadTopThreeMessages(userInput);
+            systemMemory = LoadTopMessages(userInput);
             
 
             // Add system personality to conversation
