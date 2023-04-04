@@ -51,9 +51,10 @@ namespace sam.helper
             var builder = new StringBuilder();
             foreach (var node in textNodes)
             {
-                if (node.InnerText.Length > 1)
+                var txt = node.InnerText.Replace("\n", "");
+                if (txt.Trim().Length > 1)
                 {
-                    builder.Append(node.InnerText + " ");
+                    builder.Append(txt.Trim() + " ");
                     if (builder.Length > 1000)
                     {
                         textList.Add(Regex.Replace(builder.ToString(), "<.*?>", ""));

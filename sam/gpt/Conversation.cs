@@ -44,7 +44,40 @@ namespace sam.gpt
             this.agentId = agentId;
             this.temperature = focus;
             CreateTable();
+            CreateMemoryTable();
             LoadChatHistory();
+        }
+        static void CreateMemoryTable()
+        {
+            try
+            {
+                if (!File.Exists("chat.db"))
+                {
+                    // Create a new database file if it doesn't exist
+                    File.Create("chat.db");
+                }
+
+                // Connect to the database
+                using (var connection = new SqliteConnection("Data Source=chat.db"))
+                {
+                    // Open the connection
+                    connection.Open();
+
+                    // Create the ChatHistory table if it doesn't exist
+                    string createsql = @"CREATE TABLE IF NOT EXISTS ChatMemory (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT, AgentId TEXT, Role TEXT, Content TEXT)";
+                    using (var cmd = new SqliteCommand(createsql, connection))
+                    {
+                        cmd.ExecuteNonQuery();
+                    }
+
+                    // Close the connection
+                    connection.Close();
+                }
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Error creating database: {ex.Message}");
+            }
         }
 
         static void CreateTable()
@@ -142,13 +175,76 @@ namespace sam.gpt
             }
             return chatHistory;
         }
+
+        public List<ChatMessage> LoadTopThreeMessages(string searchParameter)
+        {
+            var topThreeMessages = new List<ChatMessage>();
+            var connectionString = "Data Source=chat.db";
+            var agentIdParam = "@AgentId";
+            var limit = 3;
+
+            // Build the SQL command with LIKE or LIKE %query%
+            var searchWords = searchParameter.Split(' ');
+            var sqlBuilder = new StringBuilder("SELECT Role, Content FROM ChatMemory WHERE AgentId = " + agentIdParam + " AND (");
+
+            for (int i = 0; i < searchWords.Length; i++)
+            {
+                if (i > 0)
+                {
+                    sqlBuilder.Append(" OR ");
+                }
+                sqlBuilder.Append("Content LIKE '%' || @SearchParam" + i + " || '%'");
+            }
+
+            sqlBuilder.Append(") ORDER BY id LIMIT " + limit);
+
+            using (var connection = new SqliteConnection(connectionString))
+            using (var command = new SqliteCommand(sqlBuilder.ToString(), connection))
+            {
+                connection.Open();
+
+                // Set command parameters
+                command.Parameters.AddWithValue(agentIdParam, agentId);
+                for (int i = 0; i < searchWords.Length; i++)
+                {
+                    command.Parameters.AddWithValue("@SearchParam" + i, searchWords[i]);
+                }
+
+                // Read results
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var chatMessage = new ChatMessage(reader.GetString(0), reader.GetString(1));
+                        topThreeMessages.Add(chatMessage);
+                    }
+                }
+            }
+
+            return topThreeMessages;
+        }
+
+
         // Method to start a conversation by taking a user's input and returning a response.
         public async Task<List<string>> StartConversation(string userInput, bool requiresResponse, float focus)
         {
             List<string> convResponse = new List<string> { };
             convResponse.Add("Sorry, I don't understand.");
             List<ChatMessage> convMessages = new List<ChatMessage> { };
-           
+            List<ChatMessage> systemMemory = new List<ChatMessage> { };
+
+            foreach(var usr in chatHistory)
+            {
+                if(usr.Role=="user") 
+                {
+                   systemMemory.AddRange(LoadTopThreeMessages(userInput));
+                }
+            }
+            
+
+            systemMemory = LoadTopThreeMessages(userInput);
+            
+
             // Add system personality to conversation
             foreach (var per in systemPersonality)
             {
@@ -161,6 +257,12 @@ namespace sam.gpt
             {
                 ChatMessage chatMessage = new ChatMessage("user", per);
                 convMessages.Add(chatMessage);
+            }
+
+            // Add system memory to conversation
+            foreach (var per in systemMemory)
+            {
+                convMessages.Add(per);
             }
 
             // Add conversation history to conversation
@@ -190,11 +292,17 @@ namespace sam.gpt
                     Model = Models.ChatGpt3_5Turbo0301,
                     Temperature = focus,
                 });
-
+                
                 // If successful, return the response and add it to the chat history
                 if (completionResult.Successful)
                 {
                     convResponse.Clear();
+                    // Add system memory to conversation
+                    foreach (var per in systemMemory)
+                    {
+                        convResponse.Add(per.Content);
+                    }
+
                     foreach (var choises in completionResult.Choices)
                     {
                         convResponse.Add(choises.Message.Content);
@@ -205,7 +313,7 @@ namespace sam.gpt
 
                     return convResponse;
                 }
-
+                
                 return convResponse;
             }
             else

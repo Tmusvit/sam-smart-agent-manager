@@ -63,6 +63,46 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _211686_back_arrow_icon {
+            get {
+                object obj = ResourceManager.GetObject("211686_back_arrow_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _211686_back_arrow_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("211686_back_arrow_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _211688_forward_arrow_icon {
+            get {
+                object obj = ResourceManager.GetObject("211688_forward_arrow_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _211688_forward_arrow_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("211688_forward_arrow_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _2205218_folder_document_file_organize_icon {
             get {
                 object obj = ResourceManager.GetObject("2205218_folder_document_file_organize_icon", resourceCulture);
@@ -83,9 +123,49 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _326679_refresh_reload_icon {
+            get {
+                object obj = ResourceManager.GetObject("326679_refresh_reload_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _326679_refresh_reload_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("326679_refresh_reload_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _9035019_mic_off_icon {
             get {
                 object obj = ResourceManager.GetObject("9035019_mic_off_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _9035555_navigate_circle_outline_icon {
+            get {
+                object obj = ResourceManager.GetObject("9035555_navigate_circle_outline_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _9035555_navigate_circle_outline_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("9035555_navigate_circle_outline_icon_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }

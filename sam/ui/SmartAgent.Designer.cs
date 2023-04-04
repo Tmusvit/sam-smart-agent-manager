@@ -36,6 +36,7 @@
             agentSettingsGrp = new GroupBox();
             settingsPanel = new Panel();
             groupBox7 = new GroupBox();
+            txtTemp = new TextBox();
             trackTemp = new TrackBar();
             groupBox6 = new GroupBox();
             txtAgentRoleEnforcer = new TextBox();
@@ -84,6 +85,10 @@
             btnGo = new ToolStripButton();
             tabWebText = new TabPage();
             txtWebText = new RichTextBox();
+            tabDynPrompt = new TabPage();
+            dataDynamicPrompts = new DataGridView();
+            tabMemory = new TabPage();
+            dataPromptMemory = new DataGridView();
             grpUserInput = new GroupBox();
             pnlInput = new Panel();
             btnSend = new Button();
@@ -100,7 +105,6 @@
             btnRecordComputerAudio = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
             toolTipFocus = new ToolTip(components);
-            txtTemp = new TextBox();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -135,6 +139,10 @@
             ((System.ComponentModel.ISupportInitialize)webView21).BeginInit();
             toolWeb.SuspendLayout();
             tabWebText.SuspendLayout();
+            tabDynPrompt.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataDynamicPrompts).BeginInit();
+            tabMemory.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataPromptMemory).BeginInit();
             grpUserInput.SuspendLayout();
             pnlInput.SuspendLayout();
             agentStatus.SuspendLayout();
@@ -218,6 +226,14 @@
             groupBox7.TabIndex = 8;
             groupBox7.TabStop = false;
             groupBox7.Text = "Agent focus";
+            // 
+            // txtTemp
+            // 
+            txtTemp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
+            txtTemp.Location = new Point(333, 31);
+            txtTemp.Name = "txtTemp";
+            txtTemp.Size = new Size(41, 23);
+            txtTemp.TabIndex = 1;
             // 
             // trackTemp
             // 
@@ -533,6 +549,8 @@
             tabDialogs.Controls.Add(tabPageCode);
             tabDialogs.Controls.Add(tabWeb);
             tabDialogs.Controls.Add(tabWebText);
+            tabDialogs.Controls.Add(tabDynPrompt);
+            tabDialogs.Controls.Add(tabMemory);
             tabDialogs.Location = new Point(6, 3);
             tabDialogs.Name = "tabDialogs";
             tabDialogs.SelectedIndex = 0;
@@ -629,7 +647,6 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
-            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -684,29 +701,32 @@
             // btnBack
             // 
             btnBack.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnBack.Image = (Image)resources.GetObject("btnBack.Image");
+            btnBack.Image = Properties.Resources._211686_back_arrow_icon_24;
             btnBack.ImageTransparentColor = Color.Magenta;
             btnBack.Name = "btnBack";
             btnBack.Size = new Size(23, 22);
             btnBack.Text = "Back";
+            btnBack.Click += btnBack_Click;
             // 
             // btnForward
             // 
             btnForward.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnForward.Image = (Image)resources.GetObject("btnForward.Image");
+            btnForward.Image = Properties.Resources._211688_forward_arrow_icon_24;
             btnForward.ImageTransparentColor = Color.Magenta;
             btnForward.Name = "btnForward";
             btnForward.Size = new Size(23, 22);
             btnForward.Text = "Forward";
+            btnForward.Click += btnForward_Click;
             // 
             // btnRefresh
             // 
             btnRefresh.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnRefresh.Image = (Image)resources.GetObject("btnRefresh.Image");
+            btnRefresh.Image = Properties.Resources._326679_refresh_reload_icon_24;
             btnRefresh.ImageTransparentColor = Color.Magenta;
             btnRefresh.Name = "btnRefresh";
             btnRefresh.Size = new Size(23, 22);
             btnRefresh.Text = "Refresh";
+            btnRefresh.Click += btnRefresh_Click;
             // 
             // txtAddress
             // 
@@ -719,7 +739,7 @@
             // 
             btnGo.Alignment = ToolStripItemAlignment.Right;
             btnGo.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnGo.Image = (Image)resources.GetObject("btnGo.Image");
+            btnGo.Image = Properties.Resources._9035555_navigate_circle_outline_icon_24;
             btnGo.ImageTransparentColor = Color.Magenta;
             btnGo.Name = "btnGo";
             btnGo.Size = new Size(23, 22);
@@ -748,6 +768,54 @@
             txtWebText.Size = new Size(749, 536);
             txtWebText.TabIndex = 1;
             txtWebText.Text = "";
+            // 
+            // tabDynPrompt
+            // 
+            tabDynPrompt.Controls.Add(dataDynamicPrompts);
+            tabDynPrompt.Location = new Point(4, 24);
+            tabDynPrompt.Name = "tabDynPrompt";
+            tabDynPrompt.Size = new Size(749, 536);
+            tabDynPrompt.TabIndex = 4;
+            tabDynPrompt.Text = "Dynamic Prompt memory";
+            tabDynPrompt.UseVisualStyleBackColor = true;
+            // 
+            // dataDynamicPrompts
+            // 
+            dataDynamicPrompts.AllowUserToAddRows = false;
+            dataDynamicPrompts.AllowUserToDeleteRows = false;
+            dataDynamicPrompts.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataDynamicPrompts.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllHeaders;
+            dataDynamicPrompts.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataDynamicPrompts.Dock = DockStyle.Fill;
+            dataDynamicPrompts.Location = new Point(0, 0);
+            dataDynamicPrompts.Name = "dataDynamicPrompts";
+            dataDynamicPrompts.RowTemplate.Height = 25;
+            dataDynamicPrompts.Size = new Size(749, 536);
+            dataDynamicPrompts.TabIndex = 0;
+            // 
+            // tabMemory
+            // 
+            tabMemory.Controls.Add(dataPromptMemory);
+            tabMemory.Location = new Point(4, 24);
+            tabMemory.Name = "tabMemory";
+            tabMemory.Size = new Size(749, 536);
+            tabMemory.TabIndex = 5;
+            tabMemory.Text = "Prompt Memory";
+            tabMemory.UseVisualStyleBackColor = true;
+            // 
+            // dataPromptMemory
+            // 
+            dataPromptMemory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataPromptMemory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataPromptMemory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataPromptMemory.Dock = DockStyle.Fill;
+            dataPromptMemory.Location = new Point(0, 0);
+            dataPromptMemory.Name = "dataPromptMemory";
+            dataPromptMemory.RowTemplate.Height = 25;
+            dataPromptMemory.Size = new Size(749, 536);
+            dataPromptMemory.TabIndex = 1;
+            dataPromptMemory.CellBeginEdit += dataPromptMemory_CellBeginEdit;
+            dataPromptMemory.RowValidated += dataPromptMemory_RowValidated;
             // 
             // grpUserInput
             // 
@@ -895,14 +963,6 @@
             // 
             toolTipFocus.ToolTipTitle = "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.";
             // 
-            // txtTemp
-            // 
-            txtTemp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtTemp.Location = new Point(333, 31);
-            txtTemp.Name = "txtTemp";
-            txtTemp.Size = new Size(41, 23);
-            txtTemp.TabIndex = 1;
-            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -963,6 +1023,10 @@
             toolWeb.ResumeLayout(false);
             toolWeb.PerformLayout();
             tabWebText.ResumeLayout(false);
+            tabDynPrompt.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataDynamicPrompts).EndInit();
+            tabMemory.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataPromptMemory).EndInit();
             grpUserInput.ResumeLayout(false);
             pnlInput.ResumeLayout(false);
             pnlInput.PerformLayout();
@@ -1047,5 +1111,9 @@
         private TextBox txtAgentID;
         private ToolTip toolTipFocus;
         private TextBox txtTemp;
+        private TabPage tabDynPrompt;
+        private DataGridView dataDynamicPrompts;
+        private TabPage tabMemory;
+        private DataGridView dataPromptMemory;
     }
 }
