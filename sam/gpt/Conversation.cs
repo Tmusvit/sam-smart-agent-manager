@@ -241,9 +241,17 @@ namespace sam.gpt
             // Use LINQ to filter the input list and add any matches to the result list.
             List<string> resultList = inputList.Where(input => regex.IsMatch(input)).ToList();
 
-            // Return the list of matching sentences.
-            return resultList;
+            // Sort the result list by the number of search term matches in each sentence.
+            resultList.Sort((a, b) => {
+                int aMatches = regex.Matches(a).Count;
+                int bMatches = regex.Matches(b).Count;
+                return bMatches.CompareTo(aMatches);
+            });
+
+            // Return only the top 5 best results.
+            return resultList.Take(5).ToList();
         }
+
 
 
 
@@ -255,13 +263,13 @@ namespace sam.gpt
             List<ChatMessage> convMessages = new List<ChatMessage> { };
             List<ChatMessage> systemMemory = new List<ChatMessage> { };
 
-            foreach(var usr in chatHistory)
-            {
-                if(usr.Role=="user") 
-                {
-                   systemMemory.AddRange(LoadTopMessages(userInput));
-                }
-            }
+            //foreach(var usr in chatHistory)
+            //{
+            //    if(usr.Role=="user") 
+            //    {
+            //       systemMemory.AddRange(LoadTopMessages(userInput));
+            //    }
+            //}
             
 
             systemMemory = LoadTopMessages(userInput);
