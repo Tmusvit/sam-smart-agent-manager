@@ -258,60 +258,26 @@ namespace sam.gpt
         // Method to start a conversation by taking a user's input and returning a response.
         public async Task<List<string>> StartConversation(string userInput, bool requiresResponse, float focus)
         {
-            List<string> convResponse = new List<string> { };
-            convResponse.Add("Sorry, I don't understand.");
-            List<ChatMessage> convMessages = new List<ChatMessage> { };
-            List<ChatMessage> systemMemory = new List<ChatMessage> { };
+            List<string> convResponse = new List<string> { "Sorry, I don't understand." };
+            List<ChatMessage> convMessages = new List<ChatMessage>();
+            List<ChatMessage> systemMemory = LoadTopMessages(userInput);
 
-            //foreach(var usr in chatHistory)
-            //{
-            //    if(usr.Role=="user") 
-            //    {
-            //       systemMemory.AddRange(LoadTopMessages(userInput));
-            //    }
-            //}
-            
+            // Add system and user personalities to conversation
+            systemPersonality.ForEach(per => convMessages.Add(new ChatMessage("system", per)));
+            userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
 
-            systemMemory = LoadTopMessages(userInput);
-            
+            // Add system memory and conversation history to conversation
+            systemMemory.ForEach(convMessages.Add);
+            chatHistory.ForEach(convMessages.Add);
 
-            // Add system personality to conversation
-            foreach (var per in systemPersonality)
-            {
-                ChatMessage chatMessage = new ChatMessage("system", per);
-                convMessages.Add(chatMessage);
-            }
-
-            // Add user personality to conversation
-            foreach (var per in userPersonality)
-            {
-                ChatMessage chatMessage = new ChatMessage("user", per);
-                convMessages.Add(chatMessage);
-            }
-
-            // Add system memory to conversation
-            foreach (var per in systemMemory)
-            {
-                convMessages.Add(per);
-            }
-
-            // Add conversation history to conversation
-            foreach (var chis in chatHistory)
-            {
-                convMessages.Add(chis);
-            }
-
+            // Save user input and add to conversation messages
             ChatMessage cmessage = new ChatMessage("user", userInput);
             SaveChatMessage(cmessage);
             convMessages.Add(cmessage);
             chatHistory.Add(cmessage);
 
             // Add role enforcer to conversation
-            foreach (var per in roleEnforcer)
-            {
-                ChatMessage chatMessage = new ChatMessage("user", per);
-                convMessages.Add(chatMessage);
-            }
+            roleEnforcer.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
 
             if (requiresResponse)
             {
@@ -322,33 +288,29 @@ namespace sam.gpt
                     Model = Models.ChatGpt3_5Turbo0301,
                     Temperature = focus,
                 });
-                
+
                 // If successful, return the response and add it to the chat history
                 if (completionResult.Successful)
                 {
                     convResponse.Clear();
-                    // Add system memory to conversation
-                    foreach (var per in systemMemory)
-                    {
-                        convResponse.Add(per.Content);
-                    }
+                    systemMemory.ForEach(per => convResponse.Add(per.Content));
 
-                    foreach (var choises in completionResult.Choices)
+                    completionResult.Choices.ForEach(choises =>
                     {
                         convResponse.Add(choises.Message.Content);
                         ChatMessage npcmessage = new ChatMessage("assistant", choises.Message.Content);
                         chatHistory.Add(npcmessage);
                         SaveChatMessage(npcmessage);
-                    }
+                    });
 
                     return convResponse;
                 }
-                
+
                 return convResponse;
             }
             else
             {
-                return new List<string> { };
+                return new List<string>();
             }
         }
 
