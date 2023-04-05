@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using Microsoft.Data.Sqlite;
 using FastColoredTextBoxNS;
 using SQLitePCL;
+using System.Text.RegularExpressions;
 
 namespace sam.gpt
 {
@@ -151,78 +152,99 @@ namespace sam.gpt
 
         public List<ChatMessage> LoadChatHistory()
         {
+            List<ChatMessage> chatHistory = new List<ChatMessage>();
 
-            if (File.Exists("chat.db"))
+            try
             {
-                using (var connection = new SqliteConnection("Data Source=chat.db"))
+                if (File.Exists("chat.db"))
                 {
-                    connection.Open();
-
-                    var command = new SqliteCommand();
-                    command.Connection = connection;
-                    command.CommandText = "select Role, Content from ChatHistory where AgentId = @AgentId order by id";
-                    command.Parameters.AddWithValue("@AgentId", agentId);
-
-                    using (var reader = command.ExecuteReader())
+                    using (var connection = new SqliteConnection("Data Source=chat.db"))
                     {
-                        while (reader.Read())
+                        connection.Open();
+
+                        var command = new SqliteCommand();
+                        command.Connection = connection;
+                        command.CommandText = "select Role, Content from ChatHistory where AgentId = @AgentId order by id";
+                        command.Parameters.AddWithValue("@AgentId", agentId);
+
+                        using (var reader = command.ExecuteReader())
                         {
-                            ChatMessage chatMessage = new ChatMessage((string)reader["Role"], (string)reader["Content"]);
-                            chatHistory.Add(chatMessage);
+                            while (reader.Read())
+                            {
+                                ChatMessage chatMessage = new ChatMessage((string)reader["Role"], (string)reader["Content"]);
+                                chatHistory.Add(chatMessage);
+                            }
                         }
                     }
                 }
+                else
+                {
+                    Console.WriteLine("The database file does not exist.");
+                }
             }
+            catch (SqliteException ex)
+            {
+                Console.WriteLine($"An error occurred while loading chat history: {ex.Message}");
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"An unexpected error occurred: {ex.Message}");
+            }
+
             return chatHistory;
         }
+
 
         public List<ChatMessage> LoadTopMessages(string searchParameter)
         {
             var topMessages = new List<ChatMessage>();
             var connectionString = "Data Source=chat.db";
-            var agentIdParam = "@AgentId";
-            var limit = 5;
+            
 
-            // Build the SQL command with LIKE or LIKE %query%
-            var searchWords = searchParameter.Split(' ');
-            var sqlBuilder = new StringBuilder("SELECT Role, Content FROM ChatMemory WHERE AgentId = " + agentIdParam + " AND (");
-
-            for (int i = 0; i < searchWords.Length; i++)
-            {
-                if (i > 0)
-                {
-                    sqlBuilder.Append(" OR ");
-                }
-                sqlBuilder.Append("Content LIKE '%' || @SearchParam" + i + " || '%'");
-            }
-
-            sqlBuilder.Append(") ORDER BY id desc LIMIT " + limit);
+            var sqlBuilder = "SELECT Role, Content FROM ChatMemory WHERE AgentId = @AgentId";
+            List<string> dbString = new List<string>();
 
             using (var connection = new SqliteConnection(connectionString))
-            using (var command = new SqliteCommand(sqlBuilder.ToString(), connection))
+            using (var command = new SqliteCommand(sqlBuilder, connection))
             {
                 connection.Open();
 
                 // Set command parameters
-                command.Parameters.AddWithValue(agentIdParam, agentId);
-                for (int i = 0; i < searchWords.Length; i++)
-                {
-                    command.Parameters.AddWithValue("@SearchParam" + i, searchWords[i]);
-                }
-
-                // Read results
+                command.Parameters.AddWithValue("@AgentId", agentId);
+                
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
                     {
-                        var chatMessage = new ChatMessage("user", "{tiedät nämä tiedot: " + reader.GetString(1) + "}");
-                        topMessages.Add(chatMessage);
+                        dbString.Add(reader.GetString(1).ToLower());
                     }
                 }
             }
-
+            List<string> filteredSearch = SearchList(dbString,  searchParameter.ToLower());
+            foreach (string filter in filteredSearch)
+            {
+                var chatMessage = new ChatMessage("user", "{tiedät nämä tiedot: " + filter + "}");
+                topMessages.Add(chatMessage);
+            }
+            
             return topMessages;
         }
+        public static List<string> SearchList(List<string> inputList, string searchTerm)
+        {
+            // Split the search term into individual words.
+            string[] searchWords = searchTerm.Split(' ');
+
+            // Create the regular expression to find any of the search terms.
+            string regexPattern = @"(\b[\w\s]+\b).*?(" + string.Join("|", searchWords.Select(w => Regex.Escape(w))) + @")[^\.]*\.";
+            Regex regex = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
+
+            // Use LINQ to filter the input list and add any matches to the result list.
+            List<string> resultList = inputList.Where(input => regex.IsMatch(input)).ToList();
+
+            // Return the list of matching sentences.
+            return resultList;
+        }
+
 
 
         // Method to start a conversation by taking a user's input and returning a response.

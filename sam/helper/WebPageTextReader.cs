@@ -55,7 +55,7 @@ namespace sam.helper
                 if (txt.Trim().Length > 1)
                 {
                     builder.Append(txt.Trim() + " ");
-                    if (builder.Length > 1000)
+                    if (builder.Length > 250)
                     {
                         textList.Add(Regex.Replace(builder.ToString(), "<.*?>", ""));
                         builder.Clear();
