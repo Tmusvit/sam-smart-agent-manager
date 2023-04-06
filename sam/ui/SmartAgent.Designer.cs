@@ -66,6 +66,7 @@
             lblMic = new Label();
             cmbSpeaker = new ComboBox();
             lblSpeakers = new Label();
+            splitContainerChat = new SplitContainer();
             tabDialogs = new TabControl();
             tabPageText = new TabPage();
             agentConversation = new GroupBox();
@@ -127,6 +128,10 @@
             groupBox3.SuspendLayout();
             groupBox2.SuspendLayout();
             grpAudioDevices.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)splitContainerChat).BeginInit();
+            splitContainerChat.Panel1.SuspendLayout();
+            splitContainerChat.Panel2.SuspendLayout();
+            splitContainerChat.SuspendLayout();
             tabDialogs.SuspendLayout();
             tabPageText.SuspendLayout();
             agentConversation.SuspendLayout();
@@ -161,8 +166,7 @@
             // 
             // agentContainer.Panel2
             // 
-            agentContainer.Panel2.Controls.Add(tabDialogs);
-            agentContainer.Panel2.Controls.Add(grpUserInput);
+            agentContainer.Panel2.Controls.Add(splitContainerChat);
             agentContainer.Size = new Size(1185, 687);
             agentContainer.SplitterDistance = 412;
             agentContainer.TabIndex = 0;
@@ -542,19 +546,37 @@
             lblSpeakers.TabIndex = 0;
             lblSpeakers.Text = "Speakers or vr (Generally the virtual audio cable)";
             // 
+            // splitContainerChat
+            // 
+            splitContainerChat.Dock = DockStyle.Fill;
+            splitContainerChat.Location = new Point(0, 0);
+            splitContainerChat.Name = "splitContainerChat";
+            splitContainerChat.Orientation = Orientation.Horizontal;
+            // 
+            // splitContainerChat.Panel1
+            // 
+            splitContainerChat.Panel1.Controls.Add(tabDialogs);
+            // 
+            // splitContainerChat.Panel2
+            // 
+            splitContainerChat.Panel2.Controls.Add(grpUserInput);
+            splitContainerChat.Size = new Size(769, 687);
+            splitContainerChat.SplitterDistance = 343;
+            splitContainerChat.TabIndex = 3;
+            // 
             // tabDialogs
             // 
-            tabDialogs.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             tabDialogs.Controls.Add(tabPageText);
             tabDialogs.Controls.Add(tabPageCode);
             tabDialogs.Controls.Add(tabWeb);
             tabDialogs.Controls.Add(tabWebText);
             tabDialogs.Controls.Add(tabDynPrompt);
             tabDialogs.Controls.Add(tabMemory);
-            tabDialogs.Location = new Point(6, 3);
+            tabDialogs.Dock = DockStyle.Fill;
+            tabDialogs.Location = new Point(0, 0);
             tabDialogs.Name = "tabDialogs";
             tabDialogs.SelectedIndex = 0;
-            tabDialogs.Size = new Size(757, 564);
+            tabDialogs.Size = new Size(769, 343);
             tabDialogs.TabIndex = 2;
             // 
             // tabPageText
@@ -563,7 +585,7 @@
             tabPageText.Location = new Point(4, 24);
             tabPageText.Name = "tabPageText";
             tabPageText.Padding = new Padding(3);
-            tabPageText.Size = new Size(749, 536);
+            tabPageText.Size = new Size(761, 315);
             tabPageText.TabIndex = 0;
             tabPageText.Text = "Text";
             tabPageText.UseVisualStyleBackColor = true;
@@ -574,7 +596,7 @@
             agentConversation.Dock = DockStyle.Fill;
             agentConversation.Location = new Point(3, 3);
             agentConversation.Name = "agentConversation";
-            agentConversation.Size = new Size(743, 530);
+            agentConversation.Size = new Size(755, 309);
             agentConversation.TabIndex = 0;
             agentConversation.TabStop = false;
             agentConversation.Text = "Conversation";
@@ -586,7 +608,7 @@
             conversationContentPanel.Dock = DockStyle.Fill;
             conversationContentPanel.Location = new Point(3, 19);
             conversationContentPanel.Name = "conversationContentPanel";
-            conversationContentPanel.Size = new Size(737, 508);
+            conversationContentPanel.Size = new Size(749, 287);
             conversationContentPanel.TabIndex = 0;
             // 
             // txtChat
@@ -598,7 +620,7 @@
             txtChat.Location = new Point(0, 0);
             txtChat.Name = "txtChat";
             txtChat.ReadOnly = true;
-            txtChat.Size = new Size(737, 508);
+            txtChat.Size = new Size(749, 287);
             txtChat.TabIndex = 0;
             txtChat.Text = "";
             // 
@@ -608,7 +630,7 @@
             tabPageCode.Location = new Point(4, 24);
             tabPageCode.Name = "tabPageCode";
             tabPageCode.Padding = new Padding(3);
-            tabPageCode.Size = new Size(749, 536);
+            tabPageCode.Size = new Size(761, 315);
             tabPageCode.TabIndex = 1;
             tabPageCode.Text = "C# Code";
             tabPageCode.UseVisualStyleBackColor = true;
@@ -619,7 +641,7 @@
             groupBox4.Dock = DockStyle.Fill;
             groupBox4.Location = new Point(3, 3);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(743, 530);
+            groupBox4.Size = new Size(755, 309);
             groupBox4.TabIndex = 1;
             groupBox4.TabStop = false;
             groupBox4.Text = "Code";
@@ -631,7 +653,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 19);
             panel1.Name = "panel1";
-            panel1.Size = new Size(737, 508);
+            panel1.Size = new Size(749, 287);
             panel1.TabIndex = 0;
             // 
             // txtCode
@@ -647,6 +669,7 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
+            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -658,7 +681,7 @@
             txtCode.RightBracket2 = '}';
             txtCode.SelectionColor = Color.FromArgb(60, 0, 0, 255);
             txtCode.ServiceColors = (FastColoredTextBoxNS.ServiceColors)resources.GetObject("txtCode.ServiceColors");
-            txtCode.Size = new Size(737, 508);
+            txtCode.Size = new Size(749, 287);
             txtCode.TabIndex = 0;
             txtCode.Zoom = 100;
             // 
@@ -668,7 +691,7 @@
             tabWeb.Controls.Add(toolWeb);
             tabWeb.Location = new Point(4, 24);
             tabWeb.Name = "tabWeb";
-            tabWeb.Size = new Size(749, 536);
+            tabWeb.Size = new Size(761, 315);
             tabWeb.TabIndex = 2;
             tabWeb.Text = "Web";
             tabWeb.UseVisualStyleBackColor = true;
@@ -681,7 +704,7 @@
             webView21.DefaultBackgroundColor = Color.White;
             webView21.Location = new Point(3, 28);
             webView21.Name = "webView21";
-            webView21.Size = new Size(743, 505);
+            webView21.Size = new Size(755, 284);
             webView21.Source = new Uri("https://bing.com/", UriKind.Absolute);
             webView21.TabIndex = 1;
             webView21.ZoomFactor = 1D;
@@ -694,7 +717,7 @@
             toolWeb.Items.AddRange(new ToolStripItem[] { btnBack, btnForward, btnRefresh, txtAddress, btnGo });
             toolWeb.Location = new Point(0, 0);
             toolWeb.Name = "toolWeb";
-            toolWeb.Size = new Size(749, 25);
+            toolWeb.Size = new Size(761, 25);
             toolWeb.TabIndex = 0;
             toolWeb.Text = "toolStrip1";
             // 
@@ -751,7 +774,7 @@
             tabWebText.Controls.Add(txtWebText);
             tabWebText.Location = new Point(4, 24);
             tabWebText.Name = "tabWebText";
-            tabWebText.Size = new Size(749, 536);
+            tabWebText.Size = new Size(761, 315);
             tabWebText.TabIndex = 3;
             tabWebText.Text = "Web Text";
             tabWebText.UseVisualStyleBackColor = true;
@@ -765,7 +788,7 @@
             txtWebText.Location = new Point(0, 0);
             txtWebText.Name = "txtWebText";
             txtWebText.ReadOnly = true;
-            txtWebText.Size = new Size(749, 536);
+            txtWebText.Size = new Size(761, 315);
             txtWebText.TabIndex = 1;
             txtWebText.Text = "";
             // 
@@ -774,7 +797,7 @@
             tabDynPrompt.Controls.Add(dataDynamicPrompts);
             tabDynPrompt.Location = new Point(4, 24);
             tabDynPrompt.Name = "tabDynPrompt";
-            tabDynPrompt.Size = new Size(749, 536);
+            tabDynPrompt.Size = new Size(761, 315);
             tabDynPrompt.TabIndex = 4;
             tabDynPrompt.Text = "Dynamic Prompt memory";
             tabDynPrompt.UseVisualStyleBackColor = true;
@@ -790,7 +813,7 @@
             dataDynamicPrompts.Location = new Point(0, 0);
             dataDynamicPrompts.Name = "dataDynamicPrompts";
             dataDynamicPrompts.RowTemplate.Height = 25;
-            dataDynamicPrompts.Size = new Size(749, 536);
+            dataDynamicPrompts.Size = new Size(761, 315);
             dataDynamicPrompts.TabIndex = 0;
             // 
             // tabMemory
@@ -798,7 +821,7 @@
             tabMemory.Controls.Add(dataPromptMemory);
             tabMemory.Location = new Point(4, 24);
             tabMemory.Name = "tabMemory";
-            tabMemory.Size = new Size(749, 536);
+            tabMemory.Size = new Size(761, 315);
             tabMemory.TabIndex = 5;
             tabMemory.Text = "Prompt Memory";
             tabMemory.UseVisualStyleBackColor = true;
@@ -812,18 +835,18 @@
             dataPromptMemory.Location = new Point(0, 0);
             dataPromptMemory.Name = "dataPromptMemory";
             dataPromptMemory.RowTemplate.Height = 25;
-            dataPromptMemory.Size = new Size(749, 536);
+            dataPromptMemory.Size = new Size(761, 315);
             dataPromptMemory.TabIndex = 1;
             dataPromptMemory.CellBeginEdit += dataPromptMemory_CellBeginEdit;
             dataPromptMemory.RowValidated += dataPromptMemory_RowValidated;
             // 
             // grpUserInput
             // 
-            grpUserInput.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             grpUserInput.Controls.Add(pnlInput);
-            grpUserInput.Location = new Point(3, 573);
+            grpUserInput.Dock = DockStyle.Fill;
+            grpUserInput.Location = new Point(0, 0);
             grpUserInput.Name = "grpUserInput";
-            grpUserInput.Size = new Size(760, 114);
+            grpUserInput.Size = new Size(769, 340);
             grpUserInput.TabIndex = 1;
             grpUserInput.TabStop = false;
             grpUserInput.Text = "User input";
@@ -836,15 +859,15 @@
             pnlInput.Dock = DockStyle.Fill;
             pnlInput.Location = new Point(3, 19);
             pnlInput.Name = "pnlInput";
-            pnlInput.Size = new Size(754, 92);
+            pnlInput.Size = new Size(763, 318);
             pnlInput.TabIndex = 0;
             // 
             // btnSend
             // 
-            btnSend.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSend.Location = new Point(673, 3);
+            btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            btnSend.Location = new Point(7, 275);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(78, 86);
+            btnSend.Size = new Size(753, 39);
             btnSend.TabIndex = 1;
             btnSend.Text = "Send";
             btnSend.UseVisualStyleBackColor = true;
@@ -852,14 +875,14 @@
             // 
             // txtUserInput
             // 
-            txtUserInput.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
+            txtUserInput.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtUserInput.BackColor = Color.White;
             txtUserInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtUserInput.Location = new Point(3, 3);
             txtUserInput.Multiline = true;
             txtUserInput.Name = "txtUserInput";
             txtUserInput.ScrollBars = ScrollBars.Vertical;
-            txtUserInput.Size = new Size(664, 86);
+            txtUserInput.Size = new Size(753, 266);
             txtUserInput.TabIndex = 0;
             // 
             // agentStatus
@@ -1009,6 +1032,10 @@
             groupBox2.PerformLayout();
             grpAudioDevices.ResumeLayout(false);
             grpAudioDevices.PerformLayout();
+            splitContainerChat.Panel1.ResumeLayout(false);
+            splitContainerChat.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)splitContainerChat).EndInit();
+            splitContainerChat.ResumeLayout(false);
             tabDialogs.ResumeLayout(false);
             tabPageText.ResumeLayout(false);
             agentConversation.ResumeLayout(false);
@@ -1115,5 +1142,6 @@
         private DataGridView dataDynamicPrompts;
         private TabPage tabMemory;
         private DataGridView dataPromptMemory;
+        private SplitContainer splitContainerChat;
     }
 }

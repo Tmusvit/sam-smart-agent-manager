@@ -195,7 +195,7 @@ namespace sam
             txtAgentRoleEnforcer.Text = selectedAgentSettings.AgentEnforcer;
             trackTemp.Value = selectedAgentSettings.AgentFocus;
             txtTemp.Text = ConvertToFloat(trackTemp.Value).ToString();
-            
+
             // Create a new Conversation object with the specified API key, system personality, and agent ID
             List<string> userPersonality = new List<string> { };
 
