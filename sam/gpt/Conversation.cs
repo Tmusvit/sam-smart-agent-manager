@@ -152,8 +152,7 @@ namespace sam.gpt
 
         public List<ChatMessage> LoadChatHistory()
         {
-            List<ChatMessage> chatHistory = new List<ChatMessage>();
-
+           chatHistory.Clear();
             try
             {
                 if (File.Exists("chat.db"))
@@ -268,10 +267,33 @@ namespace sam.gpt
 
             // Add system memory and conversation history to conversation
             systemMemory.ForEach(convMessages.Add);
-            chatHistory.ForEach(convMessages.Add);
+
+            List<ChatMessage> messagesToAdd = new List<ChatMessage>();
+            int totalLength = 0;
+
+            // Add the most recent messages to the messagesToAdd list in reverse order
+            for (int i = chatHistory.Count - 1; i >= 0; i--)
+            {
+                ChatMessage message = chatHistory[i];
+                if (totalLength + message.Content.Length > 2500)
+                {
+                    break;
+                }
+                messagesToAdd.Add(message);
+                totalLength += message.Content.Length;
+            }
+
+            // Reverse the order of the messagesToAdd list so that the messages are in chronological order
+            messagesToAdd.Reverse();
+
+            // Add the messages from messagesToAdd to convMessages
+            messagesToAdd.ForEach(convMessages.Add);
+
+
+            //chatHistory.ForEach(convMessages.Add);
 
             // Save user input and add to conversation messages
-            ChatMessage cmessage = new ChatMessage("user", userInput);
+            ChatMessage cmessage = new ChatMessage("assistant", userInput);
             SaveChatMessage(cmessage);
             convMessages.Add(cmessage);
             chatHistory.Add(cmessage);
@@ -281,6 +303,9 @@ namespace sam.gpt
 
             if (requiresResponse)
             {
+
+               
+
                 // Create a completion result using the SDK and the conversation messages
                 var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
                 {
