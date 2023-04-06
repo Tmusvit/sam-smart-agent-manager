@@ -224,7 +224,7 @@
             groupBox7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox7.Controls.Add(txtTemp);
             groupBox7.Controls.Add(trackTemp);
-            groupBox7.Location = new Point(6, 445);
+            groupBox7.Location = new Point(6, 470);
             groupBox7.Name = "groupBox7";
             groupBox7.Size = new Size(380, 72);
             groupBox7.TabIndex = 8;
@@ -260,7 +260,7 @@
             groupBox6.Controls.Add(txtAgentRoleEnforcer);
             groupBox6.Location = new Point(6, 317);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(380, 122);
+            groupBox6.Size = new Size(380, 147);
             groupBox6.TabIndex = 7;
             groupBox6.TabStop = false;
             groupBox6.Text = "Agent role enforcer";
@@ -272,7 +272,7 @@
             txtAgentRoleEnforcer.Multiline = true;
             txtAgentRoleEnforcer.Name = "txtAgentRoleEnforcer";
             txtAgentRoleEnforcer.ScrollBars = ScrollBars.Vertical;
-            txtAgentRoleEnforcer.Size = new Size(374, 100);
+            txtAgentRoleEnforcer.Size = new Size(374, 125);
             txtAgentRoleEnforcer.TabIndex = 1;
             // 
             // groupBox5
@@ -302,9 +302,9 @@
             grpAgentControl.Controls.Add(chkSmartAgentEnabled);
             grpAgentControl.Controls.Add(btnSaveAgent);
             grpAgentControl.Controls.Add(btnReset);
-            grpAgentControl.Location = new Point(6, 520);
+            grpAgentControl.Location = new Point(6, 548);
             grpAgentControl.Name = "grpAgentControl";
-            grpAgentControl.Size = new Size(380, 108);
+            grpAgentControl.Size = new Size(380, 80);
             grpAgentControl.TabIndex = 5;
             grpAgentControl.TabStop = false;
             grpAgentControl.Text = "Agent control";
@@ -312,7 +312,7 @@
             // chkSmartAgentEnabled
             // 
             chkSmartAgentEnabled.AutoSize = true;
-            chkSmartAgentEnabled.Location = new Point(12, 29);
+            chkSmartAgentEnabled.Location = new Point(6, 16);
             chkSmartAgentEnabled.Name = "chkSmartAgentEnabled";
             chkSmartAgentEnabled.Size = new Size(135, 19);
             chkSmartAgentEnabled.TabIndex = 7;
@@ -322,9 +322,9 @@
             // btnSaveAgent
             // 
             btnSaveAgent.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnSaveAgent.Location = new Point(6, 55);
+            btnSaveAgent.Location = new Point(6, 35);
             btnSaveAgent.Name = "btnSaveAgent";
-            btnSaveAgent.Size = new Size(78, 47);
+            btnSaveAgent.Size = new Size(78, 39);
             btnSaveAgent.TabIndex = 3;
             btnSaveAgent.Text = "Save";
             btnSaveAgent.UseVisualStyleBackColor = true;
@@ -333,9 +333,9 @@
             // btnReset
             // 
             btnReset.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnReset.Location = new Point(88, 55);
+            btnReset.Location = new Point(90, 35);
             btnReset.Name = "btnReset";
-            btnReset.Size = new Size(78, 47);
+            btnReset.Size = new Size(78, 39);
             btnReset.TabIndex = 4;
             btnReset.Text = "Reset";
             btnReset.UseVisualStyleBackColor = true;
@@ -561,7 +561,7 @@
             // 
             splitContainerChat.Panel2.Controls.Add(grpUserInput);
             splitContainerChat.Size = new Size(769, 687);
-            splitContainerChat.SplitterDistance = 343;
+            splitContainerChat.SplitterDistance = 500;
             splitContainerChat.TabIndex = 3;
             // 
             // tabDialogs
@@ -576,7 +576,7 @@
             tabDialogs.Location = new Point(0, 0);
             tabDialogs.Name = "tabDialogs";
             tabDialogs.SelectedIndex = 0;
-            tabDialogs.Size = new Size(769, 343);
+            tabDialogs.Size = new Size(769, 500);
             tabDialogs.TabIndex = 2;
             // 
             // tabPageText
@@ -585,7 +585,7 @@
             tabPageText.Location = new Point(4, 24);
             tabPageText.Name = "tabPageText";
             tabPageText.Padding = new Padding(3);
-            tabPageText.Size = new Size(761, 315);
+            tabPageText.Size = new Size(761, 472);
             tabPageText.TabIndex = 0;
             tabPageText.Text = "Text";
             tabPageText.UseVisualStyleBackColor = true;
@@ -596,7 +596,7 @@
             agentConversation.Dock = DockStyle.Fill;
             agentConversation.Location = new Point(3, 3);
             agentConversation.Name = "agentConversation";
-            agentConversation.Size = new Size(755, 309);
+            agentConversation.Size = new Size(755, 466);
             agentConversation.TabIndex = 0;
             agentConversation.TabStop = false;
             agentConversation.Text = "Conversation";
@@ -608,7 +608,7 @@
             conversationContentPanel.Dock = DockStyle.Fill;
             conversationContentPanel.Location = new Point(3, 19);
             conversationContentPanel.Name = "conversationContentPanel";
-            conversationContentPanel.Size = new Size(749, 287);
+            conversationContentPanel.Size = new Size(749, 444);
             conversationContentPanel.TabIndex = 0;
             // 
             // txtChat
@@ -620,7 +620,7 @@
             txtChat.Location = new Point(0, 0);
             txtChat.Name = "txtChat";
             txtChat.ReadOnly = true;
-            txtChat.Size = new Size(749, 287);
+            txtChat.Size = new Size(749, 444);
             txtChat.TabIndex = 0;
             txtChat.Text = "";
             // 
@@ -846,7 +846,7 @@
             grpUserInput.Dock = DockStyle.Fill;
             grpUserInput.Location = new Point(0, 0);
             grpUserInput.Name = "grpUserInput";
-            grpUserInput.Size = new Size(769, 340);
+            grpUserInput.Size = new Size(769, 183);
             grpUserInput.TabIndex = 1;
             grpUserInput.TabStop = false;
             grpUserInput.Text = "User input";
@@ -859,15 +859,15 @@
             pnlInput.Dock = DockStyle.Fill;
             pnlInput.Location = new Point(3, 19);
             pnlInput.Name = "pnlInput";
-            pnlInput.Size = new Size(763, 318);
+            pnlInput.Size = new Size(763, 161);
             pnlInput.TabIndex = 0;
             // 
             // btnSend
             // 
-            btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            btnSend.Location = new Point(7, 275);
+            btnSend.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSend.Location = new Point(700, 3);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(753, 39);
+            btnSend.Size = new Size(59, 154);
             btnSend.TabIndex = 1;
             btnSend.Text = "Send";
             btnSend.UseVisualStyleBackColor = true;
@@ -882,7 +882,7 @@
             txtUserInput.Multiline = true;
             txtUserInput.Name = "txtUserInput";
             txtUserInput.ScrollBars = ScrollBars.Vertical;
-            txtUserInput.Size = new Size(753, 266);
+            txtUserInput.Size = new Size(691, 154);
             txtUserInput.TabIndex = 0;
             // 
             // agentStatus

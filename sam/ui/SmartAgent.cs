@@ -350,6 +350,11 @@ namespace sam
 
         private async Task AppendTextToChatAsync(string text, System.Drawing.Color color)
         {
+            if (color == System.Drawing.Color.Blue)
+            {
+                color = System.Drawing.Color.FromArgb(0, 122, 204);
+
+            }
             // Set the color of the text that will be appended
             txtChat.SelectionColor = color;
 
