@@ -214,7 +214,14 @@ namespace sam
             // Display the chat history in the chat window, with user input in green and GPT input in blue
             foreach (var chat in conversation.chatHistory)
             {
-                AppendTextToChatAsync(chat.Content, chat.Role == "user" ? System.Drawing.Color.Green : System.Drawing.Color.Blue);
+                if (chat.Role == "user")
+                {
+                    AppendTextToChatAsync(chat.Content, System.Drawing.Color.Green);
+                }
+                else
+                {
+                    AppendTextToChatAsync(chat.Content, System.Drawing.Color.Blue);
+                }
             }
 
             this.currentAgentSettings = selectedAgentSettings;
@@ -294,6 +301,7 @@ namespace sam
 
         private void SmartAgent_Load(object sender, EventArgs e)
         {
+            txtChat.BackColor = Color.FromArgb(67, 70, 84);
 
         }
 
@@ -352,8 +360,18 @@ namespace sam
         {
             if (color == System.Drawing.Color.Blue)
             {
-                color = System.Drawing.Color.FromArgb(0, 122, 204);
+                // Make the blue color brighter
+                color = System.Drawing.Color.FromArgb(0, 176, 240);
 
+                // Set the font to bold
+                txtChat.SelectionFont = new Font(txtChat.Font, FontStyle.Bold);
+            }
+            else if (color == System.Drawing.Color.Green)
+            {
+                color = System.Drawing.Color.FromArgb(96, 224, 128);
+
+                // Set the font to bold
+                txtChat.SelectionFont = new Font(txtChat.Font, FontStyle.Bold);
             }
             // Set the color of the text that will be appended
             txtChat.SelectionColor = color;

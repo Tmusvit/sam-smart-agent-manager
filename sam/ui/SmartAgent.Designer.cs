@@ -665,14 +665,14 @@
             // 
             contextMenuStripChat.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopy });
             contextMenuStripChat.Name = "contextMenuStripChat";
-            contextMenuStripChat.Size = new Size(181, 48);
+            contextMenuStripChat.Size = new Size(145, 26);
             contextMenuStripChat.ItemClicked += contextMenuStripChat_ItemClicked;
             // 
             // toolStripMenuItemCopy
             // 
             toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
             toolStripMenuItemCopy.ShortcutKeys = Keys.Control | Keys.C;
-            toolStripMenuItemCopy.Size = new Size(180, 22);
+            toolStripMenuItemCopy.Size = new Size(144, 22);
             toolStripMenuItemCopy.Text = "Copy";
             // 
             // tabPageCode
@@ -721,6 +721,7 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
+            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';

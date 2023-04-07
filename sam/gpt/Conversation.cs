@@ -347,7 +347,7 @@ namespace sam.gpt
             //chatHistory.ForEach(convMessages.Add);
 
             // Save user input and add to conversation messages
-            ChatMessage cmessage = new ChatMessage("assistant", userInput);
+            ChatMessage cmessage = new ChatMessage("user", userInput);
             SaveChatMessage(cmessage);
             convMessages.Add(cmessage);
             chatHistory.Add(cmessage);
