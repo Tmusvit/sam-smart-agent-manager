@@ -360,18 +360,25 @@ namespace sam
         {
             if (color == System.Drawing.Color.Blue)
             {
-                // Make the blue color brighter
-                color = System.Drawing.Color.FromArgb(0, 176, 240);
+                // Set the blue color to a brighter shade of blue
+                color = System.Drawing.Color.FromArgb(0, 191, 255);
 
-                // Set the font to bold
-                txtChat.SelectionFont = new Font(txtChat.Font, FontStyle.Bold);
+                // Set the font to a professional sans-serif font in bold
+                txtChat.SelectionFont = new Font("Segoe UI", 11, FontStyle.Bold);
+
             }
             else if (color == System.Drawing.Color.Green)
             {
-                color = System.Drawing.Color.FromArgb(96, 224, 128);
+                // Set the green color to a brighter shade of green
+                color = System.Drawing.Color.FromArgb(0, 255, 128);
 
-                // Set the font to bold
-                txtChat.SelectionFont = new Font(txtChat.Font, FontStyle.Bold);
+                // Set the font to a professional sans-serif font in bold
+                txtChat.SelectionFont = new Font("Segoe UI", 11, FontStyle.Bold);
+            }
+            else
+            {
+                // Set the font to a professional sans-serif font in regular weight
+                txtChat.SelectionFont = new Font("Segoe UI", 11, FontStyle.Regular);
             }
             // Set the color of the text that will be appended
             txtChat.SelectionColor = color;
@@ -745,12 +752,22 @@ namespace sam
                     Console.WriteLine($"RECOGNIZED: Text={result.Text}");
                     if (result.Text != "")
                     {
+                        
                         // Clear the user input field
                         Invoke((Action)(() =>
                         {
                             txtUserInput.Text = result.Text;
                         }));
-                        await SendUserConversationMessageAsync();
+
+                        // Check if the user said the keyword
+                        if (result.Text.ToLower().Contains(txtAgentName.Text.ToLower()))
+                        {
+                            await SendUserConversationMessageAsync();
+                        }
+                        else
+                        {
+                            await SendUserConversationMessageAsync(false);
+                        }
                     }
                 }
             }

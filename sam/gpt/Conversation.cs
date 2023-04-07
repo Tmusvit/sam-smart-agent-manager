@@ -219,22 +219,25 @@ namespace sam.gpt
                     }
                 }
             }
-            List<string> filteredSearch = SearchList(dbString, searchParameter.ToLower(), 20);
-            StringBuilder combinedResults = new StringBuilder();
-            foreach (string filter in filteredSearch)
+            if (dbString.Count > 0)
             {
-                combinedResults.Append(filter + ", ");
-            }
-            if (combinedResults.Length > 0)
-            {
-                combinedResults.Length -= 2; // Remove the last comma and space
-                if (combinedResults.ToString() != "")
+
+                List<string> filteredSearch = SearchList(dbString, searchParameter.ToLower(), 20);
+                StringBuilder combinedResults = new StringBuilder();
+                foreach (string filter in filteredSearch)
                 {
-                    var chatMessage = new ChatMessage("user", "Tiedät tämän: " + combinedResults.ToString() + "");
-                    topMessages.Add(chatMessage);
+                    combinedResults.Append(filter + ", ");
+                }
+                if (combinedResults.Length > 0)
+                {
+                    combinedResults.Length -= 2; // Remove the last comma and space
+                    if (combinedResults.ToString() != "")
+                    {
+                        var chatMessage = new ChatMessage("user", "Tiedät tämän: " + combinedResults.ToString() + "");
+                        topMessages.Add(chatMessage);
+                    }
                 }
             }
-
 
             return topMessages;
         }
@@ -291,18 +294,18 @@ namespace sam.gpt
             List<ChatMessage> systemMemory = await LoadTopMessages(userInput);
 
             // Add system and user personalities to conversation
-            if(systemPersonality.Count > 0)
+            if (systemPersonality.Count > 0)
             {
                 systemPersonality.ForEach(per => convMessages.Add(new ChatMessage("system", per)));
             }
-            
-            
+
+
             // Add system memory 
-            if(systemMemory.Count > 0)
+            if (systemMemory.Count > 0)
             {
                 //systemMemory.ForEach(convMessages.Add);
                 string memory = "";
-                foreach(ChatMessage message in systemMemory)
+                foreach (ChatMessage message in systemMemory)
                 {
                     memory = message.Content + " ";
                 }
@@ -319,7 +322,7 @@ namespace sam.gpt
                     userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
                 }
             }
-            
+
 
             List<ChatMessage> messagesToAdd = new List<ChatMessage>();
             int totalLength = 0;
@@ -342,7 +345,7 @@ namespace sam.gpt
             // Add the messages from messagesToAdd to convMessages
             messagesToAdd.ForEach(convMessages.Add);
 
-            
+
 
             //chatHistory.ForEach(convMessages.Add);
 
@@ -353,11 +356,11 @@ namespace sam.gpt
             chatHistory.Add(cmessage);
 
             // Add role enforcer to conversation
-            if(chatHistory.Count > 0)
+            if (chatHistory.Count > 0)
             {
                 roleEnforcer.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
             }
-            
+
 
             if (requiresResponse)
             {
