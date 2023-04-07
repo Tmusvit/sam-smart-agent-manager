@@ -67,6 +67,7 @@
             lblMic = new Label();
             cmbSpeaker = new ComboBox();
             lblSpeakers = new Label();
+            imageListSam = new ImageList(components);
             splitContainerChat = new SplitContainer();
             tabDialogs = new TabControl();
             tabPageText = new TabPage();
@@ -176,6 +177,7 @@
             tabAgent.Controls.Add(tabPage1);
             tabAgent.Controls.Add(tabPage2);
             tabAgent.Dock = DockStyle.Fill;
+            tabAgent.ImageList = imageListSam;
             tabAgent.Location = new Point(0, 0);
             tabAgent.Name = "tabAgent";
             tabAgent.SelectedIndex = 0;
@@ -185,10 +187,11 @@
             // tabPage1
             // 
             tabPage1.Controls.Add(agentSettingsGrp);
-            tabPage1.Location = new Point(4, 24);
+            tabPage1.ImageKey = "7397430_artificial intelligence_ai_chip_technology_computer_icon_24.png";
+            tabPage1.Location = new Point(4, 31);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(292, 659);
+            tabPage1.Size = new Size(292, 652);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Agent";
             tabPage1.UseVisualStyleBackColor = true;
@@ -199,7 +202,7 @@
             agentSettingsGrp.Dock = DockStyle.Fill;
             agentSettingsGrp.Location = new Point(3, 3);
             agentSettingsGrp.Name = "agentSettingsGrp";
-            agentSettingsGrp.Size = new Size(286, 653);
+            agentSettingsGrp.Size = new Size(286, 646);
             agentSettingsGrp.TabIndex = 0;
             agentSettingsGrp.TabStop = false;
             agentSettingsGrp.Text = "Agent settings";
@@ -216,7 +219,7 @@
             settingsPanel.Dock = DockStyle.Fill;
             settingsPanel.Location = new Point(3, 19);
             settingsPanel.Name = "settingsPanel";
-            settingsPanel.Size = new Size(280, 631);
+            settingsPanel.Size = new Size(280, 624);
             settingsPanel.TabIndex = 1;
             // 
             // groupBox7
@@ -224,7 +227,7 @@
             groupBox7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox7.Controls.Add(txtTemp);
             groupBox7.Controls.Add(trackTemp);
-            groupBox7.Location = new Point(6, 457);
+            groupBox7.Location = new Point(6, 450);
             groupBox7.Name = "groupBox7";
             groupBox7.Size = new Size(268, 72);
             groupBox7.TabIndex = 8;
@@ -258,7 +261,7 @@
             // 
             groupBox6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox6.Controls.Add(txtAgentRoleEnforcer);
-            groupBox6.Location = new Point(6, 317);
+            groupBox6.Location = new Point(6, 310);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(268, 136);
             groupBox6.TabIndex = 7;
@@ -303,7 +306,7 @@
             grpAgentControl.Controls.Add(chkSmartAgentEnabled);
             grpAgentControl.Controls.Add(btnSaveAgent);
             grpAgentControl.Controls.Add(btnReset);
-            grpAgentControl.Location = new Point(6, 535);
+            grpAgentControl.Location = new Point(6, 528);
             grpAgentControl.Name = "grpAgentControl";
             grpAgentControl.Size = new Size(268, 93);
             grpAgentControl.TabIndex = 5;
@@ -359,7 +362,7 @@
             grpPersonality.Controls.Add(txtAgentPersonality);
             grpPersonality.Location = new Point(6, 153);
             grpPersonality.Name = "grpPersonality";
-            grpPersonality.Size = new Size(268, 158);
+            grpPersonality.Size = new Size(268, 151);
             grpPersonality.TabIndex = 2;
             grpPersonality.TabStop = false;
             grpPersonality.Text = "Agent role";
@@ -371,7 +374,7 @@
             txtAgentPersonality.Multiline = true;
             txtAgentPersonality.Name = "txtAgentPersonality";
             txtAgentPersonality.ScrollBars = ScrollBars.Vertical;
-            txtAgentPersonality.Size = new Size(262, 136);
+            txtAgentPersonality.Size = new Size(262, 129);
             txtAgentPersonality.TabIndex = 1;
             // 
             // grpName
@@ -396,10 +399,11 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(pnlAudio);
-            tabPage2.Location = new Point(4, 24);
+            tabPage2.ImageKey = "2849830_multimedia_options_setting_settings_gear_icon_24.png";
+            tabPage2.Location = new Point(4, 31);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(292, 659);
+            tabPage2.Size = new Size(292, 652);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Settings";
             tabPage2.UseVisualStyleBackColor = true;
@@ -413,7 +417,7 @@
             pnlAudio.Dock = DockStyle.Fill;
             pnlAudio.Location = new Point(3, 3);
             pnlAudio.Name = "pnlAudio";
-            pnlAudio.Size = new Size(286, 653);
+            pnlAudio.Size = new Size(286, 646);
             pnlAudio.TabIndex = 0;
             // 
             // grpAgentID
@@ -558,6 +562,21 @@
             lblSpeakers.TabIndex = 0;
             lblSpeakers.Text = "Speakers or vr (Generally the virtual audio cable)";
             // 
+            // imageListSam
+            // 
+            imageListSam.ColorDepth = ColorDepth.Depth8Bit;
+            imageListSam.ImageStream = (ImageListStreamer)resources.GetObject("imageListSam.ImageStream");
+            imageListSam.TransparentColor = Color.Transparent;
+            imageListSam.Images.SetKeyName(0, "510931_chat_comment_message_talk_icon.png");
+            imageListSam.Images.SetKeyName(1, "843779_browser_edge_explorer_icon_24.png");
+            imageListSam.Images.SetKeyName(2, "7088608_database_storage_server_data_sharing_icon_24.png");
+            imageListSam.Images.SetKeyName(3, "7088618_byte_database_server_data_warehouse_icon_24.png");
+            imageListSam.Images.SetKeyName(4, "9046076_web_website_site_browser_icon_24.png");
+            imageListSam.Images.SetKeyName(5, "9054286_bx_code_alt_icon_24.png");
+            imageListSam.Images.SetKeyName(6, "315092_ai_file_icon_24.png");
+            imageListSam.Images.SetKeyName(7, "2849830_multimedia_options_setting_settings_gear_icon_24.png");
+            imageListSam.Images.SetKeyName(8, "7397430_artificial intelligence_ai_chip_technology_computer_icon_24.png");
+            // 
             // splitContainerChat
             // 
             splitContainerChat.Dock = DockStyle.Fill;
@@ -585,6 +604,7 @@
             tabDialogs.Controls.Add(tabDynPrompt);
             tabDialogs.Controls.Add(tabMemory);
             tabDialogs.Dock = DockStyle.Fill;
+            tabDialogs.ImageList = imageListSam;
             tabDialogs.Location = new Point(0, 0);
             tabDialogs.Name = "tabDialogs";
             tabDialogs.SelectedIndex = 0;
@@ -594,12 +614,13 @@
             // tabPageText
             // 
             tabPageText.Controls.Add(agentConversation);
-            tabPageText.Location = new Point(4, 24);
+            tabPageText.ImageIndex = 0;
+            tabPageText.Location = new Point(4, 31);
             tabPageText.Name = "tabPageText";
             tabPageText.Padding = new Padding(3);
-            tabPageText.Size = new Size(873, 471);
+            tabPageText.Size = new Size(873, 464);
             tabPageText.TabIndex = 0;
-            tabPageText.Text = "Text";
+            tabPageText.Text = "Chat";
             tabPageText.UseVisualStyleBackColor = true;
             // 
             // agentConversation
@@ -608,7 +629,7 @@
             agentConversation.Dock = DockStyle.Fill;
             agentConversation.Location = new Point(3, 3);
             agentConversation.Name = "agentConversation";
-            agentConversation.Size = new Size(867, 465);
+            agentConversation.Size = new Size(867, 458);
             agentConversation.TabIndex = 0;
             agentConversation.TabStop = false;
             agentConversation.Text = "Conversation";
@@ -620,7 +641,7 @@
             conversationContentPanel.Dock = DockStyle.Fill;
             conversationContentPanel.Location = new Point(3, 19);
             conversationContentPanel.Name = "conversationContentPanel";
-            conversationContentPanel.Size = new Size(861, 443);
+            conversationContentPanel.Size = new Size(861, 436);
             conversationContentPanel.TabIndex = 0;
             // 
             // txtChat
@@ -632,19 +653,20 @@
             txtChat.Location = new Point(0, 0);
             txtChat.Name = "txtChat";
             txtChat.ReadOnly = true;
-            txtChat.Size = new Size(861, 443);
+            txtChat.Size = new Size(861, 436);
             txtChat.TabIndex = 0;
             txtChat.Text = "";
             // 
             // tabPageCode
             // 
             tabPageCode.Controls.Add(groupBox4);
-            tabPageCode.Location = new Point(4, 24);
+            tabPageCode.ImageKey = "9054286_bx_code_alt_icon_24.png";
+            tabPageCode.Location = new Point(4, 31);
             tabPageCode.Name = "tabPageCode";
             tabPageCode.Padding = new Padding(3);
-            tabPageCode.Size = new Size(873, 471);
+            tabPageCode.Size = new Size(873, 464);
             tabPageCode.TabIndex = 1;
-            tabPageCode.Text = "C# Code";
+            tabPageCode.Text = "Code";
             tabPageCode.UseVisualStyleBackColor = true;
             // 
             // groupBox4
@@ -653,7 +675,7 @@
             groupBox4.Dock = DockStyle.Fill;
             groupBox4.Location = new Point(3, 3);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(867, 465);
+            groupBox4.Size = new Size(867, 458);
             groupBox4.TabIndex = 1;
             groupBox4.TabStop = false;
             groupBox4.Text = "Code";
@@ -665,7 +687,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 19);
             panel1.Name = "panel1";
-            panel1.Size = new Size(861, 443);
+            panel1.Size = new Size(861, 436);
             panel1.TabIndex = 0;
             // 
             // txtCode
@@ -692,7 +714,7 @@
             txtCode.RightBracket2 = '}';
             txtCode.SelectionColor = Color.FromArgb(60, 0, 0, 255);
             txtCode.ServiceColors = (FastColoredTextBoxNS.ServiceColors)resources.GetObject("txtCode.ServiceColors");
-            txtCode.Size = new Size(861, 443);
+            txtCode.Size = new Size(861, 436);
             txtCode.TabIndex = 0;
             txtCode.Zoom = 100;
             // 
@@ -700,11 +722,12 @@
             // 
             tabWeb.Controls.Add(webView21);
             tabWeb.Controls.Add(toolWeb);
-            tabWeb.Location = new Point(4, 24);
+            tabWeb.ImageKey = "843779_browser_edge_explorer_icon_24.png";
+            tabWeb.Location = new Point(4, 31);
             tabWeb.Name = "tabWeb";
-            tabWeb.Size = new Size(873, 471);
+            tabWeb.Size = new Size(873, 464);
             tabWeb.TabIndex = 2;
-            tabWeb.Text = "Web";
+            tabWeb.Text = "Browser";
             tabWeb.UseVisualStyleBackColor = true;
             // 
             // webView21
@@ -715,7 +738,7 @@
             webView21.DefaultBackgroundColor = Color.White;
             webView21.Location = new Point(3, 28);
             webView21.Name = "webView21";
-            webView21.Size = new Size(867, 440);
+            webView21.Size = new Size(867, 433);
             webView21.Source = new Uri("https://bing.com/", UriKind.Absolute);
             webView21.TabIndex = 1;
             webView21.ZoomFactor = 1D;
@@ -783,9 +806,10 @@
             // tabWebText
             // 
             tabWebText.Controls.Add(txtWebText);
-            tabWebText.Location = new Point(4, 24);
+            tabWebText.ImageKey = "9046076_web_website_site_browser_icon_24.png";
+            tabWebText.Location = new Point(4, 31);
             tabWebText.Name = "tabWebText";
-            tabWebText.Size = new Size(873, 471);
+            tabWebText.Size = new Size(873, 464);
             tabWebText.TabIndex = 3;
             tabWebText.Text = "Web Text";
             tabWebText.UseVisualStyleBackColor = true;
@@ -799,18 +823,19 @@
             txtWebText.Location = new Point(0, 0);
             txtWebText.Name = "txtWebText";
             txtWebText.ReadOnly = true;
-            txtWebText.Size = new Size(873, 471);
+            txtWebText.Size = new Size(873, 464);
             txtWebText.TabIndex = 1;
             txtWebText.Text = "";
             // 
             // tabDynPrompt
             // 
             tabDynPrompt.Controls.Add(dataDynamicPrompts);
-            tabDynPrompt.Location = new Point(4, 24);
+            tabDynPrompt.ImageKey = "7088608_database_storage_server_data_sharing_icon_24.png";
+            tabDynPrompt.Location = new Point(4, 31);
             tabDynPrompt.Name = "tabDynPrompt";
-            tabDynPrompt.Size = new Size(873, 471);
+            tabDynPrompt.Size = new Size(873, 464);
             tabDynPrompt.TabIndex = 4;
-            tabDynPrompt.Text = "Dynamic Prompt memory";
+            tabDynPrompt.Text = "Dynamic Prompt Memory";
             tabDynPrompt.UseVisualStyleBackColor = true;
             // 
             // dataDynamicPrompts
@@ -824,15 +849,16 @@
             dataDynamicPrompts.Location = new Point(0, 0);
             dataDynamicPrompts.Name = "dataDynamicPrompts";
             dataDynamicPrompts.RowTemplate.Height = 25;
-            dataDynamicPrompts.Size = new Size(873, 471);
+            dataDynamicPrompts.Size = new Size(873, 464);
             dataDynamicPrompts.TabIndex = 0;
             // 
             // tabMemory
             // 
             tabMemory.Controls.Add(dataPromptMemory);
-            tabMemory.Location = new Point(4, 24);
+            tabMemory.ImageKey = "7088618_byte_database_server_data_warehouse_icon_24.png";
+            tabMemory.Location = new Point(4, 31);
             tabMemory.Name = "tabMemory";
-            tabMemory.Size = new Size(873, 471);
+            tabMemory.Size = new Size(873, 464);
             tabMemory.TabIndex = 5;
             tabMemory.Text = "Prompt Memory";
             tabMemory.UseVisualStyleBackColor = true;
@@ -846,7 +872,7 @@
             dataPromptMemory.Location = new Point(0, 0);
             dataPromptMemory.Name = "dataPromptMemory";
             dataPromptMemory.RowTemplate.Height = 25;
-            dataPromptMemory.Size = new Size(873, 471);
+            dataPromptMemory.Size = new Size(873, 464);
             dataPromptMemory.TabIndex = 1;
             dataPromptMemory.CellBeginEdit += dataPromptMemory_CellBeginEdit;
             dataPromptMemory.RowValidated += dataPromptMemory_RowValidated;
@@ -1143,5 +1169,6 @@
         private TabPage tabMemory;
         private DataGridView dataPromptMemory;
         private SplitContainer splitContainerChat;
+        private ImageList imageListSam;
     }
 }

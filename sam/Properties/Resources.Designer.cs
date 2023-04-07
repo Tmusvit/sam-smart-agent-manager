@@ -143,6 +143,16 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _510931_chat_comment_message_talk_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("510931_chat_comment_message_talk_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _9035019_mic_off_icon {
             get {
                 object obj = ResourceManager.GetObject("9035019_mic_off_icon", resourceCulture);
