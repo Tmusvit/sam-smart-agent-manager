@@ -752,7 +752,7 @@ namespace sam
                     Console.WriteLine($"RECOGNIZED: Text={result.Text}");
                     if (result.Text != "")
                     {
-                        
+
                         // Clear the user input field
                         Invoke((Action)(() =>
                         {

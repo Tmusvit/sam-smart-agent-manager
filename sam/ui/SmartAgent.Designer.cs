@@ -402,11 +402,11 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(pnlAudio);
-            tabPage2.ImageKey = "2849830_multimedia_options_setting_settings_gear_icon_24.png";
+            tabPage2.ImageKey = "6572266_ai_chip_computer_electronic_processor_icon_24.png";
             tabPage2.Location = new Point(4, 31);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(292, 666);
+            tabPage2.Size = new Size(292, 667);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Settings";
             tabPage2.UseVisualStyleBackColor = true;
@@ -420,7 +420,7 @@
             pnlAudio.Dock = DockStyle.Fill;
             pnlAudio.Location = new Point(3, 3);
             pnlAudio.Name = "pnlAudio";
-            pnlAudio.Size = new Size(286, 660);
+            pnlAudio.Size = new Size(286, 661);
             pnlAudio.TabIndex = 0;
             // 
             // grpAgentID
@@ -579,6 +579,13 @@
             imageListSam.Images.SetKeyName(6, "315092_ai_file_icon_24.png");
             imageListSam.Images.SetKeyName(7, "2849830_multimedia_options_setting_settings_gear_icon_24.png");
             imageListSam.Images.SetKeyName(8, "7397430_artificial intelligence_ai_chip_technology_computer_icon_24.png");
+            imageListSam.Images.SetKeyName(9, "6572266_ai_chip_computer_electronic_processor_icon.png");
+            imageListSam.Images.SetKeyName(10, "6572266_ai_chip_computer_electronic_processor_icon_24.png");
+            imageListSam.Images.SetKeyName(11, "4230512_chat_communication_message_icon_24.png");
+            imageListSam.Images.SetKeyName(12, "2124249_browser_essential_app_icon_24.png");
+            imageListSam.Images.SetKeyName(13, "2124241_browser_essential_app_icon_24.png");
+            imageListSam.Images.SetKeyName(14, "3209350_data_database_management_storage_structure_icon.png");
+            imageListSam.Images.SetKeyName(15, "6137629_data_database_export_server_storage_icon_24.png");
             // 
             // splitContainerChat
             // 
@@ -617,7 +624,7 @@
             // tabPageText
             // 
             tabPageText.Controls.Add(agentConversation);
-            tabPageText.ImageIndex = 0;
+            tabPageText.ImageKey = "4230512_chat_communication_message_icon_24.png";
             tabPageText.Location = new Point(4, 31);
             tabPageText.Name = "tabPageText";
             tabPageText.Padding = new Padding(3);
@@ -721,6 +728,7 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
+            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -740,7 +748,7 @@
             // 
             tabWeb.Controls.Add(webView21);
             tabWeb.Controls.Add(toolWeb);
-            tabWeb.ImageKey = "843779_browser_edge_explorer_icon_24.png";
+            tabWeb.ImageKey = "2124249_browser_essential_app_icon_24.png";
             tabWeb.Location = new Point(4, 31);
             tabWeb.Name = "tabWeb";
             tabWeb.Size = new Size(873, 474);
@@ -824,7 +832,7 @@
             // tabWebText
             // 
             tabWebText.Controls.Add(txtWebText);
-            tabWebText.ImageKey = "9046076_web_website_site_browser_icon_24.png";
+            tabWebText.ImageKey = "2124241_browser_essential_app_icon_24.png";
             tabWebText.Location = new Point(4, 31);
             tabWebText.Name = "tabWebText";
             tabWebText.Size = new Size(873, 474);
@@ -848,7 +856,7 @@
             // tabDynPrompt
             // 
             tabDynPrompt.Controls.Add(dataDynamicPrompts);
-            tabDynPrompt.ImageKey = "7088608_database_storage_server_data_sharing_icon_24.png";
+            tabDynPrompt.ImageKey = "6137629_data_database_export_server_storage_icon_24.png";
             tabDynPrompt.Location = new Point(4, 31);
             tabDynPrompt.Name = "tabDynPrompt";
             tabDynPrompt.Size = new Size(873, 474);
@@ -873,7 +881,7 @@
             // tabMemory
             // 
             tabMemory.Controls.Add(dataPromptMemory);
-            tabMemory.ImageKey = "7088618_byte_database_server_data_warehouse_icon_24.png";
+            tabMemory.ImageKey = "3209350_data_database_management_storage_structure_icon.png";
             tabMemory.Location = new Point(4, 31);
             tabMemory.Name = "tabMemory";
             tabMemory.Size = new Size(873, 474);
