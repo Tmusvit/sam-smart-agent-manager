@@ -239,34 +239,6 @@ namespace sam.gpt
             return topMessages;
         }
 
-        private async Task<string> GptHelpFunction(string command, string searchParameter)
-        {
-            List<string> convResponse = new List<string> { "" };
-            var msg = new ChatMessage("user", command + searchParameter);
-
-            List<ChatMessage> convMessages = new List<ChatMessage>();
-            convMessages.Add(msg);
-            // Create a completion result using the SDK and the conversation messages
-            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
-            {
-                Messages = convMessages,
-                Model = Models.ChatGpt3_5Turbo0301
-            });
-
-            // If successful, return the response and add it to the chat history
-            if (completionResult.Successful)
-            {
-                completionResult.Choices.ForEach(choises =>
-                {
-                    convResponse.Add(choises.Message.Content);
-                });
-
-                return String.Join("", convResponse);
-            }
-
-            return String.Join("", convResponse);
-
-        }
 
 
         public static List<string> SearchList(List<string> inputList, string searchSentence, int surroundingSentences)
