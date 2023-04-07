@@ -103,11 +103,11 @@
             agentProgress = new ToolStripProgressBar();
             agentTools = new ToolStrip();
             btnTTS = new ToolStripButton();
-            btnComputerAudioSTT = new ToolStripButton();
-            toolStripButton1 = new ToolStripButton();
             ttsVoice = new ToolStripComboBox();
             btnRecordComputerAudio = new ToolStripButton();
+            btnComputerAudioSTT = new ToolStripButton();
             btnPlayAudioToMic = new ToolStripButton();
+            toolStripButton1 = new ToolStripButton();
             toolTipFocus = new ToolTip(components);
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
@@ -161,7 +161,7 @@
             // agentContainer
             // 
             agentContainer.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
-            agentContainer.Location = new Point(0, 42);
+            agentContainer.Location = new Point(0, 27);
             agentContainer.Name = "agentContainer";
             // 
             // agentContainer.Panel1
@@ -171,7 +171,7 @@
             // agentContainer.Panel2
             // 
             agentContainer.Panel2.Controls.Add(splitContainerChat);
-            agentContainer.Size = new Size(1185, 687);
+            agentContainer.Size = new Size(1185, 702);
             agentContainer.SplitterDistance = 300;
             agentContainer.TabIndex = 0;
             // 
@@ -184,7 +184,7 @@
             tabAgent.Location = new Point(0, 0);
             tabAgent.Name = "tabAgent";
             tabAgent.SelectedIndex = 0;
-            tabAgent.Size = new Size(300, 687);
+            tabAgent.Size = new Size(300, 702);
             tabAgent.TabIndex = 1;
             // 
             // tabPage1
@@ -194,7 +194,7 @@
             tabPage1.Location = new Point(4, 31);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(292, 652);
+            tabPage1.Size = new Size(292, 667);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Agent";
             tabPage1.UseVisualStyleBackColor = true;
@@ -205,7 +205,7 @@
             agentSettingsGrp.Dock = DockStyle.Fill;
             agentSettingsGrp.Location = new Point(3, 3);
             agentSettingsGrp.Name = "agentSettingsGrp";
-            agentSettingsGrp.Size = new Size(286, 646);
+            agentSettingsGrp.Size = new Size(286, 661);
             agentSettingsGrp.TabIndex = 0;
             agentSettingsGrp.TabStop = false;
             agentSettingsGrp.Text = "Agent settings";
@@ -222,7 +222,7 @@
             settingsPanel.Dock = DockStyle.Fill;
             settingsPanel.Location = new Point(3, 19);
             settingsPanel.Name = "settingsPanel";
-            settingsPanel.Size = new Size(280, 624);
+            settingsPanel.Size = new Size(280, 639);
             settingsPanel.TabIndex = 1;
             // 
             // groupBox7
@@ -230,7 +230,7 @@
             groupBox7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox7.Controls.Add(txtTemp);
             groupBox7.Controls.Add(trackTemp);
-            groupBox7.Location = new Point(6, 450);
+            groupBox7.Location = new Point(6, 465);
             groupBox7.Name = "groupBox7";
             groupBox7.Size = new Size(268, 72);
             groupBox7.TabIndex = 8;
@@ -264,7 +264,7 @@
             // 
             groupBox6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             groupBox6.Controls.Add(txtAgentRoleEnforcer);
-            groupBox6.Location = new Point(6, 310);
+            groupBox6.Location = new Point(6, 325);
             groupBox6.Name = "groupBox6";
             groupBox6.Size = new Size(268, 136);
             groupBox6.TabIndex = 7;
@@ -309,7 +309,7 @@
             grpAgentControl.Controls.Add(chkSmartAgentEnabled);
             grpAgentControl.Controls.Add(btnSaveAgent);
             grpAgentControl.Controls.Add(btnReset);
-            grpAgentControl.Location = new Point(6, 528);
+            grpAgentControl.Location = new Point(6, 543);
             grpAgentControl.Name = "grpAgentControl";
             grpAgentControl.Size = new Size(268, 93);
             grpAgentControl.TabIndex = 5;
@@ -365,7 +365,7 @@
             grpPersonality.Controls.Add(txtAgentPersonality);
             grpPersonality.Location = new Point(6, 153);
             grpPersonality.Name = "grpPersonality";
-            grpPersonality.Size = new Size(268, 151);
+            grpPersonality.Size = new Size(268, 166);
             grpPersonality.TabIndex = 2;
             grpPersonality.TabStop = false;
             grpPersonality.Text = "Agent role";
@@ -377,7 +377,7 @@
             txtAgentPersonality.Multiline = true;
             txtAgentPersonality.Name = "txtAgentPersonality";
             txtAgentPersonality.ScrollBars = ScrollBars.Vertical;
-            txtAgentPersonality.Size = new Size(262, 129);
+            txtAgentPersonality.Size = new Size(262, 144);
             txtAgentPersonality.TabIndex = 1;
             // 
             // grpName
@@ -406,7 +406,7 @@
             tabPage2.Location = new Point(4, 31);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(292, 652);
+            tabPage2.Size = new Size(292, 666);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Settings";
             tabPage2.UseVisualStyleBackColor = true;
@@ -420,7 +420,7 @@
             pnlAudio.Dock = DockStyle.Fill;
             pnlAudio.Location = new Point(3, 3);
             pnlAudio.Name = "pnlAudio";
-            pnlAudio.Size = new Size(286, 646);
+            pnlAudio.Size = new Size(286, 660);
             pnlAudio.TabIndex = 0;
             // 
             // grpAgentID
@@ -594,8 +594,8 @@
             // splitContainerChat.Panel2
             // 
             splitContainerChat.Panel2.Controls.Add(grpUserInput);
-            splitContainerChat.Size = new Size(881, 687);
-            splitContainerChat.SplitterDistance = 499;
+            splitContainerChat.Size = new Size(881, 702);
+            splitContainerChat.SplitterDistance = 509;
             splitContainerChat.TabIndex = 3;
             // 
             // tabDialogs
@@ -611,7 +611,7 @@
             tabDialogs.Location = new Point(0, 0);
             tabDialogs.Name = "tabDialogs";
             tabDialogs.SelectedIndex = 0;
-            tabDialogs.Size = new Size(881, 499);
+            tabDialogs.Size = new Size(881, 509);
             tabDialogs.TabIndex = 2;
             // 
             // tabPageText
@@ -621,7 +621,7 @@
             tabPageText.Location = new Point(4, 31);
             tabPageText.Name = "tabPageText";
             tabPageText.Padding = new Padding(3);
-            tabPageText.Size = new Size(873, 464);
+            tabPageText.Size = new Size(873, 474);
             tabPageText.TabIndex = 0;
             tabPageText.Text = "Chat";
             tabPageText.UseVisualStyleBackColor = true;
@@ -632,7 +632,7 @@
             agentConversation.Dock = DockStyle.Fill;
             agentConversation.Location = new Point(3, 3);
             agentConversation.Name = "agentConversation";
-            agentConversation.Size = new Size(867, 458);
+            agentConversation.Size = new Size(867, 468);
             agentConversation.TabIndex = 0;
             agentConversation.TabStop = false;
             agentConversation.Text = "Conversation";
@@ -644,7 +644,7 @@
             conversationContentPanel.Dock = DockStyle.Fill;
             conversationContentPanel.Location = new Point(3, 19);
             conversationContentPanel.Name = "conversationContentPanel";
-            conversationContentPanel.Size = new Size(861, 436);
+            conversationContentPanel.Size = new Size(861, 446);
             conversationContentPanel.TabIndex = 0;
             // 
             // txtChat
@@ -657,7 +657,7 @@
             txtChat.Location = new Point(0, 0);
             txtChat.Name = "txtChat";
             txtChat.ReadOnly = true;
-            txtChat.Size = new Size(861, 436);
+            txtChat.Size = new Size(861, 446);
             txtChat.TabIndex = 0;
             txtChat.Text = "";
             // 
@@ -682,7 +682,7 @@
             tabPageCode.Location = new Point(4, 31);
             tabPageCode.Name = "tabPageCode";
             tabPageCode.Padding = new Padding(3);
-            tabPageCode.Size = new Size(873, 464);
+            tabPageCode.Size = new Size(873, 474);
             tabPageCode.TabIndex = 1;
             tabPageCode.Text = "Code";
             tabPageCode.UseVisualStyleBackColor = true;
@@ -693,7 +693,7 @@
             groupBox4.Dock = DockStyle.Fill;
             groupBox4.Location = new Point(3, 3);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(867, 458);
+            groupBox4.Size = new Size(867, 468);
             groupBox4.TabIndex = 1;
             groupBox4.TabStop = false;
             groupBox4.Text = "Code";
@@ -705,7 +705,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 19);
             panel1.Name = "panel1";
-            panel1.Size = new Size(861, 436);
+            panel1.Size = new Size(861, 446);
             panel1.TabIndex = 0;
             // 
             // txtCode
@@ -721,7 +721,6 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
-            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -733,7 +732,7 @@
             txtCode.RightBracket2 = '}';
             txtCode.SelectionColor = Color.FromArgb(60, 0, 0, 255);
             txtCode.ServiceColors = (FastColoredTextBoxNS.ServiceColors)resources.GetObject("txtCode.ServiceColors");
-            txtCode.Size = new Size(861, 436);
+            txtCode.Size = new Size(861, 446);
             txtCode.TabIndex = 0;
             txtCode.Zoom = 100;
             // 
@@ -744,7 +743,7 @@
             tabWeb.ImageKey = "843779_browser_edge_explorer_icon_24.png";
             tabWeb.Location = new Point(4, 31);
             tabWeb.Name = "tabWeb";
-            tabWeb.Size = new Size(873, 464);
+            tabWeb.Size = new Size(873, 474);
             tabWeb.TabIndex = 2;
             tabWeb.Text = "Browser";
             tabWeb.UseVisualStyleBackColor = true;
@@ -757,7 +756,7 @@
             webView21.DefaultBackgroundColor = Color.White;
             webView21.Location = new Point(3, 28);
             webView21.Name = "webView21";
-            webView21.Size = new Size(867, 433);
+            webView21.Size = new Size(867, 443);
             webView21.Source = new Uri("https://bing.com/", UriKind.Absolute);
             webView21.TabIndex = 1;
             webView21.ZoomFactor = 1D;
@@ -828,7 +827,7 @@
             tabWebText.ImageKey = "9046076_web_website_site_browser_icon_24.png";
             tabWebText.Location = new Point(4, 31);
             tabWebText.Name = "tabWebText";
-            tabWebText.Size = new Size(873, 464);
+            tabWebText.Size = new Size(873, 474);
             tabWebText.TabIndex = 3;
             tabWebText.Text = "Web Text";
             tabWebText.UseVisualStyleBackColor = true;
@@ -842,7 +841,7 @@
             txtWebText.Location = new Point(0, 0);
             txtWebText.Name = "txtWebText";
             txtWebText.ReadOnly = true;
-            txtWebText.Size = new Size(873, 464);
+            txtWebText.Size = new Size(873, 474);
             txtWebText.TabIndex = 1;
             txtWebText.Text = "";
             // 
@@ -852,7 +851,7 @@
             tabDynPrompt.ImageKey = "7088608_database_storage_server_data_sharing_icon_24.png";
             tabDynPrompt.Location = new Point(4, 31);
             tabDynPrompt.Name = "tabDynPrompt";
-            tabDynPrompt.Size = new Size(873, 464);
+            tabDynPrompt.Size = new Size(873, 474);
             tabDynPrompt.TabIndex = 4;
             tabDynPrompt.Text = "Dynamic Prompt Memory";
             tabDynPrompt.UseVisualStyleBackColor = true;
@@ -868,7 +867,7 @@
             dataDynamicPrompts.Location = new Point(0, 0);
             dataDynamicPrompts.Name = "dataDynamicPrompts";
             dataDynamicPrompts.RowTemplate.Height = 25;
-            dataDynamicPrompts.Size = new Size(873, 464);
+            dataDynamicPrompts.Size = new Size(873, 474);
             dataDynamicPrompts.TabIndex = 0;
             // 
             // tabMemory
@@ -877,7 +876,7 @@
             tabMemory.ImageKey = "7088618_byte_database_server_data_warehouse_icon_24.png";
             tabMemory.Location = new Point(4, 31);
             tabMemory.Name = "tabMemory";
-            tabMemory.Size = new Size(873, 464);
+            tabMemory.Size = new Size(873, 474);
             tabMemory.TabIndex = 5;
             tabMemory.Text = "Prompt Memory";
             tabMemory.UseVisualStyleBackColor = true;
@@ -891,7 +890,7 @@
             dataPromptMemory.Location = new Point(0, 0);
             dataPromptMemory.Name = "dataPromptMemory";
             dataPromptMemory.RowTemplate.Height = 25;
-            dataPromptMemory.Size = new Size(873, 464);
+            dataPromptMemory.Size = new Size(873, 474);
             dataPromptMemory.TabIndex = 1;
             dataPromptMemory.CellBeginEdit += dataPromptMemory_CellBeginEdit;
             dataPromptMemory.RowValidated += dataPromptMemory_RowValidated;
@@ -903,7 +902,7 @@
             grpUserInput.Dock = DockStyle.Fill;
             grpUserInput.Location = new Point(0, 0);
             grpUserInput.Name = "grpUserInput";
-            grpUserInput.Size = new Size(881, 184);
+            grpUserInput.Size = new Size(881, 189);
             grpUserInput.TabIndex = 1;
             grpUserInput.TabStop = false;
             grpUserInput.Text = "User input";
@@ -915,7 +914,7 @@
             pnlInput.Dock = DockStyle.Fill;
             pnlInput.Location = new Point(3, 19);
             pnlInput.Name = "pnlInput";
-            pnlInput.Size = new Size(875, 162);
+            pnlInput.Size = new Size(875, 167);
             pnlInput.TabIndex = 0;
             // 
             // txtUserInput
@@ -927,7 +926,7 @@
             txtUserInput.Multiline = true;
             txtUserInput.Name = "txtUserInput";
             txtUserInput.ScrollBars = ScrollBars.Vertical;
-            txtUserInput.Size = new Size(875, 162);
+            txtUserInput.Size = new Size(875, 167);
             txtUserInput.TabIndex = 0;
             // 
             // agentStatus
@@ -961,7 +960,7 @@
             // 
             // agentTools
             // 
-            agentTools.Items.AddRange(new ToolStripItem[] { btnTTS, btnComputerAudioSTT, toolStripButton1, ttsVoice, btnRecordComputerAudio, btnPlayAudioToMic });
+            agentTools.Items.AddRange(new ToolStripItem[] { btnTTS, ttsVoice, btnRecordComputerAudio, btnComputerAudioSTT, btnPlayAudioToMic, toolStripButton1 });
             agentTools.Location = new Point(0, 0);
             agentTools.Name = "agentTools";
             agentTools.RenderMode = ToolStripRenderMode.Professional;
@@ -980,26 +979,6 @@
             btnTTS.Text = "Text to speech";
             btnTTS.Click += btnTTS_Click;
             // 
-            // btnComputerAudioSTT
-            // 
-            btnComputerAudioSTT.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            btnComputerAudioSTT.Image = Properties.Resources._9055836_bxl_microsoft_teams_icon_off_24;
-            btnComputerAudioSTT.ImageTransparentColor = Color.Magenta;
-            btnComputerAudioSTT.Name = "btnComputerAudioSTT";
-            btnComputerAudioSTT.Size = new Size(23, 22);
-            btnComputerAudioSTT.Text = "Transcript computer audio";
-            btnComputerAudioSTT.Click += btnComputerAudioSTT_Click;
-            // 
-            // toolStripButton1
-            // 
-            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
-            toolStripButton1.Image = Properties.Resources._9035019_mic_off_icon;
-            toolStripButton1.ImageTransparentColor = Color.Magenta;
-            toolStripButton1.Name = "toolStripButton1";
-            toolStripButton1.Size = new Size(23, 22);
-            toolStripButton1.Text = "Mic";
-            toolStripButton1.Click += toolStripButton1_Click;
-            // 
             // ttsVoice
             // 
             ttsVoice.DropDownWidth = 200;
@@ -1017,6 +996,16 @@
             btnRecordComputerAudio.Text = "Mic to audio";
             btnRecordComputerAudio.Click += btnRecordComputerAudio_Click;
             // 
+            // btnComputerAudioSTT
+            // 
+            btnComputerAudioSTT.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnComputerAudioSTT.Image = Properties.Resources._9055836_bxl_microsoft_teams_icon_off_24;
+            btnComputerAudioSTT.ImageTransparentColor = Color.Magenta;
+            btnComputerAudioSTT.Name = "btnComputerAudioSTT";
+            btnComputerAudioSTT.Size = new Size(23, 22);
+            btnComputerAudioSTT.Text = "Transcript computer audio";
+            btnComputerAudioSTT.Click += btnComputerAudioSTT_Click;
+            // 
             // btnPlayAudioToMic
             // 
             btnPlayAudioToMic.DisplayStyle = ToolStripItemDisplayStyle.Image;
@@ -1026,6 +1015,16 @@
             btnPlayAudioToMic.Size = new Size(23, 22);
             btnPlayAudioToMic.Text = "Analyze audio";
             btnPlayAudioToMic.Click += btnPlayAudioToMic_Click;
+            // 
+            // toolStripButton1
+            // 
+            toolStripButton1.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            toolStripButton1.Image = Properties.Resources._9035019_mic_off_icon;
+            toolStripButton1.ImageTransparentColor = Color.Magenta;
+            toolStripButton1.Name = "toolStripButton1";
+            toolStripButton1.Size = new Size(23, 22);
+            toolStripButton1.Text = "Mic";
+            toolStripButton1.Click += toolStripButton1_Click;
             // 
             // toolTipFocus
             // 
