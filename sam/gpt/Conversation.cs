@@ -230,7 +230,7 @@ namespace sam.gpt
                 combinedResults.Length -= 2; // Remove the last comma and space
                 if (combinedResults.ToString() != "")
                 {
-                    var chatMessage = new ChatMessage("user", "Käytä tätä tietoa apuna vastauksessasi: {" + combinedResults.ToString() + "}");
+                    var chatMessage = new ChatMessage("user", "Tiedät tämän: " + combinedResults.ToString() + "");
                     topMessages.Add(chatMessage);
                 }
             }
@@ -319,10 +319,35 @@ namespace sam.gpt
             List<ChatMessage> systemMemory = await LoadTopMessages(userInput);
 
             // Add system and user personalities to conversation
-            systemPersonality.ForEach(per => convMessages.Add(new ChatMessage("system", per)));
-            userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
+            if(systemPersonality.Count > 0)
+            {
+                systemPersonality.ForEach(per => convMessages.Add(new ChatMessage("system", per)));
+            }
+            
+            
+            // Add system memory 
+            if(systemMemory.Count > 0)
+            {
+                //systemMemory.ForEach(convMessages.Add);
+                string memory = "";
+                foreach(ChatMessage message in systemMemory)
+                {
+                    memory = message.Content + " ";
+                }
+                if (userPersonality.Count > 0)
+                {
+                    userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per + " " + memory)));
+                }
 
-
+            }
+            else
+            {
+                if (userPersonality.Count > 0)
+                {
+                    userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
+                }
+            }
+            
 
             List<ChatMessage> messagesToAdd = new List<ChatMessage>();
             int totalLength = 0;
@@ -345,8 +370,7 @@ namespace sam.gpt
             // Add the messages from messagesToAdd to convMessages
             messagesToAdd.ForEach(convMessages.Add);
 
-            // Add system memory 
-            systemMemory.ForEach(convMessages.Add);
+            
 
             //chatHistory.ForEach(convMessages.Add);
 
@@ -357,7 +381,11 @@ namespace sam.gpt
             chatHistory.Add(cmessage);
 
             // Add role enforcer to conversation
-            roleEnforcer.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
+            if(chatHistory.Count > 0)
+            {
+                roleEnforcer.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
+            }
+            
 
             if (requiresResponse)
             {

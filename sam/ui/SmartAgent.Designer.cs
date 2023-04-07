@@ -43,6 +43,7 @@
             groupBox5 = new GroupBox();
             txtSystem = new TextBox();
             grpAgentControl = new GroupBox();
+            btnSend = new Button();
             chkSmartAgentEnabled = new CheckBox();
             btnSaveAgent = new Button();
             btnReset = new Button();
@@ -92,7 +93,6 @@
             dataPromptMemory = new DataGridView();
             grpUserInput = new GroupBox();
             pnlInput = new Panel();
-            btnSend = new Button();
             txtUserInput = new TextBox();
             agentStatus = new StatusStrip();
             agentStatusLabel = new ToolStripStatusLabel();
@@ -309,6 +309,17 @@
             grpAgentControl.TabIndex = 5;
             grpAgentControl.TabStop = false;
             grpAgentControl.Text = "Agent control";
+            // 
+            // btnSend
+            // 
+            btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
+            btnSend.Location = new Point(187, 48);
+            btnSend.Name = "btnSend";
+            btnSend.Size = new Size(75, 39);
+            btnSend.TabIndex = 1;
+            btnSend.Text = "Send";
+            btnSend.UseVisualStyleBackColor = true;
+            btnSend.Click += btnSend_Click;
             // 
             // chkSmartAgentEnabled
             // 
@@ -670,7 +681,6 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
-            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -862,17 +872,6 @@
             pnlInput.Name = "pnlInput";
             pnlInput.Size = new Size(875, 162);
             pnlInput.TabIndex = 0;
-            // 
-            // btnSend
-            // 
-            btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            btnSend.Location = new Point(174, 48);
-            btnSend.Name = "btnSend";
-            btnSend.Size = new Size(75, 39);
-            btnSend.TabIndex = 1;
-            btnSend.Text = "Send";
-            btnSend.UseVisualStyleBackColor = true;
-            btnSend.Click += btnSend_Click;
             // 
             // txtUserInput
             // 
