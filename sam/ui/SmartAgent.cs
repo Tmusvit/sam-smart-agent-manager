@@ -1136,5 +1136,15 @@ namespace sam
             }
 
         }
+
+        private void contextMenuStripChat_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        {
+            // Check if the clicked item is the "Copy" option
+            if (e.ClickedItem.Text == "Copy")
+            {
+                // Copy the selected text to the Clipboard
+                Clipboard.SetText(txtChat.SelectedText);
+            }
+        }
     }
 }

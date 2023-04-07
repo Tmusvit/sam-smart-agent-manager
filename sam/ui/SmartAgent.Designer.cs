@@ -74,6 +74,8 @@
             agentConversation = new GroupBox();
             conversationContentPanel = new Panel();
             txtChat = new RichTextBox();
+            contextMenuStripChat = new ContextMenuStrip(components);
+            toolStripMenuItemCopy = new ToolStripMenuItem();
             tabPageCode = new TabPage();
             groupBox4 = new GroupBox();
             panel1 = new Panel();
@@ -137,6 +139,7 @@
             tabPageText.SuspendLayout();
             agentConversation.SuspendLayout();
             conversationContentPanel.SuspendLayout();
+            contextMenuStripChat.SuspendLayout();
             tabPageCode.SuspendLayout();
             groupBox4.SuspendLayout();
             panel1.SuspendLayout();
@@ -648,6 +651,7 @@
             // 
             txtChat.BackColor = Color.White;
             txtChat.BorderStyle = BorderStyle.None;
+            txtChat.ContextMenuStrip = contextMenuStripChat;
             txtChat.Dock = DockStyle.Fill;
             txtChat.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
             txtChat.Location = new Point(0, 0);
@@ -656,6 +660,20 @@
             txtChat.Size = new Size(861, 436);
             txtChat.TabIndex = 0;
             txtChat.Text = "";
+            // 
+            // contextMenuStripChat
+            // 
+            contextMenuStripChat.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopy });
+            contextMenuStripChat.Name = "contextMenuStripChat";
+            contextMenuStripChat.Size = new Size(181, 48);
+            contextMenuStripChat.ItemClicked += contextMenuStripChat_ItemClicked;
+            // 
+            // toolStripMenuItemCopy
+            // 
+            toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
+            toolStripMenuItemCopy.ShortcutKeys = Keys.Control | Keys.C;
+            toolStripMenuItemCopy.Size = new Size(180, 22);
+            toolStripMenuItemCopy.Text = "Copy";
             // 
             // tabPageCode
             // 
@@ -1066,6 +1084,7 @@
             tabPageText.ResumeLayout(false);
             agentConversation.ResumeLayout(false);
             conversationContentPanel.ResumeLayout(false);
+            contextMenuStripChat.ResumeLayout(false);
             tabPageCode.ResumeLayout(false);
             groupBox4.ResumeLayout(false);
             panel1.ResumeLayout(false);
@@ -1170,5 +1189,7 @@
         private DataGridView dataPromptMemory;
         private SplitContainer splitContainerChat;
         private ImageList imageListSam;
+        private ContextMenuStrip contextMenuStripChat;
+        private ToolStripMenuItem toolStripMenuItemCopy;
     }
 }
