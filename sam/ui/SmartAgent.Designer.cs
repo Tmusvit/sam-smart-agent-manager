@@ -299,6 +299,7 @@
             // grpAgentControl
             // 
             grpAgentControl.Anchor = AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            grpAgentControl.Controls.Add(btnSend);
             grpAgentControl.Controls.Add(chkSmartAgentEnabled);
             grpAgentControl.Controls.Add(btnSaveAgent);
             grpAgentControl.Controls.Add(btnReset);
@@ -387,7 +388,7 @@
             tabPage2.Location = new Point(4, 24);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
-            tabPage2.Size = new Size(404, 659);
+            tabPage2.Size = new Size(292, 659);
             tabPage2.TabIndex = 1;
             tabPage2.Text = "Settings";
             tabPage2.UseVisualStyleBackColor = true;
@@ -401,7 +402,7 @@
             pnlAudio.Dock = DockStyle.Fill;
             pnlAudio.Location = new Point(3, 3);
             pnlAudio.Name = "pnlAudio";
-            pnlAudio.Size = new Size(398, 653);
+            pnlAudio.Size = new Size(286, 653);
             pnlAudio.TabIndex = 0;
             // 
             // grpAgentID
@@ -410,7 +411,7 @@
             grpAgentID.Controls.Add(txtAgentID);
             grpAgentID.Location = new Point(11, 3);
             grpAgentID.Name = "grpAgentID";
-            grpAgentID.Size = new Size(380, 51);
+            grpAgentID.Size = new Size(268, 51);
             grpAgentID.TabIndex = 8;
             grpAgentID.TabStop = false;
             grpAgentID.Text = "Agent id";
@@ -420,7 +421,7 @@
             txtAgentID.Dock = DockStyle.Fill;
             txtAgentID.Location = new Point(3, 19);
             txtAgentID.Name = "txtAgentID";
-            txtAgentID.Size = new Size(374, 23);
+            txtAgentID.Size = new Size(262, 23);
             txtAgentID.TabIndex = 1;
             // 
             // groupBox1
@@ -430,7 +431,7 @@
             groupBox1.Controls.Add(groupBox2);
             groupBox1.Location = new Point(5, 229);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(390, 249);
+            groupBox1.Size = new Size(278, 249);
             groupBox1.TabIndex = 7;
             groupBox1.TabStop = false;
             groupBox1.Text = "Slave agent settings";
@@ -441,7 +442,7 @@
             groupBox3.Controls.Add(checkedListSelectedSlaves);
             groupBox3.Location = new Point(6, 22);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new Size(378, 101);
+            groupBox3.Size = new Size(266, 101);
             groupBox3.TabIndex = 4;
             groupBox3.TabStop = false;
             groupBox3.Text = "Slave agent names";
@@ -452,7 +453,7 @@
             checkedListSelectedSlaves.FormattingEnabled = true;
             checkedListSelectedSlaves.Location = new Point(3, 19);
             checkedListSelectedSlaves.Name = "checkedListSelectedSlaves";
-            checkedListSelectedSlaves.Size = new Size(372, 79);
+            checkedListSelectedSlaves.Size = new Size(260, 79);
             checkedListSelectedSlaves.TabIndex = 0;
             // 
             // groupBox2
@@ -461,7 +462,7 @@
             groupBox2.Controls.Add(txtSlaveMessage);
             groupBox2.Location = new Point(9, 129);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new Size(375, 114);
+            groupBox2.Size = new Size(263, 114);
             groupBox2.TabIndex = 3;
             groupBox2.TabStop = false;
             groupBox2.Text = "Message to slave agent";
@@ -472,7 +473,7 @@
             txtSlaveMessage.Location = new Point(3, 19);
             txtSlaveMessage.Multiline = true;
             txtSlaveMessage.Name = "txtSlaveMessage";
-            txtSlaveMessage.Size = new Size(369, 92);
+            txtSlaveMessage.Size = new Size(257, 92);
             txtSlaveMessage.TabIndex = 1;
             // 
             // grpAudioDevices
@@ -486,7 +487,7 @@
             grpAudioDevices.Controls.Add(lblSpeakers);
             grpAudioDevices.Location = new Point(5, 60);
             grpAudioDevices.Name = "grpAudioDevices";
-            grpAudioDevices.Size = new Size(390, 163);
+            grpAudioDevices.Size = new Size(278, 163);
             grpAudioDevices.TabIndex = 0;
             grpAudioDevices.TabStop = false;
             grpAudioDevices.Text = "Audio devices for mic loopback";
@@ -497,7 +498,7 @@
             cmbAudioSource.FormattingEnabled = true;
             cmbAudioSource.Location = new Point(6, 125);
             cmbAudioSource.Name = "cmbAudioSource";
-            cmbAudioSource.Size = new Size(378, 23);
+            cmbAudioSource.Size = new Size(266, 23);
             cmbAudioSource.TabIndex = 5;
             // 
             // label1
@@ -515,7 +516,7 @@
             cmbMicLoop.FormattingEnabled = true;
             cmbMicLoop.Location = new Point(6, 81);
             cmbMicLoop.Name = "cmbMicLoop";
-            cmbMicLoop.Size = new Size(378, 23);
+            cmbMicLoop.Size = new Size(266, 23);
             cmbMicLoop.TabIndex = 3;
             // 
             // lblMic
@@ -533,7 +534,7 @@
             cmbSpeaker.FormattingEnabled = true;
             cmbSpeaker.Location = new Point(6, 37);
             cmbSpeaker.Name = "cmbSpeaker";
-            cmbSpeaker.Size = new Size(378, 23);
+            cmbSpeaker.Size = new Size(266, 23);
             cmbSpeaker.TabIndex = 1;
             cmbSpeaker.SelectedIndexChanged += cmbSpeaker_SelectedIndexChanged;
             // 
@@ -630,7 +631,7 @@
             tabPageCode.Location = new Point(4, 24);
             tabPageCode.Name = "tabPageCode";
             tabPageCode.Padding = new Padding(3);
-            tabPageCode.Size = new Size(761, 471);
+            tabPageCode.Size = new Size(873, 471);
             tabPageCode.TabIndex = 1;
             tabPageCode.Text = "C# Code";
             tabPageCode.UseVisualStyleBackColor = true;
@@ -641,7 +642,7 @@
             groupBox4.Dock = DockStyle.Fill;
             groupBox4.Location = new Point(3, 3);
             groupBox4.Name = "groupBox4";
-            groupBox4.Size = new Size(755, 465);
+            groupBox4.Size = new Size(867, 465);
             groupBox4.TabIndex = 1;
             groupBox4.TabStop = false;
             groupBox4.Text = "Code";
@@ -653,7 +654,7 @@
             panel1.Dock = DockStyle.Fill;
             panel1.Location = new Point(3, 19);
             panel1.Name = "panel1";
-            panel1.Size = new Size(749, 443);
+            panel1.Size = new Size(861, 443);
             panel1.TabIndex = 0;
             // 
             // txtCode
@@ -681,7 +682,7 @@
             txtCode.RightBracket2 = '}';
             txtCode.SelectionColor = Color.FromArgb(60, 0, 0, 255);
             txtCode.ServiceColors = (FastColoredTextBoxNS.ServiceColors)resources.GetObject("txtCode.ServiceColors");
-            txtCode.Size = new Size(749, 443);
+            txtCode.Size = new Size(861, 443);
             txtCode.TabIndex = 0;
             txtCode.Zoom = 100;
             // 
@@ -691,7 +692,7 @@
             tabWeb.Controls.Add(toolWeb);
             tabWeb.Location = new Point(4, 24);
             tabWeb.Name = "tabWeb";
-            tabWeb.Size = new Size(761, 471);
+            tabWeb.Size = new Size(873, 471);
             tabWeb.TabIndex = 2;
             tabWeb.Text = "Web";
             tabWeb.UseVisualStyleBackColor = true;
@@ -704,7 +705,7 @@
             webView21.DefaultBackgroundColor = Color.White;
             webView21.Location = new Point(3, 28);
             webView21.Name = "webView21";
-            webView21.Size = new Size(755, 440);
+            webView21.Size = new Size(867, 440);
             webView21.Source = new Uri("https://bing.com/", UriKind.Absolute);
             webView21.TabIndex = 1;
             webView21.ZoomFactor = 1D;
@@ -717,7 +718,7 @@
             toolWeb.Items.AddRange(new ToolStripItem[] { btnBack, btnForward, btnRefresh, txtAddress, btnGo });
             toolWeb.Location = new Point(0, 0);
             toolWeb.Name = "toolWeb";
-            toolWeb.Size = new Size(761, 25);
+            toolWeb.Size = new Size(873, 25);
             toolWeb.TabIndex = 0;
             toolWeb.Text = "toolStrip1";
             // 
@@ -774,7 +775,7 @@
             tabWebText.Controls.Add(txtWebText);
             tabWebText.Location = new Point(4, 24);
             tabWebText.Name = "tabWebText";
-            tabWebText.Size = new Size(761, 471);
+            tabWebText.Size = new Size(873, 471);
             tabWebText.TabIndex = 3;
             tabWebText.Text = "Web Text";
             tabWebText.UseVisualStyleBackColor = true;
@@ -788,7 +789,7 @@
             txtWebText.Location = new Point(0, 0);
             txtWebText.Name = "txtWebText";
             txtWebText.ReadOnly = true;
-            txtWebText.Size = new Size(761, 471);
+            txtWebText.Size = new Size(873, 471);
             txtWebText.TabIndex = 1;
             txtWebText.Text = "";
             // 
@@ -797,7 +798,7 @@
             tabDynPrompt.Controls.Add(dataDynamicPrompts);
             tabDynPrompt.Location = new Point(4, 24);
             tabDynPrompt.Name = "tabDynPrompt";
-            tabDynPrompt.Size = new Size(761, 471);
+            tabDynPrompt.Size = new Size(873, 471);
             tabDynPrompt.TabIndex = 4;
             tabDynPrompt.Text = "Dynamic Prompt memory";
             tabDynPrompt.UseVisualStyleBackColor = true;
@@ -813,7 +814,7 @@
             dataDynamicPrompts.Location = new Point(0, 0);
             dataDynamicPrompts.Name = "dataDynamicPrompts";
             dataDynamicPrompts.RowTemplate.Height = 25;
-            dataDynamicPrompts.Size = new Size(761, 471);
+            dataDynamicPrompts.Size = new Size(873, 471);
             dataDynamicPrompts.TabIndex = 0;
             // 
             // tabMemory
@@ -821,7 +822,7 @@
             tabMemory.Controls.Add(dataPromptMemory);
             tabMemory.Location = new Point(4, 24);
             tabMemory.Name = "tabMemory";
-            tabMemory.Size = new Size(761, 471);
+            tabMemory.Size = new Size(873, 471);
             tabMemory.TabIndex = 5;
             tabMemory.Text = "Prompt Memory";
             tabMemory.UseVisualStyleBackColor = true;
@@ -835,10 +836,11 @@
             dataPromptMemory.Location = new Point(0, 0);
             dataPromptMemory.Name = "dataPromptMemory";
             dataPromptMemory.RowTemplate.Height = 25;
-            dataPromptMemory.Size = new Size(761, 471);
+            dataPromptMemory.Size = new Size(873, 471);
             dataPromptMemory.TabIndex = 1;
             dataPromptMemory.CellBeginEdit += dataPromptMemory_CellBeginEdit;
             dataPromptMemory.RowValidated += dataPromptMemory_RowValidated;
+            dataPromptMemory.UserDeletingRow += dataPromptMemory_UserDeletingRow;
             // 
             // grpUserInput
             // 
@@ -854,7 +856,6 @@
             // pnlInput
             // 
             pnlInput.AutoScroll = true;
-            pnlInput.Controls.Add(btnSend);
             pnlInput.Controls.Add(txtUserInput);
             pnlInput.Dock = DockStyle.Fill;
             pnlInput.Location = new Point(3, 19);
@@ -864,10 +865,10 @@
             // 
             // btnSend
             // 
-            btnSend.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSend.Location = new Point(812, 3);
+            btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            btnSend.Location = new Point(174, 48);
             btnSend.Name = "btnSend";
-            btnSend.Size = new Size(59, 155);
+            btnSend.Size = new Size(75, 39);
             btnSend.TabIndex = 1;
             btnSend.Text = "Send";
             btnSend.UseVisualStyleBackColor = true;
@@ -875,14 +876,14 @@
             // 
             // txtUserInput
             // 
-            txtUserInput.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             txtUserInput.BackColor = Color.White;
+            txtUserInput.Dock = DockStyle.Fill;
             txtUserInput.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point);
-            txtUserInput.Location = new Point(3, 3);
+            txtUserInput.Location = new Point(0, 0);
             txtUserInput.Multiline = true;
             txtUserInput.Name = "txtUserInput";
             txtUserInput.ScrollBars = ScrollBars.Vertical;
-            txtUserInput.Size = new Size(803, 155);
+            txtUserInput.Size = new Size(875, 162);
             txtUserInput.TabIndex = 0;
             // 
             // agentStatus

@@ -40,8 +40,8 @@ namespace sam.gpt
                 ApiKey = apiKey
             });
             this.systemPersonality = systemPersonality;
-            this.userPersonality= userPersonality;
-            this.roleEnforcer= roleEnforcer;
+            this.userPersonality = userPersonality;
+            this.roleEnforcer = roleEnforcer;
             this.agentId = agentId;
             this.temperature = focus;
             CreateTable();
@@ -152,7 +152,7 @@ namespace sam.gpt
 
         public List<ChatMessage> LoadChatHistory()
         {
-           chatHistory.Clear();
+            chatHistory.Clear();
             try
             {
                 if (File.Exists("chat.db"))
@@ -194,11 +194,11 @@ namespace sam.gpt
         }
 
 
-        public List<ChatMessage> LoadTopMessages(string searchParameter)
+        public async Task<List<ChatMessage>> LoadTopMessages(string searchParameter)
         {
             var topMessages = new List<ChatMessage>();
             var connectionString = "Data Source=chat.db";
-            
+
 
             var sqlBuilder = "SELECT Role, Content FROM ChatMemory WHERE AgentId = @AgentId";
             List<string> dbString = new List<string>();
@@ -210,7 +210,7 @@ namespace sam.gpt
 
                 // Set command parameters
                 command.Parameters.AddWithValue("@AgentId", agentId);
-                
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -219,36 +219,93 @@ namespace sam.gpt
                     }
                 }
             }
-            List<string> filteredSearch = SearchList(dbString,  searchParameter.ToLower());
+            List<string> filteredSearch = SearchList(dbString, searchParameter.ToLower(), 20);
+            StringBuilder combinedResults = new StringBuilder();
             foreach (string filter in filteredSearch)
             {
-                var chatMessage = new ChatMessage("user", "{tiedät nämä tiedot: " + filter + "}");
-                topMessages.Add(chatMessage);
+                combinedResults.Append(filter + ", ");
             }
-            
+            if (combinedResults.Length > 0)
+            {
+                combinedResults.Length -= 2; // Remove the last comma and space
+                if (combinedResults.ToString() != "")
+                {
+                    var chatMessage = new ChatMessage("user", "Käytä tätä tietoa apuna vastauksessasi: {" + combinedResults.ToString() + "}");
+                    topMessages.Add(chatMessage);
+                }
+            }
+
+
             return topMessages;
         }
-        public static List<string> SearchList(List<string> inputList, string searchTerm)
+
+        private async Task<string> GptHelpFunction(string command, string searchParameter)
         {
-            // Split the search term into individual words.
-            string[] searchWords = searchTerm.Split(' ');
+            List<string> convResponse = new List<string> { "" };
+            var msg = new ChatMessage("user", command + searchParameter);
 
-            // Create the regular expression to find any of the search terms.
-            string regexPattern = @"(\b[\w\s]+\b).*?(" + string.Join("|", searchWords.Select(w => Regex.Escape(w))) + @")[^\.]*\.";
-            Regex regex = new Regex(regexPattern, RegexOptions.IgnoreCase | RegexOptions.Singleline);
-
-            // Use LINQ to filter the input list and add any matches to the result list.
-            List<string> resultList = inputList.Where(input => regex.IsMatch(input)).ToList();
-
-            // Sort the result list by the number of search term matches in each sentence.
-            resultList.Sort((a, b) => {
-                int aMatches = regex.Matches(a).Count;
-                int bMatches = regex.Matches(b).Count;
-                return bMatches.CompareTo(aMatches);
+            List<ChatMessage> convMessages = new List<ChatMessage>();
+            convMessages.Add(msg);
+            // Create a completion result using the SDK and the conversation messages
+            var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+            {
+                Messages = convMessages,
+                Model = Models.ChatGpt3_5Turbo0301
             });
 
-            // Return only the top 5 best results.
-            return resultList.Take(5).ToList();
+            // If successful, return the response and add it to the chat history
+            if (completionResult.Successful)
+            {
+                completionResult.Choices.ForEach(choises =>
+                {
+                    convResponse.Add(choises.Message.Content);
+                });
+
+                return String.Join("", convResponse);
+            }
+
+            return String.Join("", convResponse);
+
+        }
+
+
+        public static List<string> SearchList(List<string> inputList, string searchSentence, int surroundingSentences)
+        {
+            // Combine the input list into a single text.
+            string text = string.Join(" ", inputList);
+
+            // Split the text into individual sentences.
+            string[] sentences = text.Split(new char[] { '.', '?', '!', ';' });
+
+            string[] searchWords = searchSentence.Split(' ');
+
+            Dictionary<int, int> sentenceCounts = new Dictionary<int, int>();
+            for (int i = 0; i < sentences.Length; i++)
+            {
+                string sentence = sentences[i];
+                int count = 0;
+                foreach (string word in searchWords)
+                {
+                    if (Regex.IsMatch(sentence, @"\b" + word + @"\b", RegexOptions.IgnoreCase))
+                    {
+                        count++;
+                    }
+                }
+                if (count > 0)
+                {
+                    sentenceCounts[i] = count;
+                }
+            }
+
+            var topMatchIndex = sentenceCounts.OrderByDescending(x => x.Value)
+                                              .ThenBy(x => x.Key)
+                                              .FirstOrDefault().Key;
+
+            var topMatches = sentences.Skip(topMatchIndex)
+                                      .Take(surroundingSentences + 1)
+                                      .ToList();
+
+            return topMatches;
         }
 
 
@@ -259,14 +316,13 @@ namespace sam.gpt
         {
             List<string> convResponse = new List<string> { "Sorry, I don't understand." };
             List<ChatMessage> convMessages = new List<ChatMessage>();
-            List<ChatMessage> systemMemory = LoadTopMessages(userInput);
+            List<ChatMessage> systemMemory = await LoadTopMessages(userInput);
 
             // Add system and user personalities to conversation
             systemPersonality.ForEach(per => convMessages.Add(new ChatMessage("system", per)));
             userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
 
-            // Add system memory and conversation history to conversation
-            systemMemory.ForEach(convMessages.Add);
+
 
             List<ChatMessage> messagesToAdd = new List<ChatMessage>();
             int totalLength = 0;
@@ -289,6 +345,8 @@ namespace sam.gpt
             // Add the messages from messagesToAdd to convMessages
             messagesToAdd.ForEach(convMessages.Add);
 
+            // Add system memory 
+            systemMemory.ForEach(convMessages.Add);
 
             //chatHistory.ForEach(convMessages.Add);
 
@@ -304,7 +362,7 @@ namespace sam.gpt
             if (requiresResponse)
             {
 
-               
+
 
                 // Create a completion result using the SDK and the conversation messages
                 var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest

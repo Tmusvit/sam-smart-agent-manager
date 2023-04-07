@@ -1113,5 +1113,28 @@ namespace sam
         {
             webView21.CoreWebView2.Reload();
         }
+
+        private void dataPromptMemory_UserDeletingRow(object sender, DataGridViewRowCancelEventArgs e)
+        {
+            // Get the ID of the row to be deleted
+            int id = Convert.ToInt32(e.Row.Cells["ID"].Value);
+
+            // Connect to the database
+            using (var connection = new SqliteConnection("Data Source=chat.db"))
+            {
+                connection.Open();
+
+                // Delete the row from the database
+                string deleteSql = "DELETE FROM ChatMemory WHERE ID = @id";
+                using (var deleteCmd = new SqliteCommand(deleteSql, connection))
+                {
+                    deleteCmd.Parameters.AddWithValue("@id", id);
+                    deleteCmd.ExecuteNonQuery();
+                }
+
+                connection.Close();
+            }
+
+        }
     }
 }
