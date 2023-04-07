@@ -190,7 +190,7 @@
             // tabPage1
             // 
             tabPage1.Controls.Add(agentSettingsGrp);
-            tabPage1.ImageKey = "7397430_artificial intelligence_ai_chip_technology_computer_icon_24.png";
+            tabPage1.ImageKey = "2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon_24.png";
             tabPage1.Location = new Point(4, 31);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -402,7 +402,7 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(pnlAudio);
-            tabPage2.ImageKey = "6572266_ai_chip_computer_electronic_processor_icon_24.png";
+            tabPage2.ImageKey = "2890588_ai_artificial intelligence_brain_cloud_electronics_icon_24.png";
             tabPage2.Location = new Point(4, 31);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -586,6 +586,10 @@
             imageListSam.Images.SetKeyName(13, "2124241_browser_essential_app_icon_24.png");
             imageListSam.Images.SetKeyName(14, "3209350_data_database_management_storage_structure_icon.png");
             imageListSam.Images.SetKeyName(15, "6137629_data_database_export_server_storage_icon_24.png");
+            imageListSam.Images.SetKeyName(16, "2890580_ai_artificial intelligence_brain_electronics_robotics_icon_24.png");
+            imageListSam.Images.SetKeyName(17, "2890588_ai_artificial intelligence_brain_cloud_electronics_icon_24.png");
+            imageListSam.Images.SetKeyName(18, "2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon.png");
+            imageListSam.Images.SetKeyName(19, "2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon_24.png");
             // 
             // splitContainerChat
             // 

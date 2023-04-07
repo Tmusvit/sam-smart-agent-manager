@@ -307,15 +307,16 @@ namespace sam
 
         private string GenerateRandomAgentName()
         {
-            // Create an array of twenty possible agent name options
-            string[] agentNames = new string[] { "Alex", "Avery", "Brooke", "Cameron", "Dakota", "Jordan", "Morgan", "Riley", "Taylor", "Logan", "Evelyn", "Madison", "Peyton", "Sydney", "Bailey", "Reagan", "Charlie", "Hayden", "Harper", "Parker", "Ariel", "Phoenix", "Rowan", "Sage", "Aspen", "Emerson", "Dallas", "Skyler", "Casey", "Kendall", "Cassidy" };
+            // Create an array of possible agent name options
+            string[] agentNames = new string[] { "Alex", "Avery", "Brooke", "Cameron", "Dakota", "Jordan", "Morgan", "Riley", "Taylor", "Logan", "Evelyn", "Madison", "Peyton", "Sydney", "Bailey", "Reagan", "Charlie", "Hayden", "Harper", "Parker", "Ariel", "Phoenix", "Rowan", "Sage", "Aspen", "Emerson", "Dallas", "Skyler", "Casey", "Kendall", "Aiko", "Amara", "Anika", "Arjun", "Cai", "Dario", "Elio", "Emre", "Esme", "Fleur", "Gia", "Hana", "Ingrid", "Jia", "Kaida", "Kian", "Lila", "Luca", "Mika", "Niamh", "Noa", "Oskar", "Ravi", "Sari", "Soren", "Tala", "Thalia", "Yara", "Yuna", "Zara" };
 
-            // Generate a random number between 0 and 19 to select a random agent name from the array
-            int index = new Random().Next(0, 20);
+            // Generate a random number between 0 and the length of the array to select a random agent name
+            int index = new Random().Next(0, agentNames.Length);
 
             // Return the selected agent name
             return agentNames[index];
         }
+
 
         private void btnSaveAgent_Click(object sender, EventArgs e)
         {
