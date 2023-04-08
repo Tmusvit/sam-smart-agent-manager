@@ -17,6 +17,22 @@ To start using SAM, run the executable file to start the SAM server. This will a
 License
 SAM is licensed under the permissive MIT License. See the LICENSE file for more information.
 
+### Improvements
+
+- Improved search algorithm for more accurate results
+- Streamlined user interface for easier navigation and improved user experience
+
+### UI Upgrades
+![image](https://user-images.githubusercontent.com/167311/230736145-427e6a0e-e190-438a-bda8-df46c2925992.png)
+- Updated icons for a more modern and visually appealing look
+- Improved layout for better organization and easier navigation
+- Added new icons and graphics for a more intuitive user experience
+
+
+
+
+
+
 Contributing
 If you would like to contribute to SAM, please fork the repository and submit a pull request. We welcome contributions from the community and are always looking for ways to improve SAM.
 ![image](https://user-images.githubusercontent.com/167311/223538270-7d3de6cd-98c7-49f1-a7dd-4ce98b7307c3.png)
