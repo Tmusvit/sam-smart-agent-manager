@@ -398,7 +398,7 @@ namespace sam.gpt
                     if (completionResult.Successful)
                     {
                         convResponse.Clear();
-                        systemMemory.ForEach(per => convResponse.Add(per.Content));
+                        //systemMemory.ForEach(per => convResponse.Add(per.Content));
 
                         completionResult.Choices.ForEach(choises =>
                         {

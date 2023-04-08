@@ -30,6 +30,175 @@ namespace sam.ui
         {
             treeViewBuilder = new TreeViewBuilder(promptTree);
 
+            // Luo kategoriat
+            var kategoriat = new List<string> {
+            "Ohjelmistokehitys",
+            "Taloushallinto",
+            "Laki",
+            "Henkilöstöhallinto",
+            "Terveydenhuolto",
+            "Suunnittelu ja media",
+            "Koulutus",
+            "Kielet ja käännökset",
+            "Tietojen analysointi",
+            "Asiakastuki",
+            "Sisällöntuotanto",
+            "Robotiikka ja automaatio",
+            "Markkinointi",
+            "Myynti",
+            "Toiminnanohjaus",
+            "Toimitusketjun hallinta",
+            "Tietotekniikka",
+            "Projektinhallinta",
+            "Laadunvarmistus",
+            "Tutkimus ja kehitys",
+            "Liiketoimintastrategia",
+            "Johtajuus ja hallinto",
+            "Ympäristökestävyys",
+            "Sosiaalinen vastuu ja etiikka"
+        };
+
+            // Add top-level categories
+            foreach (var category in kategoriat)
+            {
+                treeViewBuilder.AddTopLevelCategory(category, Properties.Resources._2890580_ai_artificial_intelligence_brain_electronics_robotics_icon_24);
+            }
+
+            // Lisää alakategoriat Ohjelmistokehitys
+            AddSubCategory("Ohjelmistokehitys", "Miten priorisoit vianetsintäponnisteluja monimutkaisessa ohjelmistoprojektissa?", "Luo opas vianetsintäponnistelujen priorisoinnista monimutkaisessa ohjelmistoprojektissa, keskittyen avainasioihin kuten parametri1, parametri2 ja parametri3. Selitä jokaisen näkökohdan tärkeys ja anna toimintasuunnitelma ohjelmistokehittäjille, jotta he voivat parantaa vianetsintäprosessiaan tehokkaasti.");
+            AddSubCategory("Ohjelmistokehitys", "Mitkä ovat parhaat käytännöt koodiarvioinneille?", "Luo kattava opas parhaista käytännöistä koodiarvioinneille, mukaan lukien vinkkejä rakentavan palautteen antamiseen, yleisten koodausvirheiden tunnistamiseen ja koodin laadun ja yhdenmukaisuuden varmistamiseen.");
+            AddSubCategory("Ohjelmistokehitys", "Miten optimoit tietokannan suorituskykyä?", "Kirjoita artikkeli tärkeimmistä strategioista tietokannan suorituskyvyn optimoimiseksi, mukaan lukien indeksointi, kyselyoptimointi ja tietokannan suunnittelun parhaat käytännöt.");
+            AddSubCategory("Ohjelmistokehitys", "Mitkä ovat yleisimmät ohjelmistokehitysmenetelmät?", "Luo opas, joka selittää yleisimmät ohjelmistokehitysmenetelmät, mukaan lukien Agile, Waterfall ja Scrum. Keskustele kunkin menetelmän eduista ja haitoista ja anna esimerkkejä siitä, milloin kukin menetelmä on sopivin.");
+            AddSubCategory("Ohjelmistokehitys", "Miten varmistat ohjelmiston turvallisuuden?", "Kirjoita artikkeli tärkeimmistä strategioista ohjelmiston turvallisuuden varmistamiseksi, mukaan lukien turvalliset koodauskäytännöt, haavoittuvuustestaus ja uhkamallinnus.");
+            AddSubCategory("Ohjelmistokehitys", "Mitkä ovat parhaat työkalut ohjelmistokehitykseen?", "Luo lista parhaista työkaluista ohjelmistokehitykseen, mukaan lukien IDE:t, versionhallintajärjestelmät ja testauskehykset. Anna lyhyt yleiskatsaus jokaisesta työkalusta ja selitä, miksi se on hyödyllinen ohjelmistokehittäjille.");
+            AddSubCategory("Ohjelmistokehitys", "Miten hallitset ohjelmistoriippuvuuksia?", "Kirjoita artikkeli parhaista käytännöistä ohjelmistoriippuvuuksien hallitsemiseksi, mukaan lukien konfliktien tunnistaminen ja ratkaiseminen, versionhallinnan käsittely ja yhteensopivuuden varmistaminen.");
+            AddSubCategory("Ohjelmistokehitys", "Mitkä ovat ohjelmistoarkkitehtuurin keskeiset periaatteet?", "Luo opas, joka selittää ohjelmistoarkkitehtuurin keskeiset periaatteet, mukaan lukien modulaarisuus, skaalautuvuus ja ylläpidettävyys. Anna esimerkkejä siitä, miten näitä periaatteita voidaan soveltaa todellisissa ohjelmistokehitysprojekteissa.");
+            AddSubCategory("Ohjelmistokehitys", "Miten toteutat jatkuvan integroinnin ja käyttöönoton?", "Kirjoita artikkeli tärkeimmistä strategioista jatkuvan integroinnin ja käyttöönoton toteuttamiseksi, mukaan lukien testaus- ja käyttöönottoprosessien automatisointi, rakennustyökalujen käyttö ja koodin laadun varmistaminen.");
+            AddSubCategory("Ohjelmistokehitys", "Mitkä ovat parhaat käytännöt ohjelmistodokumentoinnille?", "Luo opas parhaista käytännöistä ohjelmistodokumentoinnille, mukaan lukien selkeän ja tiiviin dokumentoinnin kirjoittaminen, dokumentoinnin tehokas järjestäminen ja dokumentoinnin ajantasaisuuden varmistaminen.");
+            AddSubCategory("Ohjelmistokehitys", "Miten hallitset ohjelmistoprojektin aikatauluja?", "Kirjoita artikkeli parhaista käytännöistä ohjelmistoprojektin aikataulujen hallitsemiseksi, mukaan lukien projektiaikataulujen tarkka arviointi, riskien tunnistaminen ja lieventäminen sekä projektin edistymisen tehokas viestintä sidosryhmille.");
+
+            // Lisää alakategorioita taloushallinnolle
+            AddSubCategory("Taloushallinto", "Mitkä ovat tärkeimmät taloudelliset suhdeluvut liiketoiminnan analyysissä?", "Luo opas, joka selittää tärkeimmät taloudelliset suhdeluvut liiketoiminnan analyysissä, mukaan lukien kannattavuussuhteet, likviditeettisuhteet ja maksuvalmiussuhteet. Anna esimerkkejä siitä, miten näitä suhdelukuja voidaan käyttää yrityksen taloudellisen terveyden arvioimiseen.");
+            AddSubCategory("Taloushallinto", "Miten luodaan talousarvio yritykselle?", "Kirjoita artikkeli parhaista käytännöistä talousarvion luomiseen yritykselle, mukaan lukien kuinka ennustaa tuloja ja kuluja, kuinka tunnistaa ja priorisoida budjettikohteita ja kuinka seurata ja säätää budjettia ajan myötä.");
+            AddSubCategory("Taloushallinto", "Mitkä ovat erilaiset taloudelliset raportit?", "Luo opas, joka selittää erilaiset taloudelliset raportit, mukaan lukien tase, tuloslaskelma ja rahavirtalaskelma. Keskustele kunkin raportin tarkoituksesta ja anna esimerkkejä siitä, miten niitä voidaan käyttää yrityksen taloudellisen suorituskyvyn arvioimiseen.");
+            AddSubCategory("Taloushallinto", "Miten arvioidaan sijoitusmahdollisuuksia?", "Kirjoita artikkeli keskeisistä strategioista sijoitusmahdollisuuksien arvioimiseksi, mukaan lukien kuinka laskea sijoitetun pääoman tuotto, kuinka arvioida riskiä ja kuinka tunnistaa ja analysoida markkinatrendejä.");
+            AddSubCategory("Taloushallinto", "Mitkä ovat parhaat käytännöt taloudellisessa riskienhallinnassa?", "Luo opas parhaista käytännöistä taloudellisessa riskienhallinnassa, mukaan lukien kuinka tunnistaa ja arvioida taloudellisia riskejä, kuinka kehittää riskienhallintastrategioita ja kuinka seurata ja säätää riskienhallintasuunnitelmia ajan myötä.");
+            AddSubCategory("Taloushallinto", "Miten luodaan talousennuste yritykselle?", "Kirjoita artikkeli parhaista käytännöistä talousennusteen luomiseen yritykselle, mukaan lukien kuinka käyttää historiallista dataa ja markkinatrendejä ennusteiden tekemiseen, kuinka tunnistaa ja priorisoida ennustekohteita ja kuinka seurata ja säätää ennustetta ajan myötä.");
+            AddSubCategory("Taloushallinto", "Mitkä ovat tärkeimmät taloudelliset mittarit liiketoiminnan analyysissä?", "Luo opas, joka selittää tärkeimmät taloudelliset mittarit liiketoiminnan analyysissä, mukaan lukien liikevaihdon kasvu, voittomarginaali ja sijoitetun pääoman tuotto. Anna esimerkkejä siitä, miten näitä mittareita voidaan käyttää yrityksen taloudellisen suorituskyvyn arvioimiseen.");
+            AddSubCategory("Taloushallinto", "Miten hallitaan kassavirtaa yrityksessä?", "Kirjoita artikkeli parhaista käytännöistä kassavirran hallintaan yrityksessä, mukaan lukien kuinka ennustaa kassavirtaa, kuinka tunnistaa ja priorisoida kassavirtakohteita ja kuinka seurata ja säätää kassavirtaa ajan myötä.");
+            AddSubCategory("Taloushallinto", "Mitkä ovat parhaat käytännöt taloudellisessa raportoinnissa?", "Luo opas parhaista käytännöistä taloudellisessa raportoinnissa, mukaan lukien kuinka valmistella taloudellisia raportteja, kuinka varmistaa tarkkuus ja täydellisyys ja kuinka viestiä taloudellista tietoa tehokkaasti sidosryhmille.");
+            AddSubCategory("Taloushallinto", "Miten luodaan talousmalli yritykselle?", "Kirjoita artikkeli parhaista käytännöistä talousmallin luomiseen yritykselle, mukaan lukien kuinka käyttää historiallista dataa ja markkinatrendejä ennusteiden tekemiseen, kuinka tunnistaa ja priorisoida mallikohteita ja kuinka seurata ja säätää mallia ajan myötä.");
+
+            // Lisää alakategorioita lakiasioille
+            AddSubCategory("Laki", "Mitkä ovat erilaiset oikeudelliset sopimukset?", "Luo opas, joka selittää erilaiset oikeudelliset sopimukset, mukaan lukien työsopimukset, salassapitosopimukset ja vuokrasopimukset. Keskustele kunkin sopimuksen tarkoituksesta ja anna esimerkkejä siitä, milloin niitä voidaan käyttää.");
+            AddSubCategory("Laki", "Mitkä ovat parhaat käytännöt immateriaalioikeuksien suojaamiseen?", "Kirjoita artikkeli parhaista käytännöistä immateriaalioikeuksien suojaamiseen, mukaan lukien patentit, tavaramerkit ja tekijänoikeudet. Keskustele immateriaalioikeuksien suojaamiseen liittyvistä laillisista vaatimuksista ja anna esimerkkejä siitä, kuinka niitä voidaan soveltaa käytännössä.");
+            AddSubCategory("Laki", "Miten navigoidaan yrityksen lakienmukaisuudessa?", "Luo opas siitä, kuinka navigoidaan yrityksen lakienmukaisuudessa, mukaan lukien relevanttien lakien ja määräysten ymmärtäminen ja noudattaminen, politiikkojen ja menettelyjen luominen ja henkilöstön kouluttaminen lakienmukaisuusvaatimuksista.");
+            AddSubCategory("Laki", "Mitkä ovat erilaiset yritysrakenteet ja niiden oikeudelliset vaikutukset?", "Luo opas, joka selittää erilaiset yritysrakenteet, mukaan lukien toiminimi, avoin yhtiö, kommandiittiyhtiö ja osakeyhtiö. Keskustele kunkin rakenteen oikeudellisista vaikutuksista ja anna ohjeita siitä, kuinka valita sopiva rakenne yritykselle.");
+            AddSubCategory("Lakiasiat", "Mitkä ovat tärkeimmät työlainsäädännön asiat, jotka jokaisen yrityksen omistajan tulisi tietää?", "Kirjoita artikkeli tärkeimmistä työlainsäädännön asioista, joista jokaisen yrityksen omistajan tulisi olla tietoinen, mukaan lukien minimipalkka, ylityö, syrjintäkiellot ja työpaikan turvallisuuslait. Anna esimerkkejä siitä, kuinka nämä lait voivat vaikuttaa yritykseen ja kuinka niitä noudatetaan.");
+            AddSubCategory("Laki", "Mitkä ovat tärkeimmät oikeudelliset näkökohdat uuden yrityksen perustamisessa?", "Luo lista tärkeimmistä oikeudellisista näkökohdista yrittäjille, jotka perustavat uuden yrityksen, kattaen aiheet kuten yrityksen rekisteröinti, immateriaalioikeuksien suojaaminen, sopimukset ja vastuu. Anna käytännön neuvoja ja ohjeita uusille yrittäjille varmistaakseen, että he noudattavat kaikkia relevantteja lakeja ja määräyksiä.");
+
+            // Lisää alakategorioita henkilöstöhallinnolle
+            AddSubCategory("Henkilöstöhallinto", "Miten suoritetaan tehokkaita suoritusarviointeja?", "Kirjoita artikkeli tehokkaiden suoritusarviointien suorittamisesta, mukaan lukien suoritus tavoitteiden asettaminen, rakentavan palautteen antaminen ja suoritusarviointien dokumentointi.");
+            AddSubCategory("Henkilöstöhallinto", "Mitkä ovat parhaat käytännöt uusien työntekijöiden perehdyttämisessä?", "Luo opas parhaista käytännöistä uusien työntekijöiden perehdyttämisessä, mukaan lukien perehdyttämisohjelman luominen, selkeiden odotusten asettaminen ja uusien työntekijöiden integroiminen yrityskulttuuriin.");
+            AddSubCategory("Henkilöstöhallinto", "Miten luodaan tehokas työntekijöiden kehittämisohjelma?", "Kirjoita artikkeli tehokkaan työntekijöiden kehittämisohjelman luomisesta, mukaan lukien työntekijöiden kehittämistarpeiden tunnistaminen, koulutusohjelmien suunnittelu ja työntekijöiden kehittämisen tehokkuuden mittaaminen.");
+            AddSubCategory("Henkilöstöhallinto", "Miten suoritetaan tehokkaita työntekijöiden suoritusarviointeja?", "Kirjoita artikkeli parhaista käytännöistä työntekijöiden suoritusarviointien suorittamiseen, mukaan lukien kuinka asettaa selkeät suoritustavoitteet, kuinka antaa rakentavaa palautetta ja kuinka luoda toimintasuunnitelmia suorituskyvyn parantamiseksi.");
+
+            // Lisää alakategorioita terveydenhuollolle
+            AddSubCategory("Terveydenhuolto", "Mikä ovat parhaat käytännöt potilashoidossa?", "Luo opas parhaista käytännöistä potilashoidossa, mukaan lukien tehokas kommunikointi potilaiden kanssa, potilaiden odotusten hallinta ja potilaskeskeinen hoito.");
+            AddSubCategory("Terveydenhuolto", "Kuinka varmistetaan potilasturvallisuus terveydenhuollossa?", "Kirjoita artikkeli siitä, kuinka varmistetaan potilasturvallisuus terveydenhuollossa, mukaan lukien riskien tunnistaminen ja lieventäminen, turvallisuusprotokollien käyttöönotto ja turvallisuuskulttuurin edistäminen työpaikalla.");
+            AddSubCategory("Terveydenhuolto", "Mikä ovat parhaat käytännöt terveydenhuollon hallinnassa?", "Luo opas parhaista käytännöistä terveydenhuollon hallinnassa, mukaan lukien terveydenhuollon talouden hallinta, työnkulun optimointi ja pysyminen ajan tasalla terveydenhuollon säännöksistä.");
+            AddSubCategory("Terveydenhuolto", "Mikä ovat tärkeimmät trendit ja haasteet terveydenhuoltoalalla?", "Kirjoita artikkeli tärkeimmistä trendeistä ja haasteista, joita terveydenhuoltoala kohtaa, mukaan lukien uudet teknologiat, muuttuvat säännökset ja kehittyvät potilastarpeet. Keskustele näiden trendien ja haasteiden vaikutuksista terveydenhuollon organisaatioille.");
+            AddSubCategory("Terveydenhuolto", "Kuinka toteutetaan tehokkaita terveydenhuollon laadunparannushankkeita?", "Luo opas tehokkaiden laadunparannushankkeiden toteuttamisesta terveydenhuollon organisaatioissa, mukaan lukien kuinka tunnistaa parannusmahdollisuuksia, kuinka suunnitella parannushankkeita ja kuinka seurata ja arvioida hankkeiden tuloksia.");
+            AddSubCategory("Terveydenhuolto", "Mikä ovat tärkeimmät trendit terveysteknologiassa?", "Luo yleiskatsaus tärkeimmistä terveysteknologian trendeistä, käsitellen aiheita kuten sähköiset potilastiedot, etälääketiede, tekoäly ja käyttöön soveltuvat laitteet. Anna käytännön esimerkkejä siitä, miten näitä teknologioita käytetään potilastulosten parantamiseen ja terveydenhuollon toimitusprosessien virtaviivaistamiseen.");
+
+            // Lisää alakategorioita suunnittelulle ja mediassa
+            AddSubCategory("Suunnittelu ja media", "Kuinka luoda tehokkaita visuaalisia suunnitelmia?", "Kirjoita artikkeli siitä, kuinka luoda tehokkaita visuaalisia suunnitelmia, mukaan lukien oikeiden värien, typografian ja asettelun valitseminen ja visuaalisten suunnitelmien optimointi eri medioille.");
+            AddSubCategory("Suunnittelu ja media", "Mikä ovat parhaat käytännöt käyttäjäkokemuksen suunnittelussa?", "Luo opas parhaista käytännöistä käyttäjäkokemuksen suunnittelussa, mukaan lukien käyttäjätutkimuksen suorittaminen, käyttöliittymien suunnittelu ja suunnitelmien testaus ja iterointi käyttäjäpalautteen perusteella.");
+            AddSubCategory("Suunnittelu ja media", "Kuinka luoda tehokkaita markkinointimateriaaleja?", "Kirjoita artikkeli siitä, kuinka luoda tehokkaita markkinointimateriaaleja, mukaan lukien markkinointikampanjoiden suunnittelu, vakuuttavan kopion luominen ja oikeiden markkinointikanavien valitseminen kohdeyleisöjen tavoittamiseksi.");
+            AddSubCategory("Suunnittelu ja media", "Mikä ovat parhaat käytännöt tehokkaan graafisen suunnittelun luomiseen?", "Kirjoita artikkeli parhaista käytännöistä tehokkaan graafisen suunnittelun luomiseen, mukaan lukien kuinka käyttää väriä, typografiaa ja asettelua viestin välittämiseen ja tunteiden herättämiseen. Anna esimerkkejä tehokkaasta graafisesta suunnittelusta ja keskustele niiden periaatteista.");
+            AddSubCategory("Suunnittelu ja media", "Kuinka luoda onnistunut sosiaalisen median markkinointikampanja?", "Luo opas parhaista käytännöistä onnistuneen sosiaalisen median markkinointikampanjan luomiseen, mukaan lukien kuinka asettaa tavoitteet, kuinka tunnistaa kohdeyleisöt ja kuinka kehittää ja jakaa osallistavaa sisältöä.");
+            AddSubCategory("Suunnittelu ja media", "Mikä ovat graafisen suunnittelun keskeiset periaatteet?", "Luo opas graafisen suunnittelun keskeisistä periaatteista, käsitellen aiheita kuten typografia, väriteoria, kompositio ja visuaalinen hierarkia. Anna käytännön esimerkkejä ja neuvoja suunnittelijoille visuaalisesti houkuttelevien ja tehokkaiden suunnitelmien luomiseksi eri medioille.");
+
+            // Lisää alakategorioita koulutukselle
+            AddSubCategory("Koulutus", "Miten luoda tehokkaita oppitunteja?", "Kirjoita artikkeli tehokkaiden oppituntien suunnittelusta, mukaan lukien oppimistavoitteiden asettaminen, sopivien opetusmenetelmien valitseminen ja opiskelijoiden oppimistulosten arviointi.");
+            AddSubCategory("Koulutus", "Mikä on paras käytäntö opiskelijoiden arvioinnissa?", "Luo opas parhaista käytännöistä opiskelijoiden arvioinnissa, mukaan lukien arviointityökalujen suunnittelu, arvostelu ja palautteen antaminen sekä arviointitiedon käyttäminen opetuksen suunnittelussa.");
+            AddSubCategory("Koulutus", "Mitkä ovat koulutuksen keskeiset trendit ja haasteet?", "Kirjoita artikkeli koulutusalaa koskevista keskeisistä trendeistä ja haasteista, mukaan lukien uudet teknologiat, muuttuvat opiskelijatarpeet ja kehittyvät opetusmenetelmät. Keskustele näiden trendien ja haasteiden vaikutuksista koulutuslaitoksiin.");
+            AddSubCategory("Koulutus", "Miten luoda tehokas verkkokoulutusohjelma?", "Luo opas parhaista käytännöistä tehokkaan verkkokoulutusohjelman luomiseen, mukaan lukien kuinka suunnitella osallistavia ja vuorovaikutteisia kursseja, kuinka arvioida oppimistuloksia ja kuinka luoda tukeva verkkokoulutusyhteisö.");
+            AddSubCategory("Koulutus", "Miten suunnitella tehokas verkkokurssi?", "Luo opas tehokkaiden verkkokurssien suunnittelusta ja toteuttamisesta, käsitellen aiheita kuten opetusmuotojen suunnittelu, multimediakehitys ja arviointi. Tarjoa käytännön vinkkejä ja neuvoja opettajille, jotta he voivat luoda osallistavia ja tehokkaita verkkokursseja, jotka vastaavat oppijoiden tarpeita.");
+
+            // Kirjoita "Kieli ja käännös",
+            AddSubCategory("Kielet ja käännökset", "Mikä on paras käytäntö ammattimaisissa käännöspalveluissa?", "Kirjoita artikkeli parhaista käytännöistä ammattimaisissa käännöspalveluissa, mukaan lukien käännöshankkeiden hallinta, laadun ja tarkkuuden varmistaminen sekä luottamuksellisuuden ja turvallisuuden ylläpitäminen.");
+            AddSubCategory("Kielet ja käännökset", "Miten toteuttaa tehokasta kulttuurienvälistä viestintää?", "Luo opas parhaista käytännöistä tehokkaassa kulttuurienvälisessä viestinnässä, mukaan lukien kulttuurierojen ymmärtäminen, viestintätapojen sopeuttaminen ja suhteen rakentaminen ja luottamuksen luominen eri kulttuureista tulevien ihmisten kanssa.");
+            AddSubCategory("Kielet ja käännökset", "Mikä on paras käytäntö teknisten asiakirjojen kääntämisessä?", "Luo opas parhaista käytännöistä teknisten asiakirjojen kääntämisessä, käsitellen aiheita kuten terminologian hallinta, käännösmuistityökalut ja laadunvarmistus. Tarjoa käytännön vinkkejä ja neuvoja kääntäjille, jotta he voivat tuottaa tarkkoja ja tehokkaita teknisen sisällön käännöksiä.");
+
+            // Lisää alakategorioita tietojen analysoinnille
+            AddSubCategory("Tietojen analysointi", "Mitkä ovat tietojen analysoinnin keskeiset vaiheet?", "Luo opas tietojen analysoinnin keskeisistä vaiheista, käsitellen aiheita kuten tietojen kerääminen, puhdistus, analysointi ja visualisointi. Tarjoa käytännön esimerkkejä ja neuvoja tietoanalyytikoille, jotta he voivat tehokkaasti analysoida ja viestiä tietoja.");
+
+            // Lisää alakategorioita asiakastuelle
+            AddSubCategory("Asiakastuki", "Miten tarjota poikkeuksellista asiakaspalvelua?", "Luo opas poikkeuksellisen asiakaspalvelun tarjoamisesta, käsitellen aiheita kuten viestintätaidot, ongelmanratkaisu ja empatia. Tarjoa käytännön vinkkejä ja neuvoja asiakaspalveluedustajille, jotta he voivat tehokkaasti käsitellä asiakaskyselyjä ja tarjota ratkaisuja, jotka vastaavat asiakkaiden tarpeita.");
+
+            // Lisää alakategoriat Sisällöntuotanto
+            AddSubCategory("Sisällöntuotanto", "Kuinka luoda vakuuttavaa sisältöä sosiaaliseen mediaan?", "Luo opas vakuuttavan sisällön luomisesta sosiaaliseen mediaan, käsitellen aiheita kuten sisältöstrategia, visuaalinen suunnittelu ja sitouttamistaktiikat. Tarjoa käytännön vinkkejä ja neuvoja sisällöntuottajille, jotta he voivat tehokkaasti sitouttaa yleisönsä ja saavuttaa markkinointitavoitteensa.");
+
+            // Lisää alakategoriat Robotiikka ja automaatio
+            AddSubCategory("Robotiikka ja automaatio", "Mitkä ovat robotiikan ja automaation hyödyt valmistuksessa?", "Luo yleiskatsaus robotiikan ja automaation hyödyistä valmistuksessa, käsitellen aiheita kuten tehokkuuden lisääminen, turvallisuuden parantaminen ja kustannussäästöt. Tarjoa käytännön esimerkkejä ja neuvoja valmistajille, jotta he voivat tehokkaasti toteuttaa robotiikkaa ja automaatiota toiminnassaan.");
+
+            // Lisää alakategoriat Markkinointi
+            AddSubCategory("Markkinointi", "Kuinka kehität menestyksekkään markkinointistrategian?", "Luo opas menestyksekkään markkinointistrategian kehittämisestä, käsitellen aiheita kuten kohdeyleisön analyysi, asemoituminen ja viestintä. Tarjoa käytännön vinkkejä ja neuvoja markkinoijille, jotta he voivat luoda strategian, joka tehokkaasti edistää heidän tuotteitaan tai palveluitaan ja saavuttaa liiketoiminnan tavoitteet.");
+
+            // Lisää alakategoriat Myynti
+            AddSubCategory("Myynti", "Mitkä ovat menestyvien myyjien avainosaamiset?", "Luo opas menestyvien myyjien avainosaamisista, käsitellen aiheita kuten potentiaalisten asiakkaiden löytäminen, suhteen rakentaminen ja kaupan päättämistekniikat. Tarjoa käytännön vinkkejä ja neuvoja myyjille, jotta he voivat tehokkaasti viestiä tuotteidensa tai palveluidensa arvosta ja saada enemmän kauppoja aikaan.");
+
+            // Lisää alakategoriat Toiminta
+            AddSubCategory("Toiminnanohjaus", "Kuinka parannat toiminnan tehokkuutta?", "Luo opas toiminnan tehokkuuden parantamisesta, käsitellen aiheita kuten prosessikartoitus, työnkulun optimointi ja teknologian käyttöönotto. Tarjoa käytännön esimerkkejä ja neuvoja toiminnanjohtajille, jotta he voivat tunnistaa parannusmahdollisuuksia ja toteuttaa muutoksia, jotka lisäävät tehokkuutta ja vähentävät kustannuksia.");
+
+            // Lisää alakategoriat Toimitusketjun hallinta
+            AddSubCategory("Toimitusketjun hallinta", "Kuinka optimoit toimitusketjua?", "Luo opas toimitusketjun optimoinnista, käsitellen aiheita kuten varastonhallinta, logistiikka ja toimittajasuhteet. Tarjoa käytännön vinkkejä ja neuvoja toimitusketjun hallinnan ammattilaisille, jotta he voivat parantaa toimitusketjun toiminnan tehokkuutta ja luotettavuutta.");
+
+            // Lisää alakategoriat Tietotekniikka
+            AddSubCategory("Tietotekniikka", "Mitkä ovat parhaat käytännöt tietoturvan varmistamiseksi?", "Luo opas parhaista käytännöistä tietoturvan varmistamiseksi, käsitellen aiheita kuten verkon turvallisuus, tietojen suojaus ja tapahtumien hallinta. Tarjoa käytännön vinkkejä ja neuvoja IT-ammattilaisille, jotta he voivat suojata organisaationsa järjestelmiä ja tietoja kyberuhkilta.");
+
+            // Lisää alakategoriat Projektinhallinta
+            AddSubCategory("Projektinhallinta", "Kuinka hallitset onnistuneesti projektia?", "Luo opas onnistuneen projektin hallinnasta, käsitellen aiheita kuten projektin suunnittelu, tiimin hallinta ja riskienhallinta. Tarjoa käytännön vinkkejä ja neuvoja projektijohtajille, jotta he voivat suunnitella, toteuttaa ja toimittaa projekteja, jotka täyttävät heidän tavoitteensa.");
+
+            // Lisää alakategoriat Laadunvarmistus
+            AddSubCategory("Laadunvarmistus", "Mitkä ovat laadunvarmistuksen keskeiset periaatteet?", "Luo opas laadunvarmistuksen keskeisistä periaatteista, käsitellen aiheita kuten prosessien parantaminen, laadunvalvonta ja asiakastyytyväisyys. Tarjoa käytännön esimerkkejä ja neuvoja laadunvarmistuksen ammattilaisille, jotta he voivat varmistaa, että heidän tuotteensa tai palvelunsa täyttävät korkeimmat laatuvaatimukset.");
+
+            // Lisää alakategoriat Tutkimus ja kehitys
+            AddSubCategory("Tutkimus ja kehitys", "Kuinka teet tehokasta tutkimusta?", "Luo opas tehokkaan tutkimuksen tekemisestä, käsitellen aiheita kuten tutkimussuunnittelu, tiedonkeruu ja analyysi. Tarjoa käytännön vinkkejä ja neuvoja tutkijoille, jotta he voivat suunnitella ja toteuttaa tutkimusprojekteja, jotka tuottavat merkityksellisiä oivalluksia.");
+
+            // Lisää alakategoriat Liiketoimintastrategia
+            AddSubCategory("Liiketoimintastrategia", "Kuinka kehität menestyksekkään liiketoimintastrategian?", "Luo opas menestyksekkään liiketoimintastrategian kehittämisestä, käsitellen aiheita kuten markkina-analyysi, kilpailuasema ja resurssien kohdentaminen. Tarjoa käytännön vinkkejä ja neuvoja liiketoiminnan johtajille, jotta he voivat luoda strategian, joka asemoidaan organisaation pitkän aikavälin menestykselle.");
+
+            // Lisää alakategoriat Johtajuus ja hallinto
+            AddSubCategory("Johtajuus ja hallinto", "Mitkä ovat tehokkaiden johtajien keskeiset taidot?", "Luo opas tehokkaiden johtajien keskeisistä taidoista, käsitellen aiheita kuten viestintä, delegointi ja päätöksenteko. Tarjoa käytännön vinkkejä ja neuvoja johtajille, jotta he voivat rakentaa vahvoja tiimejä ja saavuttaa organisaationsa tavoitteet.");
+
+            // Lisää alakategoriat Ympäristökestävyys
+            AddSubCategory("Ympäristökestävyys", "Mitkä ovat parhaat käytännöt kestävän liiketoiminnan harjoittamiseksi?", "Luo opas parhaista käytännöistä kestävän liiketoiminnan harjoittamiseksi, käsitellen aiheita kuten energiatehokkuus, jätteen vähentäminen ja toimitusketjun kestävyys. Tarjoa käytännön vinkkejä ja neuvoja liiketoiminnan johtajille, jotta he voivat minimoida organisaationsa ympäristövaikutukset ja edistää kestävämpää tulevaisuutta.");
+
+            // Lisää alakategoriat Sosiaalinen vastuu ja etiikka
+            AddSubCategory("Sosiaalinen vastuu ja etiikka", "Kuinka edistät sosiaalista vastuuta ja eettistä käyttäytymistä työpaikalla?", "Luo opas sosiaalisen vastuun ja eettisen käyttäytymisen edistämisestä työpaikalla, käsitellen aiheita kuten monimuotoisuus ja inklusiivisuus, eettinen päätöksenteko ja yritysvastuu. Tarjoa käytännön vinkkejä ja neuvoja liiketoiminnan johtajille, jotta he voivat luoda kulttuurin, joka edistää sosiaalista vastuuta ja eettistä käyttäytymistä organisaatiossa.");
+
+            // Lisää alakategoriat terveydenhuoltoon
+            AddSubCategory("Terveydenhuolto", "Mitkä ovat viimeisimmät trendit terveysteknologiassa?", "Luo yleiskatsaus viimeisimmistä terveysteknologian trendeistä, käsitellen aiheita kuten etälääketiede, wearable-laitteet ja tekoäly. Tarjoa käytännön esimerkkejä ja neuvoja terveydenhuollon ammattilaisille, jotta he voivat hyödyntää teknologiaa tehokkaasti potilaiden tulosten parantamiseksi ja paremman hoidon tarjoamiseksi.");
+
+            // Lisää alakategoriat suunnitteluun ja mediaan
+            AddSubCategory("Suunnittelu & Media", "Miten luodaan tehokasta visuaalista sisältöä?", "Luo opas tehokkaan visuaalisen sisällön luomisesta, käsitellen aiheita kuten suunnitteluperiaatteet, visuaalinen tarinankerronta ja brändin yhdenmukaisuus. Tarjoa käytännön vinkkejä ja neuvoja suunnittelijoille ja markkinoijille, jotta he voivat luoda visuaalisesti houkuttelevaa sisältöä, joka välittää tehokkaasti heidän viestinsä.");
+
+            // Lisää alakategoriat koulutukseen
+            AddSubCategory("Koulutus", "Miten luodaan osallistavia verkkokoulutuskokemuksia?", "Luo opas osallistavien verkkokoulutuskokemusten luomisesta, käsitellen aiheita kuten opetuksen suunnittelu, multimedia-sisältö ja interaktiiviset aktiviteetit. Tarjoa käytännön vinkkejä ja neuvoja opettajille ja opetuksen suunnittelijoille, jotta he voivat luoda verkkokursseja, jotka sitouttavat oppijat ja helpottavat oppimista.");
+
+            // Lisää alakategoriat kieleen ja kääntämiseen
+            AddSubCategory("Kieli & Kääntäminen", "Mitkä ovat parhaat käytännöt sisällön kääntämisessä?", "Luo opas parhaista käytännöistä sisällön kääntämisessä, käsitellen aiheita kuten käännöslaatu, kulttuurinen sopeutuminen ja lokalisaatio. Tarjoa käytännön vinkkejä ja neuvoja kääntäjille ja lokalisaatiospesialisteille, jotta he voivat kääntää sisältöä tehokkaasti ja varmistaa sen tarkkuuden ja tehokkuuden eri kielissä ja kulttuureissa.");
+
+            // Lisää alakategoriat asiakaspalveluun
+            AddSubCategory("Asiakaspalvelu", "Miten tarjota erinomaista asiakaspalvelua?", "Luo opas erinomaisen asiakaspalvelun tarjoamisesta, käsitellen aiheita kuten asiakaskommunikaatio, ongelmanratkaisu ja asiakaspalaute. Tarjoa käytännön vinkkejä ja neuvoja asiakaspalveluedustajille ja -johtajille, jotta he voivat täyttää asiakkaiden tarpeet ja rakentaa vahvoja asiakassuhteita.");
+
+            // Lisää alakategoriat sisällöntuotantoon
+            AddSubCategory("Sisällöntuotanto", "Miten luodaan vakuuttavaa sisältöä?", "Luo opas vakuuttavan sisällön luomisesta, käsitellen aiheita kuten sisältöstrategia, kohdeyleisön kohdistaminen ja tarinankerronta. Tarjoa käytännön vinkkejä ja neuvoja sisällöntuottajille ja markkinoijille, jotta he voivat luoda sisältöä, joka sitouttaa kohdeyleisön ja saavuttaa liiketoiminnan tavoitteet.");
+
+            // Lisää alakategoriat lakiasioihin
+            AddSubCategory("Laki", "Mitkä ovat viimeisimmät kehitykset immateriaalioikeuksien lainsäädännössä?", "Luo yleiskatsaus viimeisimmistä kehityksistä immateriaalioikeuksien lainsäädännössä, käsitellen aiheita kuten patentit, tavaramerkit ja tekijänoikeudet. Tarjoa käytännön esimerkkejä ja neuvoja asianajajille ja yrityksille, jotta he voivat suojata immateriaalioikeutensa tehokkaasti ja navigoida muuttuvassa oikeudellisessa maisemassa.");
 
             // Create categories
             var categories = new List<string> {
