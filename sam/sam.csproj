@@ -50,6 +50,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <None Update="chat.db">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Update="default_agents.csv">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
