@@ -202,8 +202,38 @@
   <data name="sharp_sensors_off_black_24dp" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\sharp_sensors_off_black_24dp.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
+  <data name="_2890580_ai_artificial_intelligence_brain_electronics_robotics_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2890580_ai_artificial intelligence_brain_electronics_robotics_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2890580_ai_artificial_intelligence_brain_electronics_robotics_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2890580_ai_artificial intelligence_brain_electronics_robotics_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2890581_ai_artificial_intelligence_electronics_light_bulb_robotics_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2890581_ai_artificial_intelligence_electronics_light_bulb_robotics_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2890588_ai_artificial_intelligence_brain_cloud_electronics_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2890588_ai_artificial intelligence_brain_cloud_electronics_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_2890588_ai_artificial_intelligence_brain_cloud_electronics_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\2890588_ai_artificial intelligence_brain_cloud_electronics_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_315092_ai_file_icon" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\315092_ai_file_icon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_315092_ai_file_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\315092_ai_file_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
   <data name="_3643772_folder_archive_open_archives_document_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\3643772_folder_archive_open_archives_document_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_4575066_artificial_brain_computer_consciousness_electronic_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\4575066_artificial_brain_computer_consciousness_electronic_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="_6572266_ai_chip_computer_electronic_processor_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\resources\6572266_ai_chip_computer_electronic_processor_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="_9055836_bxl_microsoft_teams_icon_24" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\resources\9055836_bxl_microsoft_teams_icon_24.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>

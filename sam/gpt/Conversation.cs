@@ -246,41 +246,58 @@ namespace sam.gpt
 
         public static List<string> SearchList(List<string> inputList, string searchSentence, int surroundingSentences)
         {
-            // Combine the input list into a single text.
-            string text = string.Join(" ", inputList);
-
-            // Split the text into individual sentences.
-            string[] sentences = text.Split(new char[] { '.', '?', '!', ';' });
-
-            string[] searchWords = searchSentence.Split(' ');
-
-            Dictionary<int, int> sentenceCounts = new Dictionary<int, int>();
-            for (int i = 0; i < sentences.Length; i++)
+            try
             {
-                string sentence = sentences[i];
-                int count = 0;
-                foreach (string word in searchWords)
+
+                // Combine the input list into a single text.
+                string text = string.Join(" ", inputList);
+
+                // Split the text into individual sentences.
+                string[] sentences = text.Split(new char[] { '.', '?', '!', ';' });
+
+                string[] searchWords = searchSentence.Split(' ');
+                // Escape special characters in search words
+                for (int i = 0; i < searchWords.Length; i++)
                 {
-                    if (Regex.IsMatch(sentence, @"\b" + word + @"\b", RegexOptions.IgnoreCase))
+                    searchWords[i] = Regex.Escape(searchWords[i]);
+                }
+                Dictionary<int, int> sentenceCounts = new Dictionary<int, int>();
+                for (int i = 0; i < sentences.Length; i++)
+                {
+                    string sentence = sentences[i];
+                    int count = 0;
+                    foreach (string word in searchWords)
                     {
-                        count++;
+                        if (word != "")
+                        {
+                            if (Regex.IsMatch(sentence, @"\b" + word + @"\b", RegexOptions.IgnoreCase))
+                            {
+                                count++;
+                            }
+                        }
+                    }
+                    if (count > 0)
+                    {
+                        sentenceCounts[i] = count;
                     }
                 }
-                if (count > 0)
-                {
-                    sentenceCounts[i] = count;
-                }
+
+                var topMatchIndex = sentenceCounts.OrderByDescending(x => x.Value)
+                                                  .ThenBy(x => x.Key)
+                                                  .FirstOrDefault().Key;
+
+                var topMatches = sentences.Skip(topMatchIndex)
+                                          .Take(surroundingSentences + 1)
+                                          .ToList();
+
+                return topMatches;
             }
-
-            var topMatchIndex = sentenceCounts.OrderByDescending(x => x.Value)
-                                              .ThenBy(x => x.Key)
-                                              .FirstOrDefault().Key;
-
-            var topMatches = sentences.Skip(topMatchIndex)
-                                      .Take(surroundingSentences + 1)
-                                      .ToList();
-
-            return topMatches;
+            catch (Exception ex)
+            {
+                // Log the error here or rethrow it if necessary
+                Console.WriteLine($"An error occurred while searching the list: {ex.Message}");
+                return new List<string>();
+            }
         }
 
 
@@ -291,112 +308,122 @@ namespace sam.gpt
         {
             List<string> convResponse = new List<string> { "Sorry, I don't understand." };
             List<ChatMessage> convMessages = new List<ChatMessage>();
-            List<ChatMessage> systemMemory = await LoadTopMessages(userInput);
 
-            // Add system and user personalities to conversation
-            if (systemPersonality.Count > 0)
+            try
             {
-                systemPersonality.ForEach(per => convMessages.Add(new ChatMessage("system", per)));
-            }
-
-
-            // Add system memory 
-            if (systemMemory.Count > 0)
-            {
-                //systemMemory.ForEach(convMessages.Add);
-                string memory = "";
-                foreach (ChatMessage message in systemMemory)
+                List<ChatMessage> systemMemory = await LoadTopMessages(userInput);
+                // Add system and user personalities to conversation
+                if (systemPersonality.Count > 0)
                 {
-                    memory = message.Content + " ";
-                }
-                if (userPersonality.Count > 0)
-                {
-                    userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per + " " + memory)));
+                    systemPersonality.ForEach(per => convMessages.Add(new ChatMessage("system", per)));
                 }
 
-            }
-            else
-            {
-                if (userPersonality.Count > 0)
+
+                // Add system memory 
+                if (systemMemory.Count > 0)
                 {
-                    userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
-                }
-            }
-
-
-            List<ChatMessage> messagesToAdd = new List<ChatMessage>();
-            int totalLength = 0;
-
-            // Add the most recent messages to the messagesToAdd list in reverse order
-            for (int i = chatHistory.Count - 1; i >= 0; i--)
-            {
-                ChatMessage message = chatHistory[i];
-                if (totalLength + message.Content.Length > 2500)
-                {
-                    break;
-                }
-                messagesToAdd.Add(message);
-                totalLength += message.Content.Length;
-            }
-
-            // Reverse the order of the messagesToAdd list so that the messages are in chronological order
-            messagesToAdd.Reverse();
-
-            // Add the messages from messagesToAdd to convMessages
-            messagesToAdd.ForEach(convMessages.Add);
-
-
-
-            //chatHistory.ForEach(convMessages.Add);
-
-            // Save user input and add to conversation messages
-            ChatMessage cmessage = new ChatMessage("user", userInput);
-            SaveChatMessage(cmessage);
-            convMessages.Add(cmessage);
-            chatHistory.Add(cmessage);
-
-            // Add role enforcer to conversation
-            if (chatHistory.Count > 0)
-            {
-                roleEnforcer.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
-            }
-
-
-            if (requiresResponse)
-            {
-
-
-
-                // Create a completion result using the SDK and the conversation messages
-                var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
-                {
-                    Messages = convMessages,
-                    Model = Models.ChatGpt3_5Turbo0301,
-                    Temperature = focus,
-                });
-
-                // If successful, return the response and add it to the chat history
-                if (completionResult.Successful)
-                {
-                    convResponse.Clear();
-                    systemMemory.ForEach(per => convResponse.Add(per.Content));
-
-                    completionResult.Choices.ForEach(choises =>
+                    //systemMemory.ForEach(convMessages.Add);
+                    string memory = "";
+                    foreach (ChatMessage message in systemMemory)
                     {
-                        convResponse.Add(choises.Message.Content);
-                        ChatMessage npcmessage = new ChatMessage("assistant", choises.Message.Content);
-                        chatHistory.Add(npcmessage);
-                        SaveChatMessage(npcmessage);
+                        memory = message.Content + " ";
+                    }
+                    if (userPersonality.Count > 0)
+                    {
+                        userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per + " " + memory)));
+                    }
+
+                }
+                else
+                {
+                    if (userPersonality.Count > 0)
+                    {
+                        userPersonality.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
+                    }
+                }
+
+
+                List<ChatMessage> messagesToAdd = new List<ChatMessage>();
+                int totalLength = 0;
+
+                // Add the most recent messages to the messagesToAdd list in reverse order
+                for (int i = chatHistory.Count - 1; i >= 0; i--)
+                {
+                    ChatMessage message = chatHistory[i];
+                    if (totalLength + message.Content.Length > 2500)
+                    {
+                        break;
+                    }
+                    messagesToAdd.Add(message);
+                    totalLength += message.Content.Length;
+                }
+
+                // Reverse the order of the messagesToAdd list so that the messages are in chronological order
+                messagesToAdd.Reverse();
+
+                // Add the messages from messagesToAdd to convMessages
+                messagesToAdd.ForEach(convMessages.Add);
+
+
+
+                //chatHistory.ForEach(convMessages.Add);
+
+                // Save user input and add to conversation messages
+                ChatMessage cmessage = new ChatMessage("user", userInput);
+                SaveChatMessage(cmessage);
+                convMessages.Add(cmessage);
+                chatHistory.Add(cmessage);
+
+                // Add role enforcer to conversation
+                if (chatHistory.Count > 0)
+                {
+                    roleEnforcer.ForEach(per => convMessages.Add(new ChatMessage("user", per)));
+                }
+
+
+                if (requiresResponse)
+                {
+
+
+
+                    // Create a completion result using the SDK and the conversation messages
+                    var completionResult = await sdk.ChatCompletion.CreateCompletion(new ChatCompletionCreateRequest
+                    {
+                        Messages = convMessages,
+                        Model = Models.ChatGpt3_5Turbo0301,
+                        Temperature = focus,
                     });
+
+                    // If successful, return the response and add it to the chat history
+                    if (completionResult.Successful)
+                    {
+                        convResponse.Clear();
+                        systemMemory.ForEach(per => convResponse.Add(per.Content));
+
+                        completionResult.Choices.ForEach(choises =>
+                        {
+                            convResponse.Add(choises.Message.Content);
+                            ChatMessage npcmessage = new ChatMessage("assistant", choises.Message.Content);
+                            chatHistory.Add(npcmessage);
+                            SaveChatMessage(npcmessage);
+                        });
+
+                        return convResponse;
+                    }
 
                     return convResponse;
                 }
+                else
+                {
+                    return new List<string>();
+                }
 
-                return convResponse;
             }
-            else
+            catch (Exception ex)
             {
-                return new List<string>();
+                // Log the error and return the default message
+                Console.WriteLine("Error in StartConversation: " + ex.Message);
+                return new List<string> { "Sorry, something went wrong." };
             }
         }
 

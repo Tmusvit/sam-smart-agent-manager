@@ -56,11 +56,11 @@ namespace sam
 
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
-        public SmartAgent(AgentSettings? selectedAgentSettings = null, SAM sAM = null)
+        public SmartAgent(AgentSettings? selectedAgentSettings = null, SAM sAM = null, string tagText = null)
         {
             InitializeComponent();
             parentSAM = sAM;
-            LoadAgentSettings(selectedAgentSettings);
+            LoadAgentSettings(selectedAgentSettings, tagText);
             LoadSlaveAgents();
             LoadTTSVoices();
             LoadAudioSettings();
@@ -169,7 +169,7 @@ namespace sam
 
         // Load the specified AgentSettings or generate a random one, populate the corresponding form fields,
         // create a new Conversation object, and display the chat history in the chat window
-        private void LoadAgentSettings(AgentSettings? selectedAgentSettings)
+        private void LoadAgentSettings(AgentSettings? selectedAgentSettings, string tagText)
         {
             if (selectedAgentSettings == null)
             {
@@ -186,6 +186,10 @@ namespace sam
 
                 };
             }
+            if (tagText != null)
+            {
+                selectedAgentSettings.AgentPersonality= tagText;
+            }
             this.focustemperature = selectedAgentSettings.AgentFocus;
             txtAgentPersonality.Text = selectedAgentSettings.AgentPersonality;
             txtAgentName.Text = selectedAgentSettings.AgentName;
@@ -195,7 +199,7 @@ namespace sam
             txtAgentRoleEnforcer.Text = selectedAgentSettings.AgentEnforcer;
             trackTemp.Value = selectedAgentSettings.AgentFocus;
             txtTemp.Text = ConvertToFloat(trackTemp.Value).ToString();
-
+            this.Text = this.Text + " - " + txtAgentName.Text;
             // Create a new Conversation object with the specified API key, system personality, and agent ID
             List<string> userPersonality = new List<string> { };
 
@@ -365,7 +369,7 @@ namespace sam
                 color = System.Drawing.Color.FromArgb(0, 191, 255);
 
                 // Set the font to a professional sans-serif font in bold
-                txtChat.SelectionFont = new Font("Segoe UI", 11, FontStyle.Bold);
+                txtChat.SelectionFont = new Font("Segoe UI", 10, FontStyle.Bold);
 
             }
             else if (color == System.Drawing.Color.Green)
@@ -374,12 +378,12 @@ namespace sam
                 color = System.Drawing.Color.FromArgb(0, 255, 128);
 
                 // Set the font to a professional sans-serif font in bold
-                txtChat.SelectionFont = new Font("Segoe UI", 11, FontStyle.Bold);
+                txtChat.SelectionFont = new Font("Segoe UI", 10, FontStyle.Bold);
             }
             else
             {
                 // Set the font to a professional sans-serif font in regular weight
-                txtChat.SelectionFont = new Font("Segoe UI", 11, FontStyle.Regular);
+                txtChat.SelectionFont = new Font("Segoe UI", 10, FontStyle.Regular);
             }
             // Set the color of the text that will be appended
             txtChat.SelectionColor = color;

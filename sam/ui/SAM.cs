@@ -227,9 +227,9 @@ namespace sam
 
         private void btnPromptTools_Click(object sender, EventArgs e)
         {
-            samPromptTools = new SamPromptTools();
+            samPromptTools = new SamPromptTools(dockPanelSAM,this);
 
-            samPromptTools.Show(dockPanelSAM,DockState.DockLeft);
+            samPromptTools.Show(dockPanelSAM, DockState.DockLeft);
         }
     }
 }

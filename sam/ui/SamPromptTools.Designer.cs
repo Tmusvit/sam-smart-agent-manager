@@ -63,6 +63,7 @@
             Icon = (Icon)resources.GetObject("$this.Icon");
             Name = "SamPromptTools";
             Text = "Prompt Tools";
+            Load += SamPromptTools_Load;
             groupBox1.ResumeLayout(false);
             ResumeLayout(false);
         }

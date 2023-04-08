@@ -123,6 +123,86 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _2890580_ai_artificial_intelligence_brain_electronics_robotics_icon {
+            get {
+                object obj = ResourceManager.GetObject("_2890580_ai_artificial_intelligence_brain_electronics_robotics_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2890580_ai_artificial_intelligence_brain_electronics_robotics_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("_2890580_ai_artificial_intelligence_brain_electronics_robotics_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2890581_ai_artificial_intelligence_electronics_light_bulb_robotics_icon {
+            get {
+                object obj = ResourceManager.GetObject("_2890581_ai_artificial_intelligence_electronics_light_bulb_robotics_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2890581_ai_artificial_intelligence_electronics_light_bulb_robotics_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("_2890581_ai_artificial_intelligence_electronics_light_bulb_robotics_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2890588_ai_artificial_intelligence_brain_cloud_electronics_icon {
+            get {
+                object obj = ResourceManager.GetObject("_2890588_ai_artificial_intelligence_brain_cloud_electronics_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _2890588_ai_artificial_intelligence_brain_cloud_electronics_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("_2890588_ai_artificial_intelligence_brain_cloud_electronics_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _315092_ai_file_icon {
+            get {
+                object obj = ResourceManager.GetObject("_315092_ai_file_icon", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _315092_ai_file_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("_315092_ai_file_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _326679_refresh_reload_icon {
             get {
                 object obj = ResourceManager.GetObject("326679_refresh_reload_icon", resourceCulture);
@@ -153,9 +233,29 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _4575066_artificial_brain_computer_consciousness_electronic_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("_4575066_artificial_brain_computer_consciousness_electronic_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _510931_chat_comment_message_talk_icon_24 {
             get {
                 object obj = ResourceManager.GetObject("510931_chat_comment_message_talk_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap _6572266_ai_chip_computer_electronic_processor_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("_6572266_ai_chip_computer_electronic_processor_icon_24", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
