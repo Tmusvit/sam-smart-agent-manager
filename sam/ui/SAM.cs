@@ -7,6 +7,7 @@ using NAudio.Wave;
 using NAudio.Lame;
 using System.Diagnostics;
 using sam.helper;
+using sam.ui;
 
 namespace sam
 {
@@ -16,6 +17,8 @@ namespace sam
         private WaveFileWriter writer;
         private WasapiLoopbackCapture capture;
         public List<SmartAgent> activeSmartAgents { get; set; } = new List<SmartAgent>();
+        public SamPromptTools samPromptTools { get; private set; }
+
         private WasapiLoopbackCapture computerAudioCapture;
         private WaveFileWriter computerAudioWriter;
         private List<WaveInEvent> micCaptures = new List<WaveInEvent>();
@@ -220,6 +223,13 @@ namespace sam
         {
             var folder = Path.GetDirectoryName(Application.ExecutablePath) + "\\rec";
             Process.Start("explorer.exe", folder);
+        }
+
+        private void btnPromptTools_Click(object sender, EventArgs e)
+        {
+            samPromptTools = new SamPromptTools();
+
+            samPromptTools.Show(dockPanelSAM,DockState.DockLeft);
         }
     }
 }

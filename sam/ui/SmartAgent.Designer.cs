@@ -190,7 +190,7 @@
             // tabPage1
             // 
             tabPage1.Controls.Add(agentSettingsGrp);
-            tabPage1.ImageKey = "2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon_24.png";
+            tabPage1.ImageKey = "4575066_artificial_brain_computer_consciousness_electronic_icon_24.png";
             tabPage1.Location = new Point(4, 31);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
@@ -402,7 +402,7 @@
             // tabPage2
             // 
             tabPage2.Controls.Add(pnlAudio);
-            tabPage2.ImageKey = "2890588_ai_artificial intelligence_brain_cloud_electronics_icon_24.png";
+            tabPage2.ImageKey = "9043746_ai_status_in_progress_icon_24.png";
             tabPage2.Location = new Point(4, 31);
             tabPage2.Name = "tabPage2";
             tabPage2.Padding = new Padding(3);
@@ -590,6 +590,10 @@
             imageListSam.Images.SetKeyName(17, "2890588_ai_artificial intelligence_brain_cloud_electronics_icon_24.png");
             imageListSam.Images.SetKeyName(18, "2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon.png");
             imageListSam.Images.SetKeyName(19, "2890581_ai_artificial intelligence_electronics_light bulb_robotics_icon_24.png");
+            imageListSam.Images.SetKeyName(20, "9043662_ai_results_urgent_icon.png");
+            imageListSam.Images.SetKeyName(21, "9043746_ai_status_in_progress_icon.png");
+            imageListSam.Images.SetKeyName(22, "4575066_artificial_brain_computer_consciousness_electronic_icon_24.png");
+            imageListSam.Images.SetKeyName(23, "9043746_ai_status_in_progress_icon_24.png");
             // 
             // splitContainerChat
             // 
@@ -732,7 +736,6 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
-            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';

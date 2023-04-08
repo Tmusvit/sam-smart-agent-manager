@@ -39,6 +39,7 @@
             exitToolStripMenuItem = new ToolStripMenuItem();
             btnRecAudio = new ToolStripButton();
             btnOpenRecFolder = new ToolStripButton();
+            btnPromptTools = new ToolStripButton();
             samTools.ContentPanel.SuspendLayout();
             samTools.LeftToolStripPanel.SuspendLayout();
             samTools.SuspendLayout();
@@ -74,7 +75,7 @@
             // toolSAM
             // 
             toolSAM.Dock = DockStyle.None;
-            toolSAM.Items.AddRange(new ToolStripItem[] { samMenu, btnRecAudio, btnOpenRecFolder });
+            toolSAM.Items.AddRange(new ToolStripItem[] { samMenu, btnRecAudio, btnOpenRecFolder, btnPromptTools });
             toolSAM.Location = new Point(0, 0);
             toolSAM.Name = "toolSAM";
             toolSAM.RenderMode = ToolStripRenderMode.Professional;
@@ -144,6 +145,17 @@
             btnOpenRecFolder.Text = "Open rec folder";
             btnOpenRecFolder.Click += btnOpenRecFolder_Click;
             // 
+            // btnPromptTools
+            // 
+            btnPromptTools.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnPromptTools.Image = (Image)resources.GetObject("btnPromptTools.Image");
+            btnPromptTools.ImageScaling = ToolStripItemImageScaling.None;
+            btnPromptTools.ImageTransparentColor = Color.Magenta;
+            btnPromptTools.Name = "btnPromptTools";
+            btnPromptTools.Size = new Size(30, 28);
+            btnPromptTools.Text = "Prompt Tools";
+            btnPromptTools.Click += btnPromptTools_Click;
+            // 
             // SAM
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -176,5 +188,6 @@
         private ToolStripMenuItem settingsToolStripMenuItem;
         private ToolStripButton btnRecAudio;
         private ToolStripButton btnOpenRecFolder;
+        private ToolStripButton btnPromptTools;
     }
 }
