@@ -982,14 +982,16 @@ namespace sam
             var webPageTextReader = new WebPageTextReader(targetUrl);
             var textList = await webPageTextReader.GetWebPageTextAsync(targetUrl);
             txtWebText.Clear();
-            foreach (var txt in textList)
+            if (textList != null)
             {
-
-                txtWebText.AppendText(txt);
-                InsertTextToChatMemory(txt);
-                txtWebText.AppendText(Environment.NewLine);
-                txtWebText.AppendText("================================");
-                txtWebText.AppendText(Environment.NewLine);
+                foreach (var txt in textList)
+                {
+                    txtWebText.AppendText(txt);
+                    InsertTextToChatMemory(txt);
+                    txtWebText.AppendText(Environment.NewLine);
+                    txtWebText.AppendText("================================");
+                    txtWebText.AppendText(Environment.NewLine);
+                }
             }
             LoadChatMemoryDatabase();
         }

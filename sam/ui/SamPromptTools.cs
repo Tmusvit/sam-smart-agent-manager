@@ -443,7 +443,7 @@ namespace sam.ui
                 AddSubCategory(selectedArea, response.First(), response.First());
                 conversation.ClearChatHistory();
 
-                response = await conversation.StartConversation("Get a random role for " + selectedArea + ", make no excuses. Answer with this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
+                response = await conversation.StartConversation("Get a random role for " + selectedArea + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
                 AddSubCategory(selectedArea, response.First(), response.First());
                 conversation.ClearChatHistory();
 
@@ -458,7 +458,7 @@ namespace sam.ui
                     var response = await conversation.StartConversation("Luo kehote kohteelle: " + cat, true, 1);
                     AddSubCategory(cat, response.First(), response.First());
                     conversation.ClearChatHistory();
-                    response = await conversation.StartConversation("Luo satunnainen rooli alalle " + cat + ", älä tee tekosyitä tässä esimerkkipohja vastaa vain esimerkkipohjan muodossa: Haluan sinun toimivan [tiettynä alana tai roolina]. Anna minulle tietoja tai apua liittyen [erityiseen tehtävään tai aiheeseen].", true, (float)1);
+                    response = await conversation.StartConversation("Luo satunnainen rooli alalle " + cat + ", älä tee tekosyitä. Vastaa vain tässä muodossa:: Haluan sinun toimivan [tiettynä alana tai roolina]. Anna minulle tietoja tai apua liittyen [erityiseen tehtävään tai aiheeseen].", true, (float)1);
                     AddSubCategory(cat, response.First(), response.First());
                     conversation.ClearChatHistory();
                 }
@@ -467,7 +467,7 @@ namespace sam.ui
                     var response = await conversation.StartConversation("Generate a prompt for: " + cat, true, 1);
                     AddSubCategory(cat, response.First(), response.First());
                     conversation.ClearChatHistory();
-                    response = await conversation.StartConversation("Get a random role for " + cat + ", make no excuses here is the template answer only with this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
+                    response = await conversation.StartConversation("Get a random role for " + cat + ", make no excuses. Give only this template:: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
                     AddSubCategory(cat, response.First(), response.First());
                     conversation.ClearChatHistory();
                 }
