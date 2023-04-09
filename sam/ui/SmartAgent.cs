@@ -1190,7 +1190,7 @@ namespace sam
             // Check if the clicked item is the "Send" option
             if (e.ClickedItem.Text == "Send")
             {
-               
+
                 Invoke((Action)(() =>
                 {
                     txtUserInput.Text = txtChat.SelectedText;

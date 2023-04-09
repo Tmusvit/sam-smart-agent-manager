@@ -76,6 +76,7 @@
             txtChat = new RichTextBox();
             contextMenuStripChat = new ContextMenuStrip(components);
             toolStripMenuItemCopy = new ToolStripMenuItem();
+            toolSendPrompt = new ToolStripMenuItem();
             tabPageCode = new TabPage();
             groupBox4 = new GroupBox();
             panel1 = new Panel();
@@ -109,7 +110,6 @@
             btnPlayAudioToMic = new ToolStripButton();
             toolStripButton1 = new ToolStripButton();
             toolTipFocus = new ToolTip(components);
-            toolSendPrompt = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -679,7 +679,7 @@
             // 
             // contextMenuStripChat
             // 
-            contextMenuStripChat.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopy, toolSendPrompt });
+            contextMenuStripChat.Items.AddRange(new ToolStripItem[] { toolSendPrompt, toolStripMenuItemCopy });
             contextMenuStripChat.Name = "contextMenuStripChat";
             contextMenuStripChat.Size = new Size(181, 70);
             contextMenuStripChat.ItemClicked += contextMenuStripChat_ItemClickedAsync;
@@ -690,6 +690,13 @@
             toolStripMenuItemCopy.ShortcutKeys = Keys.Control | Keys.C;
             toolStripMenuItemCopy.Size = new Size(180, 22);
             toolStripMenuItemCopy.Text = "Copy";
+            // 
+            // toolSendPrompt
+            // 
+            toolSendPrompt.Name = "toolSendPrompt";
+            toolSendPrompt.Size = new Size(180, 22);
+            toolSendPrompt.Text = "Send";
+            toolSendPrompt.ToolTipText = "Send selected text";
             // 
             // tabPageCode
             // 
@@ -737,6 +744,7 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
+            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -1045,13 +1053,6 @@
             // toolTipFocus
             // 
             toolTipFocus.ToolTipTitle = "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.";
-            // 
-            // toolSendPrompt
-            // 
-            toolSendPrompt.Name = "toolSendPrompt";
-            toolSendPrompt.Size = new Size(180, 22);
-            toolSendPrompt.Text = "Send";
-            toolSendPrompt.ToolTipText = "Send selected text";
             // 
             // SmartAgent
             // 
