@@ -172,7 +172,7 @@
             // 
             agentContainer.Panel2.Controls.Add(splitContainerChat);
             agentContainer.Size = new Size(1185, 702);
-            agentContainer.SplitterDistance = 300;
+            agentContainer.SplitterDistance = 400;
             agentContainer.TabIndex = 0;
             // 
             // tabAgent
@@ -184,7 +184,7 @@
             tabAgent.Location = new Point(0, 0);
             tabAgent.Name = "tabAgent";
             tabAgent.SelectedIndex = 0;
-            tabAgent.Size = new Size(300, 702);
+            tabAgent.Size = new Size(400, 702);
             tabAgent.TabIndex = 1;
             // 
             // tabPage1
@@ -194,7 +194,7 @@
             tabPage1.Location = new Point(4, 31);
             tabPage1.Name = "tabPage1";
             tabPage1.Padding = new Padding(3);
-            tabPage1.Size = new Size(292, 667);
+            tabPage1.Size = new Size(392, 667);
             tabPage1.TabIndex = 0;
             tabPage1.Text = "Agent";
             tabPage1.UseVisualStyleBackColor = true;
@@ -205,7 +205,7 @@
             agentSettingsGrp.Dock = DockStyle.Fill;
             agentSettingsGrp.Location = new Point(3, 3);
             agentSettingsGrp.Name = "agentSettingsGrp";
-            agentSettingsGrp.Size = new Size(286, 661);
+            agentSettingsGrp.Size = new Size(386, 661);
             agentSettingsGrp.TabIndex = 0;
             agentSettingsGrp.TabStop = false;
             agentSettingsGrp.Text = "Agent settings";
@@ -222,7 +222,7 @@
             settingsPanel.Dock = DockStyle.Fill;
             settingsPanel.Location = new Point(3, 19);
             settingsPanel.Name = "settingsPanel";
-            settingsPanel.Size = new Size(280, 639);
+            settingsPanel.Size = new Size(380, 639);
             settingsPanel.TabIndex = 1;
             // 
             // groupBox7
@@ -232,7 +232,7 @@
             groupBox7.Controls.Add(trackTemp);
             groupBox7.Location = new Point(6, 465);
             groupBox7.Name = "groupBox7";
-            groupBox7.Size = new Size(268, 72);
+            groupBox7.Size = new Size(368, 72);
             groupBox7.TabIndex = 8;
             groupBox7.TabStop = false;
             groupBox7.Text = "Agent focus";
@@ -240,7 +240,7 @@
             // txtTemp
             // 
             txtTemp.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            txtTemp.Location = new Point(221, 31);
+            txtTemp.Location = new Point(321, 31);
             txtTemp.Name = "txtTemp";
             txtTemp.Size = new Size(41, 23);
             txtTemp.TabIndex = 1;
@@ -253,7 +253,7 @@
             trackTemp.Location = new Point(3, 19);
             trackTemp.Minimum = -10;
             trackTemp.Name = "trackTemp";
-            trackTemp.Size = new Size(212, 45);
+            trackTemp.Size = new Size(312, 45);
             trackTemp.TabIndex = 0;
             trackTemp.TickStyle = TickStyle.Both;
             toolTipFocus.SetToolTip(trackTemp, resources.GetString("trackTemp.ToolTip"));
@@ -266,7 +266,7 @@
             groupBox6.Controls.Add(txtAgentRoleEnforcer);
             groupBox6.Location = new Point(6, 325);
             groupBox6.Name = "groupBox6";
-            groupBox6.Size = new Size(268, 136);
+            groupBox6.Size = new Size(368, 136);
             groupBox6.TabIndex = 7;
             groupBox6.TabStop = false;
             groupBox6.Text = "Agent role enforcer";
@@ -278,7 +278,7 @@
             txtAgentRoleEnforcer.Multiline = true;
             txtAgentRoleEnforcer.Name = "txtAgentRoleEnforcer";
             txtAgentRoleEnforcer.ScrollBars = ScrollBars.Vertical;
-            txtAgentRoleEnforcer.Size = new Size(262, 114);
+            txtAgentRoleEnforcer.Size = new Size(362, 114);
             txtAgentRoleEnforcer.TabIndex = 1;
             // 
             // groupBox5
@@ -287,7 +287,7 @@
             groupBox5.Controls.Add(txtSystem);
             groupBox5.Location = new Point(9, 60);
             groupBox5.Name = "groupBox5";
-            groupBox5.Size = new Size(268, 87);
+            groupBox5.Size = new Size(368, 87);
             groupBox5.TabIndex = 6;
             groupBox5.TabStop = false;
             groupBox5.Text = "Agent system";
@@ -299,7 +299,7 @@
             txtSystem.Multiline = true;
             txtSystem.Name = "txtSystem";
             txtSystem.ScrollBars = ScrollBars.Vertical;
-            txtSystem.Size = new Size(262, 65);
+            txtSystem.Size = new Size(362, 65);
             txtSystem.TabIndex = 1;
             // 
             // grpAgentControl
@@ -311,7 +311,7 @@
             grpAgentControl.Controls.Add(btnReset);
             grpAgentControl.Location = new Point(6, 543);
             grpAgentControl.Name = "grpAgentControl";
-            grpAgentControl.Size = new Size(268, 93);
+            grpAgentControl.Size = new Size(368, 93);
             grpAgentControl.TabIndex = 5;
             grpAgentControl.TabStop = false;
             grpAgentControl.Text = "Agent control";
@@ -319,7 +319,7 @@
             // btnSend
             // 
             btnSend.Anchor = AnchorStyles.Bottom | AnchorStyles.Right;
-            btnSend.Location = new Point(187, 48);
+            btnSend.Location = new Point(287, 48);
             btnSend.Name = "btnSend";
             btnSend.Size = new Size(75, 39);
             btnSend.TabIndex = 1;
@@ -365,7 +365,7 @@
             grpPersonality.Controls.Add(txtAgentPersonality);
             grpPersonality.Location = new Point(6, 153);
             grpPersonality.Name = "grpPersonality";
-            grpPersonality.Size = new Size(268, 166);
+            grpPersonality.Size = new Size(368, 166);
             grpPersonality.TabIndex = 2;
             grpPersonality.TabStop = false;
             grpPersonality.Text = "Agent role";
@@ -377,7 +377,7 @@
             txtAgentPersonality.Multiline = true;
             txtAgentPersonality.Name = "txtAgentPersonality";
             txtAgentPersonality.ScrollBars = ScrollBars.Vertical;
-            txtAgentPersonality.Size = new Size(262, 144);
+            txtAgentPersonality.Size = new Size(362, 144);
             txtAgentPersonality.TabIndex = 1;
             // 
             // grpName
@@ -386,7 +386,7 @@
             grpName.Controls.Add(txtAgentName);
             grpName.Location = new Point(9, 3);
             grpName.Name = "grpName";
-            grpName.Size = new Size(268, 51);
+            grpName.Size = new Size(368, 51);
             grpName.TabIndex = 0;
             grpName.TabStop = false;
             grpName.Text = "Agent name";
@@ -396,7 +396,7 @@
             txtAgentName.Dock = DockStyle.Fill;
             txtAgentName.Location = new Point(3, 19);
             txtAgentName.Name = "txtAgentName";
-            txtAgentName.Size = new Size(262, 23);
+            txtAgentName.Size = new Size(362, 23);
             txtAgentName.TabIndex = 1;
             // 
             // tabPage2
@@ -609,7 +609,7 @@
             // splitContainerChat.Panel2
             // 
             splitContainerChat.Panel2.Controls.Add(grpUserInput);
-            splitContainerChat.Size = new Size(881, 702);
+            splitContainerChat.Size = new Size(781, 702);
             splitContainerChat.SplitterDistance = 509;
             splitContainerChat.TabIndex = 3;
             // 
@@ -626,7 +626,7 @@
             tabDialogs.Location = new Point(0, 0);
             tabDialogs.Name = "tabDialogs";
             tabDialogs.SelectedIndex = 0;
-            tabDialogs.Size = new Size(881, 509);
+            tabDialogs.Size = new Size(781, 509);
             tabDialogs.TabIndex = 2;
             // 
             // tabPageText
@@ -636,7 +636,7 @@
             tabPageText.Location = new Point(4, 31);
             tabPageText.Name = "tabPageText";
             tabPageText.Padding = new Padding(3);
-            tabPageText.Size = new Size(873, 474);
+            tabPageText.Size = new Size(773, 474);
             tabPageText.TabIndex = 0;
             tabPageText.Text = "Chat";
             tabPageText.UseVisualStyleBackColor = true;
@@ -647,7 +647,7 @@
             agentConversation.Dock = DockStyle.Fill;
             agentConversation.Location = new Point(3, 3);
             agentConversation.Name = "agentConversation";
-            agentConversation.Size = new Size(867, 468);
+            agentConversation.Size = new Size(767, 468);
             agentConversation.TabIndex = 0;
             agentConversation.TabStop = false;
             agentConversation.Text = "Conversation";
@@ -659,7 +659,7 @@
             conversationContentPanel.Dock = DockStyle.Fill;
             conversationContentPanel.Location = new Point(3, 19);
             conversationContentPanel.Name = "conversationContentPanel";
-            conversationContentPanel.Size = new Size(861, 446);
+            conversationContentPanel.Size = new Size(761, 446);
             conversationContentPanel.TabIndex = 0;
             // 
             // txtChat
@@ -672,7 +672,7 @@
             txtChat.Location = new Point(0, 0);
             txtChat.Name = "txtChat";
             txtChat.ReadOnly = true;
-            txtChat.Size = new Size(861, 446);
+            txtChat.Size = new Size(761, 446);
             txtChat.TabIndex = 0;
             txtChat.Text = "";
             // 
@@ -736,6 +736,7 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
+            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -917,7 +918,7 @@
             grpUserInput.Dock = DockStyle.Fill;
             grpUserInput.Location = new Point(0, 0);
             grpUserInput.Name = "grpUserInput";
-            grpUserInput.Size = new Size(881, 189);
+            grpUserInput.Size = new Size(781, 189);
             grpUserInput.TabIndex = 1;
             grpUserInput.TabStop = false;
             grpUserInput.Text = "User input";
@@ -929,7 +930,7 @@
             pnlInput.Dock = DockStyle.Fill;
             pnlInput.Location = new Point(3, 19);
             pnlInput.Name = "pnlInput";
-            pnlInput.Size = new Size(875, 167);
+            pnlInput.Size = new Size(775, 167);
             pnlInput.TabIndex = 0;
             // 
             // txtUserInput
@@ -941,7 +942,7 @@
             txtUserInput.Multiline = true;
             txtUserInput.Name = "txtUserInput";
             txtUserInput.ScrollBars = ScrollBars.Vertical;
-            txtUserInput.Size = new Size(875, 167);
+            txtUserInput.Size = new Size(775, 167);
             txtUserInput.TabIndex = 0;
             // 
             // agentStatus

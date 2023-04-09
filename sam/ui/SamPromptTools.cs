@@ -1,4 +1,6 @@
-﻿using sam.helper;
+﻿using Microsoft.VisualBasic;
+using sam.gpt;
+using sam.helper;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -9,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using WeifenLuo.WinFormsUI.Docking;
+using static System.Runtime.InteropServices.JavaScript.JSType;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
 
 namespace sam.ui
@@ -16,8 +19,10 @@ namespace sam.ui
     public partial class SamPromptTools : DockContent
     {
         internal TreeViewBuilder treeViewBuilder { get; private set; }
+        public List<string> kategoriat { get; private set; }
         public DockPanel dockPanelSAM { get; private set; }
         public SAM sAM { get; private set; }
+        public List<string> categories { get; private set; }
 
         public SamPromptTools(DockPanel dockPanelSAM, SAM sAM)
         {
@@ -31,7 +36,7 @@ namespace sam.ui
             treeViewBuilder = new TreeViewBuilder(promptTree);
 
             // Luo kategoriat
-            var kategoriat = new List<string> {
+            kategoriat = new List<string> {
             "Ohjelmistokehitys",
             "Taloushallinto",
             "Laki",
@@ -201,7 +206,7 @@ namespace sam.ui
             AddSubCategory("Laki", "Mitkä ovat viimeisimmät kehitykset immateriaalioikeuksien lainsäädännössä?", "Luo yleiskatsaus viimeisimmistä kehityksistä immateriaalioikeuksien lainsäädännössä, käsitellen aiheita kuten patentit, tavaramerkit ja tekijänoikeudet. Tarjoa käytännön esimerkkejä ja neuvoja asianajajille ja yrityksille, jotta he voivat suojata immateriaalioikeutensa tehokkaasti ja navigoida muuttuvassa oikeudellisessa maisemassa.");
 
             // Create categories
-            var categories = new List<string> {
+            categories = new List<string> {
             "Software dev",
             "Finance",
             "Legal",
@@ -402,6 +407,72 @@ namespace sam.ui
                     smartAgent.Show(dockPanelSAM);
                 }
             }
+
+
+        }
+
+        private void btnGenerate_Click(object sender, EventArgs e)
+        {
+            GenerateSuggestionsAsync();
+        }
+        private string GetSelectedTreeViewRootNodeText(System.Windows.Forms.TreeView treeView)
+        {
+            if (treeView.SelectedNode != null)
+            {
+                TreeNode rootNode = treeView.SelectedNode;
+                while (rootNode.Parent != null)
+                {
+                    rootNode = rootNode.Parent;
+                }
+                return rootNode.Text;
+            }
+            return null;
+        }
+
+        private async Task GenerateSuggestionsAsync()
+        {
+            Invoke((Action)(() => Processing.Visible = true));
+            var selectedArea = GetSelectedTreeViewRootNodeText(this.promptTree);
+            if (selectedArea != null)
+            {
+                List<string> role = new List<string>();
+                role.Add(SamUserSettings.Default.DefaultAgentPersonality);
+                var conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, role, role, new List<string>(), Guid.NewGuid().ToString(), (float)0.8);
+
+                var response = await conversation.StartConversation("Luo satunnainen rooli alalle " + selectedArea + ", älä tee tekosyitä. Vastaa vain tässä muodossa: Haluan sinun toimivan [tiettynä roolina]. Anna minulle tietoja tai apua liittyen [erityiseen tehtävään tai aiheeseen].", true, (float)1);
+                AddSubCategory(selectedArea, response.First(), response.First());
+                conversation.ClearChatHistory();
+
+                response = await conversation.StartConversation("Get a random role for " + selectedArea + ", make no excuses. Answer with this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
+                AddSubCategory(selectedArea, response.First(), response.First());
+                conversation.ClearChatHistory();
+
+            }
+            else
+            {
+                List<string> role = new List<string>();
+                role.Add(SamUserSettings.Default.DefaultAgentPersonality);
+                var conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, role, role, new List<string>(), Guid.NewGuid().ToString(), (float)0.8);
+                foreach (var cat in kategoriat)
+                {
+                    var response = await conversation.StartConversation("Luo kehote kohteelle: " + cat, true, 1);
+                    AddSubCategory(cat, response.First(), response.First());
+                    conversation.ClearChatHistory();
+                    response = await conversation.StartConversation("Luo satunnainen rooli alalle " + cat + ", älä tee tekosyitä tässä esimerkkipohja vastaa vain esimerkkipohjan muodossa: Haluan sinun toimivan [tiettynä alana tai roolina]. Anna minulle tietoja tai apua liittyen [erityiseen tehtävään tai aiheeseen].", true, (float)1);
+                    AddSubCategory(cat, response.First(), response.First());
+                    conversation.ClearChatHistory();
+                }
+                foreach (var cat in categories)
+                {
+                    var response = await conversation.StartConversation("Generate a prompt for: " + cat, true, 1);
+                    AddSubCategory(cat, response.First(), response.First());
+                    conversation.ClearChatHistory();
+                    response = await conversation.StartConversation("Get a random role for " + cat + ", make no excuses here is the template answer only with this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
+                    AddSubCategory(cat, response.First(), response.First());
+                    conversation.ClearChatHistory();
+                }
+            }
+            Invoke((Action)(() => Processing.Visible = false));
 
 
         }

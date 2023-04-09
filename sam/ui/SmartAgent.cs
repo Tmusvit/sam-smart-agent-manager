@@ -31,7 +31,7 @@ namespace sam
     public partial class SmartAgent : DockContent
     {
         public AgentSettings? currentAgentSettings { get; private set; }
-        internal Conversation conversation { get; private set; }
+        internal Conversation? conversation { get; private set; }
         public SAM parentSAM { get; }
         public bool ttsActive { get; private set; }
         public string ttsSelectedVoice { get; private set; }
@@ -56,7 +56,7 @@ namespace sam
 
         private List<InstalledVoice> _installedVoices;
         // Construct a new SmartAgent instance with the specified AgentSettings and SAM objects
-        public SmartAgent(AgentSettings? selectedAgentSettings = null, SAM sAM = null, string tagText = null)
+        public SmartAgent(AgentSettings? selectedAgentSettings = null, SAM? sAM = null, string? tagText = null)
         {
             InitializeComponent();
             parentSAM = sAM;
@@ -188,7 +188,7 @@ namespace sam
             }
             if (tagText != null)
             {
-                selectedAgentSettings.AgentPersonality= tagText;
+                txtUserInput.Text = tagText;
             }
             this.focustemperature = selectedAgentSettings.AgentFocus;
             txtAgentPersonality.Text = selectedAgentSettings.AgentPersonality;
