@@ -1,4 +1,6 @@
 ﻿using Microsoft.VisualBasic;
+using NAudio.CoreAudioApi;
+using NAudio.SoundFont;
 using sam.gpt;
 using sam.helper;
 using System;
@@ -506,34 +508,18 @@ namespace sam.ui
                 AddSubCategory(selectedArea, response.First(), response.First());
                 conversation.ClearChatHistory();
 
+                response = await conversation.StartConversation("Luo kirjoituskehote " + selectedArea + ", älä keksi tekosyitä. Vastaa vain tämän mallin mukaan: Haluan sinun toimivan[tietty kenttä tai rooli].Ole hyvä ja toimita minulle asiantunteva kirjoitus[tietty tehtävä tai aihe].", true, (float)1);
+                AddSubCategory(selectedArea, response.First(), response.First());
+                conversation.ClearChatHistory();
+
                 response = await conversation.StartConversation("Get a random role for " + selectedArea + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
                 AddSubCategory(selectedArea, response.First(), response.First());
                 conversation.ClearChatHistory();
 
-            }
-            else
-            {
-                List<string> role = new List<string>();
-                role.Add(SamUserSettings.Default.DefaultAgentPersonality);
-                var conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, role, role, new List<string>(), Guid.NewGuid().ToString(), (float)0.8);
-                foreach (var cat in kategoriat)
-                {
-                    var response = await conversation.StartConversation("Luo kehote kohteelle: " + cat, true, 1);
-                    AddSubCategory(cat, response.First(), response.First());
-                    conversation.ClearChatHistory();
-                    response = await conversation.StartConversation("Luo satunnainen rooli alalle " + cat + ", älä tee tekosyitä. Vastaa vain tässä muodossa:: Haluan sinun toimivan [tiettynä alana tai roolina]. Anna minulle tietoja tai apua liittyen [erityiseen tehtävään tai aiheeseen].", true, (float)1);
-                    AddSubCategory(cat, response.First(), response.First());
-                    conversation.ClearChatHistory();
-                }
-                foreach (var cat in categories)
-                {
-                    var response = await conversation.StartConversation("Generate a prompt for: " + cat, true, 1);
-                    AddSubCategory(cat, response.First(), response.First());
-                    conversation.ClearChatHistory();
-                    response = await conversation.StartConversation("Get a random role for " + cat + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
-                    AddSubCategory(cat, response.First(), response.First());
-                    conversation.ClearChatHistory();
-                }
+                response = await conversation.StartConversation("Generate professional writing promt for " + selectedArea + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me a professional writing [specific task or topic].", true, (float)1);
+                AddSubCategory(selectedArea, response.First(), response.First());
+                conversation.ClearChatHistory();
+
             }
             Invoke((Action)(() => Processing.Visible = false));
 
