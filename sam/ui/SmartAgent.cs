@@ -1179,13 +1179,23 @@ namespace sam
 
         }
 
-        private void contextMenuStripChat_ItemClicked(object sender, ToolStripItemClickedEventArgs e)
+        private void contextMenuStripChat_ItemClickedAsync(object sender, ToolStripItemClickedEventArgs e)
         {
             // Check if the clicked item is the "Copy" option
             if (e.ClickedItem.Text == "Copy")
             {
                 // Copy the selected text to the Clipboard
                 Clipboard.SetText(txtChat.SelectedText);
+            }
+            // Check if the clicked item is the "Send" option
+            if (e.ClickedItem.Text == "Send")
+            {
+               
+                Invoke((Action)(() =>
+                {
+                    txtUserInput.Text = txtChat.SelectedText;
+                }));
+                SendUserConversationMessageAsync();
             }
         }
     }

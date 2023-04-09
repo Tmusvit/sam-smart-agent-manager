@@ -109,6 +109,7 @@
             btnPlayAudioToMic = new ToolStripButton();
             toolStripButton1 = new ToolStripButton();
             toolTipFocus = new ToolTip(components);
+            toolSendPrompt = new ToolStripMenuItem();
             ((System.ComponentModel.ISupportInitialize)agentContainer).BeginInit();
             agentContainer.Panel1.SuspendLayout();
             agentContainer.Panel2.SuspendLayout();
@@ -678,16 +679,16 @@
             // 
             // contextMenuStripChat
             // 
-            contextMenuStripChat.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopy });
+            contextMenuStripChat.Items.AddRange(new ToolStripItem[] { toolStripMenuItemCopy, toolSendPrompt });
             contextMenuStripChat.Name = "contextMenuStripChat";
-            contextMenuStripChat.Size = new Size(145, 26);
-            contextMenuStripChat.ItemClicked += contextMenuStripChat_ItemClicked;
+            contextMenuStripChat.Size = new Size(181, 70);
+            contextMenuStripChat.ItemClicked += contextMenuStripChat_ItemClickedAsync;
             // 
             // toolStripMenuItemCopy
             // 
             toolStripMenuItemCopy.Name = "toolStripMenuItemCopy";
             toolStripMenuItemCopy.ShortcutKeys = Keys.Control | Keys.C;
-            toolStripMenuItemCopy.Size = new Size(144, 22);
+            toolStripMenuItemCopy.Size = new Size(180, 22);
             toolStripMenuItemCopy.Text = "Copy";
             // 
             // tabPageCode
@@ -736,7 +737,6 @@
             txtCode.DefaultMarkerSize = 8;
             txtCode.DisabledColor = Color.FromArgb(100, 180, 180, 180);
             txtCode.Dock = DockStyle.Fill;
-            txtCode.Font = new Font("Courier New", 9.75F, FontStyle.Regular, GraphicsUnit.Point);
             txtCode.IsReplaceMode = false;
             txtCode.Language = FastColoredTextBoxNS.Language.CSharp;
             txtCode.LeftBracket = '(';
@@ -1046,6 +1046,13 @@
             // 
             toolTipFocus.ToolTipTitle = "What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.";
             // 
+            // toolSendPrompt
+            // 
+            toolSendPrompt.Name = "toolSendPrompt";
+            toolSendPrompt.Size = new Size(180, 22);
+            toolSendPrompt.Text = "Send";
+            toolSendPrompt.ToolTipText = "Send selected text";
+            // 
             // SmartAgent
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -1207,5 +1214,6 @@
         private ImageList imageListSam;
         private ContextMenuStrip contextMenuStripChat;
         private ToolStripMenuItem toolStripMenuItemCopy;
+        private ToolStripMenuItem toolSendPrompt;
     }
 }
