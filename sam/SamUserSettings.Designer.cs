@@ -118,5 +118,17 @@ namespace sam {
                 this["AZURE_STT_LANG"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string SmartAgentAPI {
+            get {
+                return ((string)(this["SmartAgentAPI"]));
+            }
+            set {
+                this["SmartAgentAPI"] = value;
+            }
+        }
     }
 }
