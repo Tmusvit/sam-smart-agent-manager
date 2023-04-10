@@ -240,5 +240,29 @@ namespace sam
 
             samPromptTools.Show(dockPanelSAM, DockState.DockLeft);
         }
+
+        private void chatGPTpromptgeneratorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Browser browser = new Browser("https://huggingface.co/spaces/merve/ChatGPT-prompt-generator");
+            browser.Show(dockPanelSAM);
+        }
+
+        private void openaicookbookToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Browser browser = new Browser("https://github.com/openai/openai-cookbook");
+            browser.Show(dockPanelSAM);
+        }
+
+        private void allpromptlibrariesinonepageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Browser browser = new Browser("https://hero.page/samir/all-prompt-libraries-in-one-page");
+            browser.Show(dockPanelSAM);
+        }
+
+        private void promptEngineeringGuideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Browser browser = new Browser("https://www.promptingguide.ai/");
+            browser.Show(dockPanelSAM);
+        }
     }
 }

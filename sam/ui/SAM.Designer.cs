@@ -40,6 +40,11 @@
             btnRecAudio = new ToolStripButton();
             btnOpenRecFolder = new ToolStripButton();
             btnPromptTools = new ToolStripButton();
+            btnHelp = new ToolStripDropDownButton();
+            chatGPTpromptgeneratorToolStripMenuItem = new ToolStripMenuItem();
+            openaicookbookToolStripMenuItem = new ToolStripMenuItem();
+            allpromptlibrariesinonepageToolStripMenuItem = new ToolStripMenuItem();
+            promptEngineeringGuideToolStripMenuItem = new ToolStripMenuItem();
             samTools.ContentPanel.SuspendLayout();
             samTools.LeftToolStripPanel.SuspendLayout();
             samTools.SuspendLayout();
@@ -75,7 +80,7 @@
             // toolSAM
             // 
             toolSAM.Dock = DockStyle.None;
-            toolSAM.Items.AddRange(new ToolStripItem[] { samMenu, btnRecAudio, btnOpenRecFolder, btnPromptTools });
+            toolSAM.Items.AddRange(new ToolStripItem[] { samMenu, btnRecAudio, btnOpenRecFolder, btnPromptTools, btnHelp });
             toolSAM.Location = new Point(0, 0);
             toolSAM.Name = "toolSAM";
             toolSAM.RenderMode = ToolStripRenderMode.Professional;
@@ -156,6 +161,46 @@
             btnPromptTools.Text = "Prompt Tools";
             btnPromptTools.Click += btnPromptTools_Click;
             // 
+            // btnHelp
+            // 
+            btnHelp.DisplayStyle = ToolStripItemDisplayStyle.Image;
+            btnHelp.DropDownItems.AddRange(new ToolStripItem[] { chatGPTpromptgeneratorToolStripMenuItem, openaicookbookToolStripMenuItem, allpromptlibrariesinonepageToolStripMenuItem, promptEngineeringGuideToolStripMenuItem });
+            btnHelp.Image = Properties.Resources._172477_question_help_icon_24;
+            btnHelp.ImageTransparentColor = Color.Magenta;
+            btnHelp.Name = "btnHelp";
+            btnHelp.ShowDropDownArrow = false;
+            btnHelp.Size = new Size(30, 20);
+            btnHelp.Text = "toolStripDropDownButton1";
+            btnHelp.ToolTipText = "Help";
+            // 
+            // chatGPTpromptgeneratorToolStripMenuItem
+            // 
+            chatGPTpromptgeneratorToolStripMenuItem.Name = "chatGPTpromptgeneratorToolStripMenuItem";
+            chatGPTpromptgeneratorToolStripMenuItem.Size = new Size(248, 22);
+            chatGPTpromptgeneratorToolStripMenuItem.Text = "ChatGPT-prompt-generator";
+            chatGPTpromptgeneratorToolStripMenuItem.Click += chatGPTpromptgeneratorToolStripMenuItem_Click;
+            // 
+            // openaicookbookToolStripMenuItem
+            // 
+            openaicookbookToolStripMenuItem.Name = "openaicookbookToolStripMenuItem";
+            openaicookbookToolStripMenuItem.Size = new Size(248, 22);
+            openaicookbookToolStripMenuItem.Text = "openai-cookbook";
+            openaicookbookToolStripMenuItem.Click += openaicookbookToolStripMenuItem_Click;
+            // 
+            // allpromptlibrariesinonepageToolStripMenuItem
+            // 
+            allpromptlibrariesinonepageToolStripMenuItem.Name = "allpromptlibrariesinonepageToolStripMenuItem";
+            allpromptlibrariesinonepageToolStripMenuItem.Size = new Size(248, 22);
+            allpromptlibrariesinonepageToolStripMenuItem.Text = "all-prompt-libraries-in-one-page";
+            allpromptlibrariesinonepageToolStripMenuItem.Click += allpromptlibrariesinonepageToolStripMenuItem_Click;
+            // 
+            // promptEngineeringGuideToolStripMenuItem
+            // 
+            promptEngineeringGuideToolStripMenuItem.Name = "promptEngineeringGuideToolStripMenuItem";
+            promptEngineeringGuideToolStripMenuItem.Size = new Size(248, 22);
+            promptEngineeringGuideToolStripMenuItem.Text = "Prompt Engineering Guide";
+            promptEngineeringGuideToolStripMenuItem.Click += promptEngineeringGuideToolStripMenuItem_Click;
+            // 
             // SAM
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
@@ -189,5 +234,10 @@
         private ToolStripButton btnRecAudio;
         private ToolStripButton btnOpenRecFolder;
         private ToolStripButton btnPromptTools;
+        private ToolStripDropDownButton btnHelp;
+        private ToolStripMenuItem chatGPTpromptgeneratorToolStripMenuItem;
+        private ToolStripMenuItem openaicookbookToolStripMenuItem;
+        private ToolStripMenuItem allpromptlibrariesinonepageToolStripMenuItem;
+        private ToolStripMenuItem promptEngineeringGuideToolStripMenuItem;
     }
 }

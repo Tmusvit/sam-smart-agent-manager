@@ -63,6 +63,16 @@ namespace sam.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap _172477_question_help_icon_24 {
+            get {
+                object obj = ResourceManager.GetObject("172477_question_help_icon_24", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap _211686_back_arrow_icon {
             get {
                 object obj = ResourceManager.GetObject("211686_back_arrow_icon", resourceCulture);

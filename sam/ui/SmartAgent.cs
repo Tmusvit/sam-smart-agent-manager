@@ -960,7 +960,6 @@ namespace sam
 
             webView21.CoreWebView2.Navigate(targetUrl);
 
-
         }
 
         private void webView21_NavigationCompleted(object sender, CoreWebView2NavigationCompletedEventArgs e)
