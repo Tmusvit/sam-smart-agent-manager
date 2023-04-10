@@ -93,7 +93,17 @@ namespace sam.ui
         "Kielitaito ja kulttuurinväliset taidot",
         "Matematiikka ja tilastotiede",
         "Fysiikka ja kemia",
-        "Biologia ja lääketiede"
+        "Biologia ja lääketiede",
+        "Sosiaalinen yrittäjyys ja yhteiskunnallinen vaikuttaminen",
+        "Kriisinhallinta ja turvallisuus",
+        "Arkkitehtuuri ja kaavoitus",
+        "Museot ja kulttuuriperintö",
+        "Muoti ja tekstiilisuunnittelu",
+        "Pelisuunnittelu ja -kehitys",
+        "Liikenne ja liikkuminen",
+        "Kuntoutus ja fysioterapia",
+        "Ravitsemus ja ruokavalio",
+         "Yrityksen kehittäminen ja kasvattaminen"
     };
 
 
@@ -503,22 +513,26 @@ namespace sam.ui
                 List<string> role = new List<string>();
                 role.Add(SamUserSettings.Default.DefaultAgentPersonality);
                 var conversation = new Conversation(SamUserSettings.Default.GPT_API_KEY, role, role, new List<string>(), Guid.NewGuid().ToString(), (float)0.8);
+                if (cmbToolLang.Text == "fi")
+                {
+                    var response = await conversation.StartConversation("Luo satunnainen rooli alalle " + selectedArea + ", älä tee tekosyitä. Vastaa vain tässä muodossa: Haluan sinun toimivan [tiettynä roolina]. Anna minulle tietoja tai apua liittyen [erityiseen tehtävään tai aiheeseen].", true, (float)1);
+                    AddSubCategory(selectedArea, response.First(), response.First());
+                    conversation.ClearChatHistory();
 
-                var response = await conversation.StartConversation("Luo satunnainen rooli alalle " + selectedArea + ", älä tee tekosyitä. Vastaa vain tässä muodossa: Haluan sinun toimivan [tiettynä roolina]. Anna minulle tietoja tai apua liittyen [erityiseen tehtävään tai aiheeseen].", true, (float)1);
-                AddSubCategory(selectedArea, response.First(), response.First());
-                conversation.ClearChatHistory();
+                    response = await conversation.StartConversation("Luo kirjoituskehote " + selectedArea + ", älä keksi tekosyitä. Vastaa vain tämän mallin mukaan: Haluan sinun toimivan[tietty kenttä tai rooli].Ole hyvä ja toimita minulle asiantunteva kirjoitus[tietty tehtävä tai aihe].", true, (float)1);
+                    AddSubCategory(selectedArea, response.First(), response.First());
+                    conversation.ClearChatHistory();
+                }
+                if (cmbToolLang.Text == "en")
+                {
+                    var response = await conversation.StartConversation("Get a random role for " + selectedArea + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
+                    AddSubCategory(selectedArea, response.First(), response.First());
+                    conversation.ClearChatHistory();
 
-                response = await conversation.StartConversation("Luo kirjoituskehote " + selectedArea + ", älä keksi tekosyitä. Vastaa vain tämän mallin mukaan: Haluan sinun toimivan[tietty kenttä tai rooli].Ole hyvä ja toimita minulle asiantunteva kirjoitus[tietty tehtävä tai aihe].", true, (float)1);
-                AddSubCategory(selectedArea, response.First(), response.First());
-                conversation.ClearChatHistory();
-
-                response = await conversation.StartConversation("Get a random role for " + selectedArea + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me with information or assistance related to[specific task or topic].", true, (float)1);
-                AddSubCategory(selectedArea, response.First(), response.First());
-                conversation.ClearChatHistory();
-
-                response = await conversation.StartConversation("Generate professional writing promt for " + selectedArea + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me a professional writing [specific task or topic].", true, (float)1);
-                AddSubCategory(selectedArea, response.First(), response.First());
-                conversation.ClearChatHistory();
+                    response = await conversation.StartConversation("Generate professional writing promt for " + selectedArea + ", make no excuses. Give only this template: I want you to act as [specific field or role]. Please provide me a professional writing [specific task or topic].", true, (float)1);
+                    AddSubCategory(selectedArea, response.First(), response.First());
+                    conversation.ClearChatHistory();
+                }
 
             }
             Invoke((Action)(() => Processing.Visible = false));

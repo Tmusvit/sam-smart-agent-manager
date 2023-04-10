@@ -115,7 +115,7 @@ namespace sam
             {
                 btnRecAudio.Image = sam.Properties.Resources.sharp_sensors_off_black_24dp;
                 audioRecordingActive = false;
-                StopRecording();
+                StopRecordingAsync();
             }
             else
             {
@@ -165,7 +165,7 @@ namespace sam
             computerAudioCapture.StartRecording();
         }
 
-        public void StopRecording()
+        public async Task StopRecordingAsync()
         {
             // Stop recording from the computer audio device
             computerAudioCapture.StopRecording();
@@ -187,7 +187,7 @@ namespace sam
             // Clear the list of mic captures
             micCaptures.Clear();
             micWriters.Clear();
-            Task.Run(() => ConvertWavToMp3InDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "/rec/"));
+            await ConvertWavToMp3InDirectory(Path.GetDirectoryName(Application.ExecutablePath) + "\\rec\\");
 
         }
 
@@ -205,18 +205,27 @@ namespace sam
         }
         public async Task ConvertWavToMp3InDirectory(string directoryPath)
         {
-            string[] filePaths = Directory.GetFiles(directoryPath, "*.wav");
-
-            foreach (string filePath in filePaths)
+            try
             {
-                string outputFilePath = Path.ChangeExtension(filePath, ".mp3");
-                using (var reader = new WaveFileReader(filePath))
-                using (var writer = new LameMP3FileWriter(outputFilePath, reader.WaveFormat, 128))
+                string[] filePaths = Directory.GetFiles(directoryPath, "*.wav");
+
+                foreach (string filePath in filePaths)
                 {
-                    reader.CopyTo(writer);
+                    string outputFilePath = Path.ChangeExtension(filePath, ".mp3");
+                    using (var reader = new WaveFileReader(filePath))
+                    using (var writer = new LameMP3FileWriter(outputFilePath, reader.WaveFormat, 128))
+                    {
+                        reader.CopyTo(writer);
+                    }
+                    File.Delete(filePath);
                 }
-                File.Delete(filePath);
             }
+            catch (Exception ex)
+            {
+                // Handle the exception here
+                Console.WriteLine($"An error occurred: {ex.Message}");
+            }
+
         }
 
         private void btnOpenRecFolder_Click(object sender, EventArgs e)
@@ -227,7 +236,7 @@ namespace sam
 
         private void btnPromptTools_Click(object sender, EventArgs e)
         {
-            samPromptTools = new SamPromptTools(dockPanelSAM,this);
+            samPromptTools = new SamPromptTools(dockPanelSAM, this);
 
             samPromptTools.Show(dockPanelSAM, DockState.DockLeft);
         }

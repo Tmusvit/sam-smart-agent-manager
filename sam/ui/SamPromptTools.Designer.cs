@@ -34,6 +34,7 @@
             toolStrip1 = new ToolStrip();
             btnGenerate = new ToolStripButton();
             Processing = new ToolStripProgressBar();
+            cmbToolLang = new ToolStripComboBox();
             groupBox1.SuspendLayout();
             toolStrip1.SuspendLayout();
             SuspendLayout();
@@ -59,7 +60,7 @@
             // 
             // toolStrip1
             // 
-            toolStrip1.Items.AddRange(new ToolStripItem[] { btnGenerate, Processing });
+            toolStrip1.Items.AddRange(new ToolStripItem[] { btnGenerate, Processing, cmbToolLang });
             toolStrip1.Location = new Point(0, 0);
             toolStrip1.Name = "toolStrip1";
             toolStrip1.Size = new Size(550, 25);
@@ -83,6 +84,14 @@
             Processing.Size = new Size(100, 22);
             Processing.Style = ProgressBarStyle.Marquee;
             Processing.Visible = false;
+            // 
+            // cmbToolLang
+            // 
+            cmbToolLang.Items.AddRange(new object[] { "fi", "en" });
+            cmbToolLang.Name = "cmbToolLang";
+            cmbToolLang.Size = new Size(121, 25);
+            cmbToolLang.Text = "fi";
+            cmbToolLang.ToolTipText = "Prompt generator language";
             // 
             // SamPromptTools
             // 
@@ -110,5 +119,6 @@
         private ToolStrip toolStrip1;
         private ToolStripButton btnGenerate;
         private ToolStripProgressBar Processing;
+        private ToolStripComboBox cmbToolLang;
     }
 }

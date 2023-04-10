@@ -399,13 +399,13 @@ namespace sam
                     if (color == System.Drawing.Color.Blue)
                     {
                         bAssistantSpeaking = true;
-                        await SpeakAzureTextAsync(text);
+                        SpeakAzureTextAsync(text);
                         bAssistantSpeaking = false;
                     }
                 }
                 else
                 {
-                    if (color == System.Drawing.Color.Blue) { await SpeakTextAsync(text); }
+                    if (color == System.Drawing.Color.Blue || color == System.Drawing.Color.FromArgb(0, 191, 255)) { SpeakTextAsync(text); }
                 }
 
             }
