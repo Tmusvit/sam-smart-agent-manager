@@ -519,9 +519,18 @@ namespace sam.ui
                     AddSubCategory(selectedArea, response.First(), response.First());
                     conversation.ClearChatHistory();
 
-                    response = await conversation.StartConversation("Luo kirjoituskehote " + selectedArea + ", älä keksi tekosyitä. Vastaa vain tämän mallin mukaan: Haluan sinun toimivan[tietty kenttä tai rooli].Ole hyvä ja toimita minulle asiantunteva kirjoitus[tietty tehtävä tai aihe].", true, (float)1);
+                    response = await conversation.StartConversation("Luo kirjoituskehote [" + selectedArea + "], Tee tämän mallin mukaan: Haluan sinun toimivan[tietty kenttä tai rooli].Ole hyvä ja toimita minulle asiantunteva kirjoitus [tietty tehtävä tai aihe].", true, (float)1);
                     AddSubCategory(selectedArea, response.First(), response.First());
                     conversation.ClearChatHistory();
+
+                    response = await conversation.StartConversation("Luo kirjoituskehote [" + selectedArea + "]. Tee tämän mallin mukaan: Haluan sinun toimivan [tiettynä kenttänä]. Toimita minulle vinkkejä ja neuvoja [tiettyyn tehtävään tai ongelmaan] liittyen.", true, (float)1);
+                    AddSubCategory(selectedArea, response.First(), response.First());                                               
+                    conversation.ClearChatHistory();                                                                                                                                                    
+                                                                                                                                   
+                    response = await conversation.StartConversation("Luo kirjoituskehote [" + selectedArea + "]. Tee tämän mallin mukaan: Haluan sinun toimivan [tiettynä kenttänä].Toimita minulle vinkkejä ja neuvoja [tietyn tuotteen tai palvelun käyttöön] liittyen.", true, (float)1);
+                    AddSubCategory(selectedArea, response.First(), response.First());                                              
+                    conversation.ClearChatHistory();                                                                               
+                                                                                                                                   
                 }
                 if (cmbToolLang.Text == "en")
                 {
